@@ -1,0 +1,50 @@
+.structural {
+	position: absolute;
+	left: -9999px;
+}
+
+img{
+	width:100px;
+	transition: width 2s;
+}
+
+img:hover {
+	width:300px;
+}
+
+.loginBox{
+	position:fixed;
+    top: 50%;
+    left: 50%;
+    width:20em;
+    height:11em;
+    margin-top: -10em; /*set to a negative number 1/2 of your height*/
+    margin-left: -9em; /*set to a negative number 1/2 of your width*/
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+    padding: auto;
+}
+
+.loginTitle{
+	margin-left: 1em;
+}
+
+form{
+	margin-left: 2em;
+
+}
+
+input{
+	margin: 0.5em;
+
+	margin-right: 4em;
+}
+
+.button{
+	margin-right: 4.5em;
+	float:right;
+}
+
+.login{
+	margin-left: 10px;
+}
