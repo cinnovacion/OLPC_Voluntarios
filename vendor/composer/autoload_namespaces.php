@@ -6,6 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'ZamoraTeran' => array($baseDir . '/src'),
+    'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Pimple' => array($vendorDir . '/pimple/pimple/lib'),
+    'Knp\\' => array($vendorDir . '/knplabs/repository-service-provider'),
+    'Doctrine\\DBAL' => array($vendorDir . '/doctrine/dbal/lib'),
+    'Doctrine\\Common' => array($vendorDir . '/doctrine/common/lib'),
 );

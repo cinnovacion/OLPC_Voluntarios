@@ -1,0 +1,182 @@
+.content{
+	width: 98em;
+	margin: auto;
+}
+.container{
+	margin-top: 15px;
+}
+
+.structural {
+	position: absolute;
+	left: -9999px;
+}
+
+.loginBox{
+	position:fixed;
+    top: 50%;
+    left: 45%;
+    width:24em;
+    height:14em;
+    margin-top: -10em; /*set to a negative number 1/2 of your height*/
+    margin-left: -9em; /*set to a negative number 1/2 of your width*/
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+    padding: auto;
+}
+
+.loginTitle{
+	margin-left: 1em;
+}
+
+form{
+	margin-left: 2em;
+
+}
+
+input{
+	margin: 0.5em;
+	margin-right: 3.5em;
+}
+
+.button{
+	margin-right: 4.5em;
+	float:right;
+}
+
+.login{
+	margin-left: 1em;
+}
+
+input{
+	width: 20em;
+}
+
+.timepicker{
+	width: 9em;
+	float: right;
+	margin-right: 15px;
+}
+
+.submitButton{
+	float: right;
+}
+
+.trabajoLunes, .trabajoMartes, .trabajoMiercoles, .trabajoJueves,.trabajoViernes{
+	width: 1em;
+	margin-left: 15px;
+}
+
+input[type="checkbox"]{
+	margin-left: 10px;
+	margin-right: 15px;
+}
+
+#lunes, #martes,#miercoles,#jueves,#viernes{
+	opacity: 0;
+}
+
+.btnreturn{
+	margin-bottom: 3em;
+}
+
+.searchForm{
+	float: right;
+}
+
+.column1{
+	float: left;
+	padding-left: 10%;
+}
+.column2{
+	float:right;
+	padding-left: 10%;
+}
+
+.workingTable{
+	margin-top: 1em;
+}
+
+.edit{
+	float: right;
+	margin-right: 10%;
+}
+
+
+.frame{
+	margin: auto;
+	width: 18em;
+	text-align: center;
+	
+}
+
+.btnreturn{
+	margin-left: 10%;
+	margin-bottom: 3em;
+}
+
+input{
+	width: 20em;
+}
+
+.timepicker{
+	width: 9em;
+	float: right;
+	margin-right: 15px;
+}
+
+.submitButton{
+	float: right;
+}
+
+.trabajoLunes, .trabajoMartes, .trabajoMiercoles, .trabajoJueves,.trabajoViernes{
+	width: 1em;
+	margin-left: 15px;
+}
+
+input[type="checkbox"]{
+	margin-left: 10px;
+	margin-right: 15px;
+}
+
+#lunes, #martes,#miercoles,#jueves,#viernes{
+	opacity: 0;
+}
+
+.btnreturn{
+	margin-bottom: 3em;
+}
+
+.searchForm{
+	float: right;
+}
+
+.column1{
+	float: left;
+	padding-left: 10%;
+}
+.column2{
+	float:right;
+	padding-left: 10%;
+}
+
+.workingTable{
+	margin-top: 1em;
+}
+
+.edit{
+	float: right;
+	margin-right: 10%;
+}
+
+
+.frame{
+	margin: auto;
+	width: 18em;
+	text-align: center;
+	
+}
+
+.btnreturn{
+	margin-left: 10%;
+	margin-bottom: 3em;
+}

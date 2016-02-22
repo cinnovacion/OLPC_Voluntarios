@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ni">
+<head>
+	<title> Home </title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/bootstrap.css"/>
+	<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/start.css" />
+	<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/header.css" />
+</head>
+<body>
+	<header class="header-search">
+
+		<div class="header-limiter">
+
+			<h1><a href="{{ path('home') }}"><img src="{{ app.request.baseUrl }}/assets/img/logo.png" alt=""></a></h1>
+
+			<nav>
+				<a href="{{ path('home') }}"  class="selected">Home</a>
+				<a href="{{ path('overview') }}">Volunteers</a>
+				<a href="{{ path('nuevoVoluntario') }}">New volunteer</a>
+			</nav>
+
+			<div class="loginNavigation">
+				<a href="{{ path('home') }}">Login</a>
+			</div>
+		</div>
+
+	</header>
+	<div class="container">
+		{% block pageContent %}
+		Hello!
+		{% endblock %}
+	</div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 <IfModule mod_rewrite.c>
     Options -MultiViews
     RewriteEngine On
-    RewriteBase /vince.dobbelaere/labo_webscripten2/labo06/public_html
+    RewriteBase /OLPC_Voluntarios/public_html
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^ index.php [L]
