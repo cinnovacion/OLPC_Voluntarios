@@ -1,38 +1,37 @@
 <!DOCTYPE html>
 <html lang="ni">
 <head>
-	<title> Formulario de voluntariado </title>
+	<title> Login </title>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" href="css/start.css" />
+	<link rel="stylesheet" href="css/bootstrap.css"/>
 	<link rel="stylesheet" href="css/login.css" />
 	<link rel="stylesheet" href="css/header.css" />
 </head>
-<body>
+<body> 
 	<header class="header-search">
 
 		<div class="header-limiter">
 
-			<h1><a href="#">Zamora Terán</a></h1>
+			<h1><a href="index.html"><img src="img/logo.png" alt=""></a></h1>
 
 			<nav>
-				<a href="#">Home</a>
-				<a href="#" class="selected">Blog</a>
-				<a href="#">Pricing</a>
-				<a href="#">Contact</a>
+				<a href="index.html" >Home</a>
+				<a href="voluntarios.html">Volunteers</a>
+				<a href="formulario.html">New volunteer</a>
 			</nav>
 
 			<div class="loginNavigation">
-				<a href="#">Login</a>
+				<a href="login.html" class="selected">Login</a>
 			</div>
 		</div>
 
 	</header>
-	<div class="content">
+	<div class="container">
 		<div class="loginBox">
 			<h2 class="loginTitle">Login</h2>
 			<form action="#" method="post">
 				Nombre: <input type="text" name="name" class="login"><br>
-				Password:<input type="text" name="password" class="password"><br>
+				Password:<input type="password" name="password" class="password"><br>
 				<input type="submit" class="button">
 			</form>
 		</div>

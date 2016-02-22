@@ -25,3 +25,7 @@ input[type="checkbox"]{
 #lunes, #martes,#miercoles,#jueves,#viernes{
 	opacity: 0;
 }
+
+.btnreturn{
+	margin-bottom: 3em;
+}

@@ -2,8 +2,13 @@
 	float: right;
 }
 
-.columns{
-	padding-left: 9em;
+.column1{
+	float: left;
+	padding-left: 10%;
+}
+.column2{
+	float:right;
+	padding-left: 10%;
 }
 
 .workingTable{
@@ -12,4 +17,18 @@
 
 .edit{
 	float: right;
+	margin-right: 10%;
+}
+
+
+.frame{
+	margin: auto;
+	width: 18em;
+	text-align: center;
+	
+}
+
+.btnreturn{
+	margin-left: 10%;
+	margin-bottom: 3em;
 }

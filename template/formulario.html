@@ -5,6 +5,7 @@
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="css/bootstrap.css"/>
 	<link rel="stylesheet" href="css/bootstrap-timepicker.css"/>
+	<link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
 	<link rel="stylesheet" href="css/start.css" />
 	<link rel="stylesheet" href="css/header.css" />
 	<link rel="stylesheet" href="css/formulario.css" />
@@ -14,22 +15,25 @@
 
 		<div class="header-limiter">
 
-			<h1><a href="#">Zamora Terán</a></h1>
+			<h1><a href="index.html"><img src="img/logo.png" alt=""></a></h1>
 
 			<nav>
-				<a href="login.html">Home</a>
-				<a href="#">Volunteers</a>
-				<a href="#" class="selected">New volunteer</a>
+				<a href="index.html">Home</a>
+				<a href="voluntarios.html">Volunteers</a>
+				<a href="formulario.html" class="selected">New volunteer</a>
 			</nav>
 
 			<div class="loginNavigation">
-				<a href="#">Login</a>
+				<a href="login.html">Login</a>
 			</div>
 		</div>
 
 	</header>
 
 	<div class="container">
+		<div class="col-md-12" style="padding-left: 0;">
+			<a href="empleado.html" class="btn btn-info btnreturn" role="button"> Añadir un empleado</a>
+		</div>
 		<form>
 			<div class="form-group row">
 				<label for="nombre" class="col-sm-2 form-control-label">Nombre completo</label>
@@ -74,13 +78,37 @@
 				<label for="carraracurso" class="col-sm-2 form-control-label">Carrara o curso</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="Carraracurso" placeholder="Carrara o curso">
-				</div>
+				</div> 
 			</div>
 
 			<div class="form-group row">
 				<label for="nivel" class="col-sm-2 form-control-label">Nivel</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="nivel" placeholder="5to anto">
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class='col-md-6'>
+					<p><b>día inicio</b></p>
+					<div class="form-group">
+						<div class='input-group date' id='datetimepicker1'>
+							<input type='text' class="form-control" />
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class='col-md-6'>
+					<p><b>día final</b></p>
+					<div class="form-group">
+						<div class='input-group date' id='datetimepicker2'>
+							<input type='text' class="form-control" />
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-12">
@@ -200,7 +228,7 @@
 			</div>
 			<div class="form-group row">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-secondary submitButton">Sign in</button>
+					<button type="submit" class="btn btn-info submitButton">Añadir el voluntario</button>
 				</div>
 			</div>
 		</form>
@@ -208,9 +236,10 @@
 
 	</div>
 	<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+	<script type="text/javascript" src="js/moment.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script type="text/javascript" src="js/bootstrap-timepicker.js"></script>
-
+	<script type="text/javascript" src="js/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript" src="js/formulario.js"></script>	
 
 

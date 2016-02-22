@@ -9,6 +9,9 @@ $('#fromLunes').timepicker('setTime', '8:30 PM');
 		$('#fromViernes').timepicker('setTime', '8:30 PM');
 		$('#toViernes').timepicker('setTime', '5:00 PM');
 
+		$('#datetimepicker1').datetimepicker({ format: 'DD/MM/YYYY'}); 
+		$('#datetimepicker2').datetimepicker({ format: 'DD/MM/YYYY'}); 
+ 
 		document.getElementsByClassName("trabajoLunes").onchange = switchLunes;
 		document.getElementsByClassName("trabajoMartes").onchange = switchMartes;
 		document.getElementsByClassName("trabajoMiercoles").onchange = switchMiercoles;
