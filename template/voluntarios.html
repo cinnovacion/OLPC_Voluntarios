@@ -30,9 +30,10 @@
 	</header>
 
 	<div class="container">
-		<form class="form-inline searchForm" role="form" >
+	<form action="{{ path('voluntarios.overview')}}" method="post" {{ form_enctype(busquedaform)}} novalidate="novalidate" class="form-inline searchForm" role="form" >
 			<div class="form-group">
-				<input type="text" class="form-control" id="busqueda" placeholder="Búsqueda">
+			busquedaform
+				{{ form_widget(busquedaform.busqueda,{'attr':{'class':'form-control','id':'busqueda'}})}}
 			</div>
 			<button type="submit" class="btn btn-default">Búsqueda</button>
 		</form>

@@ -5,6 +5,7 @@ namespace ZamoraTeran\Provider\Controller;
 use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Silex\ControllerCollection;
+use Symfony\Component\Validator\constraints as Assert;
 
 class voluntariosController implements ControllerProviderInterface {
 
@@ -19,41 +20,27 @@ class voluntariosController implements ControllerProviderInterface {
 		//@see http://silex.sensiolabs.org/doc/organizing_controllers.html
 		$controllers = $app['controllers_factory'];
 
-		// Bind sub-routes
 		$controllers
-		->get('/', array($this, 'home'))
-		->bind('home');
+		->get('/',array($this,'voluntarios'))
+		->method('GET|POST')
+		->bind('voluntarios.overview');
 
 		$controllers
-		->get('/voluntarios/',array($this,'voluntarios'))
-		->bind('overview');
-
-		$controllers
-		->get('/voluntarios/{id}/', array($this, 'detail'))
+		->get('/{id}/', array($this, 'detail'))
 		->assert('id', '\d+')
-		->bind('detail');
+		->bind('voluntarios.detail');
 
 		$controllers
-		->get('/voluntarios/{id}/edit', array($this, 'edit'))
+		->get('/{id}/edit', array($this, 'edit'))
 		->assert('id', '\d+')
-		->bind('editVoluntario');
+		->bind('voluntarios.editVoluntario');
 
 		$controllers
-		->get('/voluntarios/neuvo',array($this,'newVoluntario'))
-		->bind('nuevoVoluntario');
+		->get('/neuvo',array($this,'newVoluntario'))
+		->method('GET|POST')
+		->bind('voluntarios.nuevoVoluntario');
+
 		return $controllers;
-
-	}
-
-
-	/**
-	 * Home page
-	 * @param Application $app An Application instance
-	 * @return string A blob of HTML
-	 */
-	public function home(Application $app) {
-		// Inject data into the template which will show 'm all
-		return $app['twig']->render('home.twig');
 
 	}
 
@@ -63,8 +50,27 @@ class voluntariosController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function voluntarios(Application $app) {
+		$busquedaform = $app['form.factory']->createNamed('busquedaform', 'form')
+		->add('Busqueda', 'text', array('required' => false));
+
+		$busquedaform->handleRequest($app['request']);
+
+		
+		if($busquedaform->isValid()){
+			$data = $busquedaform->getData();
+			$voluntarios = $app['db.persona']->findAllByString($data['Busqueda']);
+		}else{
+			$voluntarios = $app['db.persona']->findAll();
+		}
+
+		$data = array(
+			'page' => 'voluntarios',
+			'voluntarios' => $voluntarios,
+			'ahoras' => $app['db.trabajar']->getHoursOfWork(),
+			'busquedaform' => $busquedaform->createView()
+			);
 		// Inject data into the template which will show 'm all
-		return $app['twig']->render('voluntarios.twig');
+		return $app['twig']->render('voluntarios/voluntarios.twig',$data);
 
 	}
 
@@ -75,8 +81,14 @@ class voluntariosController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function detail(Application $app, $id) {
+		$data = array(
+			'page' => 'voluntarios',
+			'voluntario' => $app['db.persona']->find($id),
+			'trabaja' => $app['db.trabajar']->findByPersona($id),
+			'trabajaPara' => $app['db.trabajar']->findTotalHoursByPersona($id)
+			);
 		// Build and return the HTML representing the tweet
-		return $app['twig']->render('voluntario.twig');
+		return $app['twig']->render('voluntarios/voluntario.twig',$data);
 	}
 
 	/**
@@ -86,8 +98,11 @@ class voluntariosController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function edit(Application $app, $id) {
+		$data = array(
+			'page' => 'voluntarios'
+			);
 			// Build and return the HTML representing the tweet
-		return $app['twig']->render('edit.twig');
+		return $app['twig']->render('voluntarios/edit.twig',$data);
 	}
 
 	/**
@@ -96,8 +111,48 @@ class voluntariosController implements ControllerProviderInterface {
 	 * @param int $id ID of the tweet (URL Param)
 	 * @return string A blob of HTML
 	 */
-	public function newVoluntario(Application $app) {
-			// Build and return the HTML representing the tweet
-		return $app['twig']->render('edit.twig');
+	public function newVoluntario(Application $app) {		
+		$nuevoform = $app['form.factory']->createNamed('nuevoform')
+		->add('Nombre', 'text', array(
+			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5)))
+			))
+		->add('NoDeCedula', 'text', array(
+			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5)))
+			))
+		->add('DireccionDeResidencia', 'text', array(
+			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5)))
+			))
+		->add('Telefono', 'text', array(
+			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5)))
+			))
+		->add('CorreoElectronico', 'email', array(
+			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5)))
+			))
+		->add('InstitucionAcademica', 'text', array(
+			'constraints' => array(new Assert\NotBlank())
+			))
+		->add('CarreraCurso', 'text', array(
+			'constraints' => array(new Assert\NotBlank())
+			))
+		->add('Nivel', 'text', array(
+			'constraints' => array(new Assert\NotBlank())
+			));
+
+		$nuevoform->handleRequest($app['request']);
+
+		if($nuevoform->isValid()){
+			$data = $nuevoform->getData();
+			var_dump($data);
+		}else{
+			var_dump('niet geslaagd');
+		}
+		$data = array(
+			'page' => 'voluntarios',
+			'nuevoform' => $nuevoform->createView()
+			);
+			// Build and return the HTML
+		return $app['twig']->render('voluntarios/formulario.twig',$data);
 	}
+
+	
 }

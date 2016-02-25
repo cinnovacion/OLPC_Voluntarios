@@ -1,0 +1,77 @@
+{% extends 'layout.twig' %}
+
+{% set pageTitle = 'Volentarios' %}
+{% block pageContent %}
+<form action="{{ path('voluntarios.nuevoVoluntario')}}" method="post" {{ form_enctype(nuevoform)}} novalidate="novalidate">
+	{{ form_errors(nuevoform) }}
+	<div class="form-group row">
+		{{ form_label(nuevoform.Nombre, 'Nombre completo', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+		<div class="col-sm-10">
+			{{ form_widget(nuevoform.Nombre,{'attr':{'class': 'form-control','id':'nombre','placeholder':'Nombre completo'}}) }}
+			{{ form_errors(nuevoform.Nombre) }}
+		</div>
+	</div>
+	<div class="form-group row">
+		{{ form_label(nuevoform.NoDeCedula, 'No. De Cédula', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+		<div class="col-sm-10">
+			{{ form_widget(nuevoform.NoDeCedula,{'attr':{'class': 'form-control','id':'cedula','placeholder':'No. De Cédula'}}) }}
+			{{ form_errors(nuevoform.NoDeCedula) }}
+		</div>
+	</div>
+	<div class="form-group row">
+		{{ form_label(nuevoform.DireccionDeResidencia, 'Dirección de residencia', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+		<div class="col-sm-10">
+			{{ form_widget(nuevoform.DireccionDeResidencia,{'attr':{'class': 'form-control','id':'residencia','placeholder':'Dirección de residencia'}}) }}
+			{{ form_errors(nuevoform.DireccionDeResidencia) }}
+		</div>
+	</div>
+	<div class="form-group row">
+		{{ form_label(nuevoform.Telefono, 'Teléfono', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+		<div class="col-sm-10">
+			{{ form_widget(nuevoform.Telefono,{'attr':{'class': 'form-control','id':'Teléfono','placeholder':'+505 XXXX XXXX'}}) }}
+			{{ form_errors(nuevoform.Telefono) }}
+		</div>
+	</div>
+	<div class="form-group row">
+		{{ form_label(nuevoform.CorreoElectronico, 'Correo electrónico', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+		<div class="col-sm-10">
+			{{ form_widget(nuevoform.CorreoElectronico,{'attr':{'class': 'form-control','id':'correo','placeholder':'nombre@gmail.com'}}) }}
+			{{ form_errors(nuevoform.CorreoElectronico) }}
+		</div>
+	</div>
+	<div class="form-group row">
+		{{ form_label(nuevoform.InstitucionAcademica, 'Institución académica', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+		<div class="col-sm-10">
+			{{ form_widget(nuevoform.InstitucionAcademica,{'attr':{'class': 'form-control','id':'institucion','placeholder':'Institución académica'}}) }}
+			{{ form_errors(nuevoform.InstitucionAcademica) }}
+		</div>
+	</div>
+	<div class="form-group row">
+		{{ form_label(nuevoform.CarreraCurso, 'Carrara o curso', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+		<div class="col-sm-10">
+			{{ form_widget(nuevoform.CarreraCurso,{'attr':{'class': 'form-control','id':'carreracurso','placeholder':'Carrara o curso'}}) }}
+			{{ form_errors(nuevoform.CarreraCurso) }}
+		</div>
+	</div>
+	<div class="form-group row">
+		{{ form_label(nuevoform.Nivel, 'Nivel', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+		<div class="col-sm-10">
+			{{ form_widget(nuevoform.Nivel,{'attr':{'class': 'form-control','id':'carreracurso','placeholder':'5to anto'}}) }}
+			{{ form_errors(nuevoform.Nivel) }}
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-info submitButton">Añadir el voluntario</button>
+		</div>
+	</div>
+	{{ form_widget(nuevoform._token)}}
+</form>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/moment.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/bootstrap-timepicker.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/formulario.js"></script>	
+{% endblock %}

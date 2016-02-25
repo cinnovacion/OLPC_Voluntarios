@@ -1,17 +1,17 @@
-$('#fromLunes').timepicker('setTime', '8:30 PM');
+		$('#fromLunes').timepicker('setTime', '8:30 AM');
 		$('#toLunes').timepicker('setTime', '5:00 PM');
-		$('#fromMartes').timepicker('setTime', '8:30 PM');
+		$('#fromMartes').timepicker('setTime', '8:30 AM');
 		$('#toMartes').timepicker('setTime', '5:00 PM');
-		$('#fromMiercoles').timepicker('setTime', '8:30 PM');
-		$('#toMiercoles').timepicker('setTime', '5:00 PM');
-		$('#fromJueves').timepicker('setTime', '8:30 PM');
+		$('#fromMiercoles').timepicker('setTime', '8:30 AM');
+		$('#toMiercoles').timepicker('setTime', '5:00 AM');
+		$('#fromJueves').timepicker('setTime', '8:30 AM');
 		$('#toJueves').timepicker('setTime', '5:00 PM');
-		$('#fromViernes').timepicker('setTime', '8:30 PM');
+		$('#fromViernes').timepicker('setTime', '8:30 AM');
 		$('#toViernes').timepicker('setTime', '5:00 PM');
 
 		$('#datetimepicker1').datetimepicker({ format: 'DD/MM/YYYY'}); 
 		$('#datetimepicker2').datetimepicker({ format: 'DD/MM/YYYY'}); 
- 
+
 		document.getElementsByClassName("trabajoLunes").onchange = switchLunes;
 		document.getElementsByClassName("trabajoMartes").onchange = switchMartes;
 		document.getElementsByClassName("trabajoMiercoles").onchange = switchMiercoles;

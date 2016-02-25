@@ -1,0 +1,51 @@
+{% extends 'layout.twig' %}
+
+{% set pageTitle = 'Voluntarios' %}
+{% block pageContent %}
+<a href="{{path('voluntarios.nuevoVoluntario')}}" class="btn btn-info btnNuevo" role="button"> Nuevo Voluntario</a>
+
+<form action="{{ path('voluntarios.overview')}}" method="post" {{ form_enctype(busquedaform)}} class="form-inline searchForm" >
+	<div class="form-group">
+
+	<a href="{{ path('voluntarios.overview')}}" class="btn btn-info">
+	<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></a>
+		{{ form_widget(busquedaform.Busqueda,{'attr':{'class':'form-control','id':'busqueda'}})}}
+	</div>
+	<button type="submit" class="btn btn-info">Búsqueda</button>
+	{{ form_widget(busquedaform._token)}}
+</form>
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>No. De Cédula</th>
+			<th>Nombre</th>
+			<th>Correo electrónico</th>
+			<th>Teléfono</th>
+			<th>Trabaja para</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for voluntario in voluntarios %}
+		<tr>
+			<td>{{voluntario.NoDeCedula}}</td>
+			<td>{{voluntario.Nombre}}</td>
+			<td>{{voluntario.CorreoElectronico}}</td>
+			<td>{{voluntario.Telefono}}</td>
+			<td>
+				{% for ahora in ahoras %}
+				{% if voluntario.idPersona == ahora.Persona_idPersona %}
+				{{ ahora.tiempo }} horas
+				{% endif %}
+				{% endfor %} </td>
+				<td><a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}" class="btn btn-info" role="button">Más</a></td>
+			</tr>
+			{% endfor %}
+
+
+
+		</tbody>
+	</table>
+
+	{% endblock %}

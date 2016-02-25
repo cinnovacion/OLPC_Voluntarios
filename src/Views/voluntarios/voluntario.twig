@@ -1,0 +1,60 @@
+{% extends 'layout.twig' %}
+
+{% set pageTitle = 'Volentario' %}
+{% block pageContent %}
+
+<div class="col-md-12">
+	<a href="{{path('voluntarios.overview')}}" class="btn btn-info btnreturn" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Retorno</a>
+</div>
+
+<div class="col-md-12">
+	<div class="col-md-6 column1">
+		<p><b>Nombre completo:</b> {{voluntario.Nombre}}</p>
+		<p><b>No. De Cédula:</b> {{voluntario.NoDeCedula}}</p>
+		<p><b>Direccion de residencia:</b> {{voluntario.DireccionDeResidencia}}</p>
+		<p><b>Correo electronico:</b> {{voluntario.CorreoElectronico}}</p>
+	</div>
+	<div class="col-md-6 column2">
+
+		<p><b>Teléfono:</b> {{voluntario.Telefono}}</p>
+		<p><b>institucion academica:</b> {{voluntario. InstitucionAcademica}}</p>
+		<p><b>Carrerra o curso:</b> {{voluntario.CarreraCurso}}</p>
+		<p><b>Nivel:</b> {{voluntario.Nivel}}  anto</p>
+	</div>
+	<div class="col-md-12">
+		<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}/edit" class="btn btn-info edit" role="button"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+	</div>
+</div>
+<div class="col-md-12">
+	<p class="frame"><b>Trabaja para:</b> {% if trabajaPara.Total == 0 %}0{% else %}{{trabajaPara.Total}}{% endif %} horas</p>
+	<p class="frame"><b>Trabaja del</b> {{voluntario.DiaInicio}} <b>al el </b>{{voluntario.DiaFinal}}</p>
+</div>
+
+<div class="workingTable col-md-12">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Fecha</th>
+					<th>Hora de entrada</th>
+					<th>Hora de salida</th>
+					<th>Total de horas</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for ahoras in trabaja %}
+				<tr>
+					<td>{{ahoras.dia}}</td>
+					<td>{{ahoras.horaInicio}}</td>
+					<td>{{ahoras.horaFinal}}</td>
+					<td>{{ahoras.tiempo}} horas</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-2"></div>
+</div>
+
+{% endblock %}
