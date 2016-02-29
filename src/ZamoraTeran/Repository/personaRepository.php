@@ -12,11 +12,19 @@ class personaRepository extends \Knp\Repository {
 		return $this->db->fetchAssoc('SELECT * FROM persona WHERE idPersona = ?',array($id));
 	}
 
-	public function findAll(){
-		return $this->db->fetchAll('SELECT * FROM persona');
+
+	public function count(){
+		return $this->db->fetchAssoc('SELECT count(*) as count FROM persona');
 	}
 
-	public function findAllByString($search){
+	public function findAll($curpage,$numItemsPerPage){
+		return $this->db->fetchAll('SELECT * FROM persona LIMIT ' . (int) (($curpage - 1) * $numItemsPerPage) . ',' .
+			(int) ($numItemsPerPage));
+	}
+
+
+
+	public function findAllByString($search,$curpage,$numItemsPerPage){
 		if($search == null){
 			return $this->findAll();
 		}
@@ -28,7 +36,12 @@ class personaRepository extends \Knp\Repository {
 			CorreoElectronico LIKE "%'.$search.'%" OR
 			InstitucionAcademica LIKE "%'.$search.'%" OR
 			CarreraCurso LIKE "%'.$search.'%"
-			');
+			LIMIT ' . (int) (($curpage - 1) * $numItemsPerPage) . ',' .
+			(int) ($numItemsPerPage));
+	}
+
+	public function getIdByCedula($cedula){
+		return $this->db->fetchAssoc('SELECT idPersona as id FROM persona WHERE NoDeCedula = ?',array($cedula));
 	}
 
 	

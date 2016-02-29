@@ -28,8 +28,25 @@
 <div class="col-md-12">
 	<p class="frame"><b>Trabaja para:</b> {% if trabajaPara.Total == 0 %}0{% else %}{{trabajaPara.Total}}{% endif %} horas</p>
 	<p class="frame"><b>Trabaja del</b> {{voluntario.DiaInicio}} <b>al el </b>{{voluntario.DiaFinal}}</p>
+	{% if disponibilidad != null %}
+	<div class="col-md-12 trabajaade">
+		<div class="col-md-2">
+			<b>Trabaja a </b>
+		</div>
+		<div class="col-md-9">
+			<ul>
+				{% for disp in disponibilidad %}
+				<li>		
+					{{ disp['dia'] }} de 
+					{{ disp['horaInicio'] }} a
+					{{ disp['horaFinal'] }}
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	{% endif %}
 </div>
-
 <div class="workingTable col-md-12">
 	<div class="col-md-2"></div>
 	<div class="col-md-8">
@@ -54,7 +71,8 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="col-md-2"></div>
+	<div class="col-md-2">
+	</div>
 </div>
-
+{% include 'Pagination/Pagination.twig' %}
 {% endblock %}

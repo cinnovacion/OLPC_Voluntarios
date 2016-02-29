@@ -6,7 +6,7 @@ use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Silex\ControllerCollection;
 
-class homeController implements ControllerProviderInterface {
+class logController implements ControllerProviderInterface {
 
 	/**
 	 * Returns routes to connect to the given application.
@@ -21,28 +21,48 @@ class homeController implements ControllerProviderInterface {
 
 		// Bind sub-routes
 		$controllers
-		->get('/', array($this, 'home'))
-		->bind('home');
+		->get('/', array($this, 'log'))
+		->method('GET|POST')
+		->bind('logger.log');
 
 		return $controllers;
-
 	}
 
 
 	/**
-	 * Home page
+	 * overview of empleados
 	 * @param Application $app An Application instance
 	 * @return string A blob of HTML
 	 */
-	public function home(Application $app) {
+	public function log(Application $app) {
+		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+			return $app->redirect($app['url_generator']->generate('login'));
+			die();
+		}
+
+		$logform = $app['form.factory']->createNamed('loginform', 'form')
+		->add('barcode', 'text', array('required' => true));
+
+		$logform->handleRequest($app['request']);
+
+		if($logform->isValid()){
+			$data = $logform->getData();
+			
+			var_dump($data);
+			
+		}
+
 		$data = array(
+			'logform' => $logform->createView(),
 			'page' => 'home'
 			);
 
 		// Inject data into the template which will show 'm all
-		return $app['twig']->render('home.twig',$data);
+		return $app['twig']->render('Log/log.twig',$data);
 
 	}
+
+	
 
 
 	

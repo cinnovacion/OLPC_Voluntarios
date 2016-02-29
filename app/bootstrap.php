@@ -19,7 +19,7 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 	'db.options' => array(
         'driver' => 'pdo_mysql',
         'host' => 'localhost',
-        'dbname' => 'olpc_volentarios',
+        'dbname' => 'olpc_voluntarios',
         'user' => 'root',
         'password' => '',
         'charset' => 'utf8mb4'

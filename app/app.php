@@ -18,6 +18,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
 
 
 // Mount our Controllers
-$app->mount('/', new ZamoraTeran\Provider\Controller\homeController());
+$app->mount('/', new ZamoraTeran\Provider\Controller\authController());
 $app->mount('/voluntarios/', new ZamoraTeran\Provider\Controller\voluntariosController());
 $app->mount('/empleados', new ZamoraTeran\Provider\Controller\empleadosController());
+$app->mount('/log', new ZamoraTeran\Provider\Controller\logController());

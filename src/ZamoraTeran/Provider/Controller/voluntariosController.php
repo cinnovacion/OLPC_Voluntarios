@@ -15,7 +15,7 @@ class voluntariosController implements ControllerProviderInterface {
 	 * @return ControllerCollection A ControllerCollection instance
 	 */
 	public function connect(Application $app) {
-
+		
 		//@note $app['controllers_factory'] is a factory that returns a new instance of ControllerCollection when used.
 		//@see http://silex.sensiolabs.org/doc/organizing_controllers.html
 		$controllers = $app['controllers_factory'];
@@ -33,6 +33,7 @@ class voluntariosController implements ControllerProviderInterface {
 		$controllers
 		->get('/{id}/edit', array($this, 'edit'))
 		->assert('id', '\d+')
+		->method('GET|POST')
 		->bind('voluntarios.editVoluntario');
 
 		$controllers
@@ -49,25 +50,43 @@ class voluntariosController implements ControllerProviderInterface {
 	 * @param Application $app An Application instance
 	 * @return string A blob of HTML
 	 */
-	public function voluntarios(Application $app) {
+	public function voluntarios(Application $app) {		
+		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+			return $app->redirect($app['url_generator']->generate('login'));
+			die();
+		}
+		require_once '\..\..\..\Classes\Pagination.php';
+		$numItems = $app['db.persona']->count()['count'];
+		$numItemsPerPage = 15;
+		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
+		$numPages = ceil($numItems / $numItemsPerPage);
+		$pagination =  generatePaginationSequence($curpage,$numPages);
+
+
+		//Make the searchform
 		$busquedaform = $app['form.factory']->createNamed('busquedaform', 'form')
 		->add('Busqueda', 'text', array('required' => false));
 
 		$busquedaform->handleRequest($app['request']);
 
-		
 		if($busquedaform->isValid()){
 			$data = $busquedaform->getData();
-			$voluntarios = $app['db.persona']->findAllByString($data['Busqueda']);
+			$voluntarios = $app['db.persona']->findAllByString($data['Busqueda'],$curpage,$numItemsPerPage);
 		}else{
-			$voluntarios = $app['db.persona']->findAll();
+			$voluntarios = $app['db.persona']->findAll($curpage,$numItemsPerPage);
 		}
 
 		$data = array(
 			'page' => 'voluntarios',
 			'voluntarios' => $voluntarios,
 			'ahoras' => $app['db.trabajar']->getHoursOfWork(),
-			'busquedaform' => $busquedaform->createView()
+			'busquedaform' => $busquedaform->createView(),
+			'pagination' => $pagination,
+			'curPage' => $curpage,
+			'numPages' => $numPages,
+			'baseUrl' => $app['url_generator']->generate('voluntarios.overview'),
+			'numItems' => $numItems,
+			'session' => $app['session']->get('user')
 			);
 		// Inject data into the template which will show 'm all
 		return $app['twig']->render('voluntarios/voluntarios.twig',$data);
@@ -81,11 +100,28 @@ class voluntariosController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function detail(Application $app, $id) {
+		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+			return $app->redirect($app['url_generator']->generate('login'));
+			die();
+		}
+		require_once '\..\..\..\Classes\Pagination.php';
+		$numItems = $app['db.trabajar']->count()['count'];
+		$numItemsPerPage = 4;
+		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
+		$numPages = ceil($numItems / $numItemsPerPage);
+		$pagination =  generatePaginationSequence($curpage,$numPages);
+
 		$data = array(
 			'page' => 'voluntarios',
 			'voluntario' => $app['db.persona']->find($id),
-			'trabaja' => $app['db.trabajar']->findByPersona($id),
-			'trabajaPara' => $app['db.trabajar']->findTotalHoursByPersona($id)
+			'trabaja' => $app['db.trabajar']->findByPersona($id,$curpage,$numItemsPerPage),
+			'trabajaPara' => $app['db.trabajar']->findTotalHoursByPersona($id),
+			'disponibilidad' => $app['db.disponibilidad']->getDisponibilidad($id),
+			'pagination' => $pagination,
+			'curPage' => $curpage,
+			'numPages' => $numPages,
+			'baseUrl' => $app['url_generator']->generate('voluntarios.detail',array('id' => $id)),
+			'numItems' => $numItems
 			);
 		// Build and return the HTML representing the tweet
 		return $app['twig']->render('voluntarios/voluntario.twig',$data);
@@ -98,12 +134,222 @@ class voluntariosController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function edit(Application $app, $id) {
+		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+			return $app->redirect($app['url_generator']->generate('login'));
+			die();
+		}
+		$persona = $app['db.persona']->find($id);
+		$disponibilidad  = $app['db.disponibilidad']->getDisponibilidad($id);
+		//var_dump($persona);
+		//var_dump($disponibilidad);
+		//making of the form
+		$nuevoform = $app['form.factory']->createNamed('nuevoform')
+		->add('Nombre', 'text', array(
+			'constraints' => array(new Assert\NotBlank(),new Assert\Length(array('min' => 5))),
+			'data' => $persona['Nombre']
+			))
+		->add('NoDeCedula', 'text', array(
+			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5))),
+			'data' => $persona['NoDeCedula']
+			))
+		->add('DireccionDeResidencia', 'text', array(
+			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5))),
+			'data' => $persona['DireccionDeResidencia']
+			))
+		->add('Telefono', 'text', array(
+			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5))),
+			'data' => $persona['Telefono']
+			))
+		->add('CorreoElectronico', 'email', array(
+			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5))),
+			'data' => $persona['CorreoElectronico']
+			))
+		->add('InstitucionAcademica', 'text', array(
+			'constraints' => array(new Assert\NotBlank()),
+			'data' => $persona['InstitucionAcademica']
+			))
+		->add('CarreraCurso', 'text', array(
+			'constraints' => array(new Assert\NotBlank()),
+			'data' => $persona['CarreraCurso']
+			))
+		->add('Nivel', 'text', array(
+			'constraints' => array(new Assert\NotBlank()),
+			'data' => $persona['Nivel']
+			))
+		->add('DiaInicio','text', array(
+			'data' => $persona['DiaInicio']
+			))
+		->add('DiaFinal','text', array(
+			'data' => $persona['DiaFinal']
+			));
+
+		$stack = array();
+		foreach ($disponibilidad as $disp) {
+			if($disp['dia'] == 'lunes'){
+				$nuevoform
+				->add('trabajoLunes', 'checkbox', array('required' => false,'data' => true))
+				->add('fromLunes','text',array(
+					'required' => false,
+					'data' => $disp['horaInicio']))
+				->add('toLunes','text',array(
+					'required' => false,
+					'data' => $disp['horaFinal']));
+				array_push($stack, "lunes");
+			}
+			elseif ($disp['dia'] == 'martes') {
+				$nuevoform
+				->add('trabajoMartes', 'checkbox', array('required' => false, 'data' => true))
+				->add('fromMartes','text',array(
+					'required' => false,
+					'data' => $disp['horaInicio']))
+				->add('toMartes','text',array(
+					'required' => false,
+					'data' => $disp['horaFinal']));
+				array_push($stack, "martes");
+			}
+			elseif ($disp['dia'] == 'miercoles') {
+				$nuevoform
+				->add('trabajoMiercoles', 'checkbox', array('required' => false, 'data' => true))
+				->add('fromMiercoles','text',array(
+					'required' => false,
+					'data' => $disp['horaInicio']))
+				->add('toMiercoles','text',array(
+					'required' => false,
+					'data' => $disp['horaFinal']));
+				array_push($stack, "miercoles");
+			}
+			elseif ($disp['dia'] == 'jueves') {
+				$nuevoform
+				->add('trabajoJueves', 'checkbox', array('required' => false, 'data' => true))
+				->add('fromJueves','text',array(
+					'required' => false,
+					'data' => $disp['horaInicio']))
+				->add('toJueves','text',array(
+					'required' => false,
+					'data' => $disp['horaFinal']));
+				array_push($stack, "jueves");
+			}
+			elseif ($disp['dia'] == 'viernes') {
+				$nuevoform
+				->add('trabajoViernes', 'checkbox', array('required' => false, 'data' => true))
+				->add('fromViernes','text',array(
+					'required' => false,
+					'data' => $disp['horaInicio']))
+				->add('toViernes','text',array(
+					'required' => false,
+					'data' => $disp['horaFinal']));
+				array_push($stack, "viernes");
+			}
+		}
+
+		if (!(in_array("lunes", $stack))) {
+			$nuevoform
+			->add('trabajoLunes', 'checkbox', array('required' => false))
+			->add('fromLunes','text',array('required' => false))
+			->add('toLunes','text',array('required' => false));
+		}
+		if (!(in_array("martes", $stack))) {
+			$nuevoform
+			->add('trabajoMartes', 'checkbox', array('required' => false))
+			->add('fromMartes','text',array('required' => false))
+			->add('toMartes','text',array('required' => false));
+		}
+		if (!(in_array("miercoles", $stack))) {
+			$nuevoform
+			->add('trabajoMiercoles', 'checkbox', array('required' => false))
+			->add('fromMiercoles','text',array('required' => false))
+			->add('toMiercoles','text',array('required' => false));
+		}
+		if (!(in_array("jueves", $stack))) {
+			$nuevoform
+			->add('trabajoJueves', 'checkbox', array('required' => false))
+			->add('fromJueves','text',array('required' => false))
+			->add('toJueves','text',array('required' => false));
+		}
+		if (!(in_array("viernes", $stack))) {
+			$nuevoform->add('trabajoViernes', 'checkbox', array('required' => false))
+			->add('fromViernes','text',array('required' => false))
+			->add('toViernes','text',array('required' => false));
+		}
+
+		$nuevoform->handleRequest($app['request']);
+
+		if($nuevoform->isValid()){
+			$data = $nuevoform->getData();
+
+			var_dump($data);
+			//Save a person to the database
+			$persona =  array(
+				'Nombre' => $data['Nombre'], 
+				'NoDeCedula' => $data['NoDeCedula'], 
+				'DireccionDeResidencia' => $data['DireccionDeResidencia'], 
+				'Telefono' => $data['Telefono'], 
+				'CorreoElectronico' => $data['CorreoElectronico'], 
+				'InstitucionAcademica' => $data['InstitucionAcademica'], 
+				'CarreraCurso' => $data['CarreraCurso'], 
+				'Nivel' => $data['Nivel'], 
+				'DiaInicio' => $data['DiaInicio'], 
+				'DiaFinal' => $data['DiaFinal']
+				);
+			$app['db.persona']->update($persona, array('idPersona' => $id));
+
+			//get the days on which he can work and save it to the database
+			$app['db.disponibilidad']->delete(array('Persona_idPersona' => $id));
+			if($data['trabajoLunes']){
+				$dia = array(
+					'Persona_idPersona' => $id,
+					'horaInicio' => $data['fromLunes'],
+					'horaFinal' => $data['toLunes'],
+					'dia' => 'lunes');
+				$app['db.disponibilidad']->insert($dia);
+			}
+			if($data['trabajoMartes']){
+				$dia = array(
+					'Persona_idPersona' => $id,
+					'horaInicio' => $data['fromMartes'],
+					'horaFinal' => $data['toMartes'],
+					'dia' => 'martes');
+				$app['db.disponibilidad']->insert($dia);
+			}
+			if($data['trabajoMiercoles']){
+				$dia = array(
+					'Persona_idPersona' => $id,
+					'horaInicio' => $data['fromMiercoles'],
+					'horaFinal' => $data['toMiercoles'],
+					'dia' => 'miercoles');
+				$app['db.disponibilidad']->insert($dia);
+			}
+			if($data['trabajoJueves']){
+				$dia = array(
+					'Persona_idPersona' => $id,
+					'horaInicio' => $data['fromJueves'],
+					'horaFinal' => $data['toJueves'],
+					'dia' => 'jueves');
+				$app['db.disponibilidad']->insert($dia);
+			}
+			if($data['trabajoViernes']){
+				$dia = array(
+					'Persona_idPersona' => $id,
+					'horaInicio' => $data['fromViernes'],
+					'horaFinal' => $data['toViernes'],
+					'dia' => 'viernes');
+				$app['db.disponibilidad']->insert($dia);
+			}
+
+			return $app->redirect($app['url_generator']->generate('voluntarios.detail',array('id' => $id)));
+			die();
+		}
 		$data = array(
-			'page' => 'voluntarios'
+			'page' => 'voluntarios',
+			'formulario' => 'edit',
+			'editpath' => $app['url_generator']->generate('voluntarios.editVoluntario',array('id' => $id)),
+			'detailpath' => $app['url_generator']->generate('voluntarios.detail',array('id' => $id)),
+			'nuevoform' => $nuevoform->createView()
 			);
-			// Build and return the HTML representing the tweet
-		return $app['twig']->render('voluntarios/edit.twig',$data);
+			// Build and return the HTML
+		return $app['twig']->render('voluntarios/formulario.twig',$data);
 	}
+
 
 	/**
 	 * Volunteer Edit
@@ -111,7 +357,12 @@ class voluntariosController implements ControllerProviderInterface {
 	 * @param int $id ID of the tweet (URL Param)
 	 * @return string A blob of HTML
 	 */
-	public function newVoluntario(Application $app) {		
+	public function newVoluntario(Application $app) {	
+		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+			return $app->redirect($app['url_generator']->generate('login'));
+			die();
+		}	
+		//making of the form
 		$nuevoform = $app['form.factory']->createNamed('nuevoform')
 		->add('Nombre', 'text', array(
 			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5)))
@@ -136,23 +387,99 @@ class voluntariosController implements ControllerProviderInterface {
 			))
 		->add('Nivel', 'text', array(
 			'constraints' => array(new Assert\NotBlank())
-			));
+			))
+		->add('DiaInicio','text')
+		->add('DiaFinal','text')
+		->add('trabajoLunes', 'checkbox',array('required' => false))
+		->add('trabajoMartes', 'checkbox',array('required' => false))
+		->add('trabajoMiercoles', 'checkbox',array('required' => false))
+		->add('trabajoJueves', 'checkbox',array('required' => false))
+		->add('trabajoViernes', 'checkbox',array('required' => false))
+		->add('fromLunes','text',array('required' => false))
+		->add('toLunes','text',array('required' => false))
+		->add('fromLunes','text',array('required' => false))
+		->add('toLunes','text',array('required' => false))
+		->add('fromMartes','text',array('required' => false))
+		->add('toMartes','text',array('required' => false))
+		->add('fromMiercoles','text',array('required' => false))
+		->add('toMiercoles','text',array('required' => false))
+		->add('fromJueves','text',array('required' => false))
+		->add('toJueves','text',array('required' => false))
+		->add('fromViernes','text',array('required' => false))
+		->add('toViernes','text',array('required' => false));
 
 		$nuevoform->handleRequest($app['request']);
 
 		if($nuevoform->isValid()){
 			$data = $nuevoform->getData();
-			var_dump($data);
-		}else{
-			var_dump('niet geslaagd');
+
+			//Save a person to the database
+			$persona =  array(
+				'Nombre' => $data['Nombre'], 
+				'NoDeCedula' => $data['NoDeCedula'], 
+				'DireccionDeResidencia' => $data['DireccionDeResidencia'], 
+				'Telefono' => $data['Telefono'], 
+				'CorreoElectronico' => $data['CorreoElectronico'], 
+				'InstitucionAcademica' => $data['InstitucionAcademica'], 
+				'CarreraCurso' => $data['CarreraCurso'], 
+				'Nivel' => $data['Nivel'], 
+				'DiaInicio' => $data['DiaInicio'], 
+				'DiaFinal' => $data['DiaFinal']
+				);
+			$app['db.persona']->insert($persona);
+
+			//Get the id of the person
+			$id = $app['db.persona']->getIdByCedula($data['NoDeCedula'])['id'];
+
+			//get the days on which he can work and save it to the database
+			if($data['trabajoLunes']){
+				$dia = array(
+					'Persona_idPersona' => $id,
+					'horaInicio' => $data['fromLunes'],
+					'horaFinal' => $data['toLunes'],
+					'dia' => 'lunes');
+				$app['db.disponibilidad']->insert($dia);
+			}
+			if($data['trabajoMartes']){
+				$dia = array(
+					'Persona_idPersona' => $id,
+					'horaInicio' => $data['fromMartes'],
+					'horaFinal' => $data['toMartes'],
+					'dia' => 'martes');
+				$app['db.disponibilidad']->insert($dia);
+			}
+			if($data['trabajoMiercoles']){
+				$dia = array(
+					'Persona_idPersona' => $id,
+					'horaInicio' => $data['fromMiercoles'],
+					'horaFinal' => $data['toMiercoles'],
+					'dia' => 'miercoles');
+				$app['db.disponibilidad']->insert($dia);
+			}
+			if($data['trabajoJueves']){
+				$dia = array(
+					'Persona_idPersona' => $id,
+					'horaInicio' => $data['fromJueves'],
+					'horaFinal' => $data['toJueves'],
+					'dia' => 'jueves');
+				$app['db.disponibilidad']->insert($dia);
+			}
+			if($data['trabajoViernes']){
+				$dia = array(
+					'Persona_idPersona' => $id,
+					'horaInicio' => $data['fromViernes'],
+					'horaFinal' => $data['toViernes'],
+					'dia' => 'viernes');
+				$app['db.disponibilidad']->insert($dia);
+			}
+			return $app->redirect($app['url_generator']->generate('voluntarios.detail',array('id' => $id)));
 		}
 		$data = array(
 			'page' => 'voluntarios',
+			'formulario' => 'new',
 			'nuevoform' => $nuevoform->createView()
 			);
 			// Build and return the HTML
 		return $app['twig']->render('voluntarios/formulario.twig',$data);
 	}
-
-	
 }

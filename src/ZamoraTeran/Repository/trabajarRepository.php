@@ -12,8 +12,13 @@ class trabajarRepository extends \Knp\Repository {
 		return $this->db->fetchAll('SELECT * FROM trabajar');
 	}
 
-	public function findByPersona($id){
-		return $this->db->fetchAll('SELECT * FROM trabajar WHERE Persona_idPersona = ?', array($id));
+	public function count(){
+		return $this->db->fetchAssoc('SELECT count(*) as count FROM trabajar');
+	}
+
+	public function findByPersona($id,$curpage,$numItemsPerPage){
+		return $this->db->fetchAll('SELECT * FROM trabajar WHERE Persona_idPersona = ? LIMIT ' . (int) (($curpage - 1) * $numItemsPerPage) . ',' .
+			(int) ($numItemsPerPage), array($id));
 	}
 
 	public function findTotalHoursByPersona($id){

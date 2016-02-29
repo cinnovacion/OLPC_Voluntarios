@@ -1,0 +1,34 @@
+{% extends 'layout.twig' %}
+
+{% set pageTitle = 'home' %}
+{% block pageContent %}
+<div class="container">
+	<form action="{{ path('logger.log') }}" class="form-signin" method="post" {{ form_enctype(logform)}}>
+
+		{{ form_errors(logform) }}
+		<h2 class="form-signin-heading">Scan or enter your code</h2>
+		{{ form_label(logform.barcode, 'Barcode', { 'label_attr': {'class': 'sr-only'}}) }}
+		{{ form_widget(logform.barcode,{'attr':{'class': 'form-control','id':'nombre','placeholder':'Barcode','autofocus':'autofocus'}}) }}
+		{{ form_errors(logform.barcode) }}
+		
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+		{{ form_widget(logform._token)}}
+	</form>
+
+
+</div>
+<script>
+document.getElementById(loginform_barcode).on({
+		keypress: function() { typed_into = true; },
+		change: function() {
+			if (typed_into) {
+				alert('type');
+            typed_into = false; //reset type listener
+        } else {
+        	alert('not type');
+        }
+    }
+});
+</script>
+{% endblock %}

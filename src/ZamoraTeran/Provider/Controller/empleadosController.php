@@ -37,6 +37,10 @@ class empleadosController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function overview(Application $app) {
+		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+			return $app->redirect($app['url_generator']->generate('login'));
+			die();
+		}
 		$data = array(
 			'page' => 'empleados'
 			);
@@ -51,6 +55,10 @@ class empleadosController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function newEmpleado(Application $app) {
+		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+			return $app->redirect($app['url_generator']->generate('login'));
+			die();
+		}
 		$data = array(
 			'page' => 'empleados'
 			);

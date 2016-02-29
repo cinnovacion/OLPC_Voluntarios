@@ -7,8 +7,9 @@
 <form action="{{ path('voluntarios.overview')}}" method="post" {{ form_enctype(busquedaform)}} class="form-inline searchForm" >
 	<div class="form-group">
 
-	<a href="{{ path('voluntarios.overview')}}" class="btn btn-info">
-	<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></a>
+		<a href="{{ path('voluntarios.overview')}}" class="btn btn-info">
+			<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+		</a>
 		{{ form_widget(busquedaform.Busqueda,{'attr':{'class':'form-control','id':'busqueda'}})}}
 	</div>
 	<button type="submit" class="btn btn-info">Búsqueda</button>
@@ -47,5 +48,5 @@
 
 		</tbody>
 	</table>
-
+	{% include 'Pagination/Pagination.twig' %}
 	{% endblock %}
