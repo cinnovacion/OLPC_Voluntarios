@@ -47,14 +47,36 @@ class logController implements ControllerProviderInterface {
 
 		if($logform->isValid()){
 			$data = $logform->getData();
-			
-			var_dump($data);
-			
+			$personaId= $app['db.persona']->getIdByName($data['barcode'])['id'];
+			$lastInput = $app['db.trabajar']->getLastInput($personaId);
+			if($lastInput['dia'] == date("Y-m-d")){
+				if($lastInput['horaFinal'] == null){
+					$lastInput['horaFinal'] = date('h:i A');
+					$lastInput['tiempo'] = $lastInput['horaFinal']-$lastInput['horaInicio'];
+					$app['db.trabajar']->update($lastInput,array('idTrabajar' => $lastInput['idTrabajar']));
+				}else{
+					$trabaja = array(
+						'Persona_idPersona' => $personaId,
+						'horaInicio' => date('h:i A'),
+						'dia' => date("Y-m-d")
+						);
+					$app['db.trabajar']->insert($trabaja);
+				}
+			}else{
+				$trabaja = array(
+					'Persona_idPersona' => $personaId,
+					'horaInicio' => date('h:i A'),
+					'dia' => date("Y-m-d")
+					);
+				$app['db.trabajar']->insert($trabaja);
+			}
+			return $app->redirect($app['url_generator']->generate('logger.log'));
+			die();
 		}
 
 		$data = array(
 			'logform' => $logform->createView(),
-			'page' => 'home'
+			'page' => 'logger'
 			);
 
 		// Inject data into the template which will show 'm all

@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/header.css" />
 </head>
 <body>
+	{% if page != 'logger' %}
 	<header class="header-search">
 
 		<div class="header-limiter">
@@ -38,6 +39,7 @@
 			{% endif %}
 		</div>
 	</header>
+	{% endif %}
 	<div class="container">
 		{% block pageContent %}
 		Hello!

@@ -11,24 +11,11 @@
 		{{ form_widget(logform.barcode,{'attr':{'class': 'form-control','id':'nombre','placeholder':'Barcode','autofocus':'autofocus'}}) }}
 		{{ form_errors(logform.barcode) }}
 		
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Proceed</button>
 
 		{{ form_widget(logform._token)}}
 	</form>
 
 
 </div>
-<script>
-document.getElementById(loginform_barcode).on({
-		keypress: function() { typed_into = true; },
-		change: function() {
-			if (typed_into) {
-				alert('type');
-            typed_into = false; //reset type listener
-        } else {
-        	alert('not type');
-        }
-    }
-});
-</script>
 {% endblock %}

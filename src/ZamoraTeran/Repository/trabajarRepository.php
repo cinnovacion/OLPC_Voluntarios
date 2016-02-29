@@ -29,6 +29,11 @@ class trabajarRepository extends \Knp\Repository {
 		return $this->db->fetchAll('SELECT Persona_idPersona, sum(tiempo) as tiempo FROM trabajar group by 
 Persona_idPersona');
 	}
+
+	public function getLastInput($personaId){
+		return $this->db->fetchAssoc('SELECT * FROM trabajar WHERE Persona_idPersona = ? order by dia DESC, horaInicio DESC LIMIT 1',array($personaId));
+		
+	}
 }
 
 //EOF

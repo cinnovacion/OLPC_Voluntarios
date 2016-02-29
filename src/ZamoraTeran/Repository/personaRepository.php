@@ -22,8 +22,6 @@ class personaRepository extends \Knp\Repository {
 			(int) ($numItemsPerPage));
 	}
 
-
-
 	public function findAllByString($search,$curpage,$numItemsPerPage){
 		if($search == null){
 			return $this->findAll();
@@ -42,6 +40,10 @@ class personaRepository extends \Knp\Repository {
 
 	public function getIdByCedula($cedula){
 		return $this->db->fetchAssoc('SELECT idPersona as id FROM persona WHERE NoDeCedula = ?',array($cedula));
+	}
+
+	public function getIdByName($name){
+		return $this->db->fetchAssoc('SELECT idPersona AS id FROM persona WHERE Nombre = ?',array($name));
 	}
 
 	
