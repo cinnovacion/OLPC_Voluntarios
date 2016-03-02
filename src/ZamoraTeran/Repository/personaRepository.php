@@ -12,7 +12,6 @@ class personaRepository extends \Knp\Repository {
 		return $this->db->fetchAssoc('SELECT * FROM persona WHERE idPersona = ?',array($id));
 	}
 
-
 	public function count(){
 		return $this->db->fetchAssoc('SELECT count(*) as count FROM persona');
 	}
@@ -46,7 +45,8 @@ class personaRepository extends \Knp\Repository {
 		return $this->db->fetchAssoc('SELECT idPersona AS id FROM persona WHERE Nombre = ?',array($name));
 	}
 
-	
+	public function getIdByNoCedula($cedula){
+		return $this->db->fetchAssoc('SELECT idPersona AS id FROM persona WHERE NoDeCedula = ?',array($cedula));
+	}
 }
-
 //EOF

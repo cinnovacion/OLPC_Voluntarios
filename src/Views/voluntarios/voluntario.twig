@@ -1,10 +1,14 @@
 {% extends 'layout.twig' %}
 
-{% set pageTitle = 'Volentario' %}
+{% set pageTitle = 'Detalle de volentario' %}
 {% block pageContent %}
 
-<div class="col-md-12">
+<div class="col-md-12" style="height: 40px;">
 	<a href="{{path('voluntarios.overview')}}" class="btn btn-info btnreturn" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Retorno</a>
+	<a href="{{ app.request.baseUrl}}/print/{{voluntario.idPersona}}/card" class="btn btn-info print" role="button"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir insignia</a>
+</div>
+<div class="col-md-12">
+	<a href="{{ app.request.baseUrl}}/print/{{voluntario.idPersona}}/page" class="btn btn-info print" role="button"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir voluntario</a>
 </div>
 
 <div class="col-md-12">
@@ -13,6 +17,21 @@
 		<p><b>No. De Cédula:</b> {{voluntario.NoDeCedula}}</p>
 		<p><b>Direccion de residencia:</b> {{voluntario.DireccionDeResidencia}}</p>
 		<p><b>Correo electronico:</b> {{voluntario.CorreoElectronico}}</p>
+		<p><b>Trabaja con: </b>
+			{%  if voluntario.Area == 1 %}
+			Comunicación
+			{% elseif voluntario.Area == 2 %}
+			Mercadeo
+			{% elseif voluntario.Area == 3 %}
+			Área Educativa
+			{% elseif voluntario.Area == 4 %}
+			Programa de Voluntariado
+			{% elseif voluntario.Area == 5 %}
+			Monitoreo y Evaluación
+			{% elseif voluntario.Area == 6 %}
+			Técnico
+			{% endif %}
+		</p>
 	</div>
 	<div class="col-md-6 column2">
 
@@ -22,7 +41,9 @@
 		<p><b>Nivel:</b> {{voluntario.Nivel}}  anto</p>
 	</div>
 	<div class="col-md-12">
+
 		<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}/edit" class="btn btn-info edit" role="button"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+		
 	</div>
 </div>
 <div class="col-md-12">
@@ -75,4 +96,6 @@
 	</div>
 </div>
 {% include 'Pagination/Pagination.twig' %}
+
+
 {% endblock %}

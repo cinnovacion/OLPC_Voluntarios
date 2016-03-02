@@ -1,21 +1,21 @@
 {% extends 'layout.twig' %}
 
-{% set pageTitle = 'home' %}
+{% set pageTitle = 'Registro de entrada y salida' %}
 {% block pageContent %}
 <div class="container">
-	<form action="{{ path('logger.log') }}" class="form-signin" method="post" {{ form_enctype(logform)}}>
 
+
+	<a href="{{path('logout')}}" class="btn btn-info btnNuevo" role="button"><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Retorno</a>
+
+
+	<form action="{{ path('logger.log') }}" class="form-signin" method="post" {{ form_enctype(logform)}}>
 		{{ form_errors(logform) }}
-		<h2 class="form-signin-heading">Scan or enter your code</h2>
+		<h2 class="form-signin-heading">Escanear o introducir su numero de cedula</h2>
 		{{ form_label(logform.barcode, 'Barcode', { 'label_attr': {'class': 'sr-only'}}) }}
 		{{ form_widget(logform.barcode,{'attr':{'class': 'form-control','id':'nombre','placeholder':'Barcode','autofocus':'autofocus'}}) }}
 		{{ form_errors(logform.barcode) }}
-		
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Proceed</button>
-
+		<button class="btn btn-lg btn-primary btn-block">Proceed</button>
 		{{ form_widget(logform._token)}}
 	</form>
-
-
 </div>
 {% endblock %}

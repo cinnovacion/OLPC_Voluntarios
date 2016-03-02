@@ -22,3 +22,4 @@ $app->mount('/', new ZamoraTeran\Provider\Controller\authController());
 $app->mount('/voluntarios/', new ZamoraTeran\Provider\Controller\voluntariosController());
 $app->mount('/empleados', new ZamoraTeran\Provider\Controller\empleadosController());
 $app->mount('/log', new ZamoraTeran\Provider\Controller\logController());
+$app->mount('/print', new ZamoraTeran\Provider\Controller\printController());

@@ -1,0 +1,60 @@
+.logo{
+	width: auto;
+	margin: auto;
+	display: block;
+}
+
+h2{
+	margin: auto;
+	text-align: center;
+}
+
+p{
+	margin: auto;
+	margin-top: 15px;
+	margin-bottom: 5px;
+	max-width: 600px
+}
+
+ul{
+	max-width: 600px;
+	margin: auto;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.greeting{
+	text-align: center;
+	margin-top: 2.5px;
+	margin-bottom: 2.5px;
+}
+
+.atentamente{
+	margin-top: 15px;
+	margin-bottom: 35px;
+}
+
+.footer{
+	font-size: 9px;	
+	border-bottom: 4px solid gray;
+	border-top:4px solid gray;
+}
+
+.footerPrint{
+	font-size: 9px;	
+	border-bottom: 4px solid gray;
+	border-top:4px solid gray;
+	position: ;
+   bottom:0;
+}
+
+
+.quote{
+	text-align: center;
+    width: 600px;
+    font-size: 16px;
+    /*
+    margin-left: 425px;*/
+    padding-left: 400px;
+    color: gray;
+}

@@ -50,11 +50,17 @@ class voluntariosController implements ControllerProviderInterface {
 	 * @param Application $app An Application instance
 	 * @return string A blob of HTML
 	 */
-	public function voluntarios(Application $app) {		
+	public function voluntarios(Application $app) {
+		//checking if the user is loged in
 		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
+		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+			return $app->redirect($app['url_generator']->generate('logout'));
+			die();
 		}
+
+		//pagination
 		require_once '\..\..\..\Classes\Pagination.php';
 		$numItems = $app['db.persona']->count()['count'];
 		$numItemsPerPage = 15;
@@ -96,17 +102,22 @@ class voluntariosController implements ControllerProviderInterface {
 	/**
 	 * Volunteer Detail
 	 * @param Application $app An Application instance
-	 * @param int $id ID of the tweet (URL Param)
+	 * @param int $id ID of the volunteer (URL Param)
 	 * @return string A blob of HTML
 	 */
 	public function detail(Application $app, $id) {
+		//checking if the user is loged in
 		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
+		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+			return $app->redirect($app['url_generator']->generate('logout'));
+			die();
+		
 		}
 		require_once '\..\..\..\Classes\Pagination.php';
-		$numItems = $app['db.trabajar']->count()['count'];
-		$numItemsPerPage = 4;
+		$numItems = $app['db.trabajar']->countById($id)['count'];
+		$numItemsPerPage = 10;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
 		$numPages = ceil($numItems / $numItemsPerPage);
 		$pagination =  generatePaginationSequence($curpage,$numPages);
@@ -121,9 +132,10 @@ class voluntariosController implements ControllerProviderInterface {
 			'curPage' => $curpage,
 			'numPages' => $numPages,
 			'baseUrl' => $app['url_generator']->generate('voluntarios.detail',array('id' => $id)),
-			'numItems' => $numItems
+			'numItems' => $numItems,
+			'session' => $app['session']->get('user')
 			);
-		// Build and return the HTML representing the tweet
+		// build and return the html
 		return $app['twig']->render('voluntarios/voluntario.twig',$data);
 	}
 
@@ -134,14 +146,17 @@ class voluntariosController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function edit(Application $app, $id) {
+		//checking if the user is loged in
 		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
+		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+			return $app->redirect($app['url_generator']->generate('logout'));
+			die();
+		
 		}
 		$persona = $app['db.persona']->find($id);
 		$disponibilidad  = $app['db.disponibilidad']->getDisponibilidad($id);
-		//var_dump($persona);
-		//var_dump($disponibilidad);
 		//making of the form
 		$nuevoform = $app['form.factory']->createNamed('nuevoform')
 		->add('Nombre', 'text', array(
@@ -176,6 +191,14 @@ class voluntariosController implements ControllerProviderInterface {
 			'constraints' => array(new Assert\NotBlank()),
 			'data' => $persona['Nivel']
 			))
+		->add('Area', 'choice', array(
+            'choices' => array(
+            	1 => 'Comunicación', 
+            	2 => 'Mercadeo',
+            	3=>'Área Educativa',
+            	4=>'Programa de Voluntariado',
+            	5=>'Monitoreo y Evaluación',
+            	6=>'Técnico'),'data' => $persona['Area']))
 		->add('DiaInicio','text', array(
 			'data' => $persona['DiaInicio']
 			))
@@ -276,8 +299,6 @@ class voluntariosController implements ControllerProviderInterface {
 
 		if($nuevoform->isValid()){
 			$data = $nuevoform->getData();
-
-			var_dump($data);
 			//Save a person to the database
 			$persona =  array(
 				'Nombre' => $data['Nombre'], 
@@ -289,7 +310,8 @@ class voluntariosController implements ControllerProviderInterface {
 				'CarreraCurso' => $data['CarreraCurso'], 
 				'Nivel' => $data['Nivel'], 
 				'DiaInicio' => $data['DiaInicio'], 
-				'DiaFinal' => $data['DiaFinal']
+				'DiaFinal' => $data['DiaFinal'],
+				'Area' => $data['Area']
 				);
 			$app['db.persona']->update($persona, array('idPersona' => $id));
 
@@ -344,7 +366,8 @@ class voluntariosController implements ControllerProviderInterface {
 			'formulario' => 'edit',
 			'editpath' => $app['url_generator']->generate('voluntarios.editVoluntario',array('id' => $id)),
 			'detailpath' => $app['url_generator']->generate('voluntarios.detail',array('id' => $id)),
-			'nuevoform' => $nuevoform->createView()
+			'nuevoform' => $nuevoform->createView(),
+			'session' => $app['session']->get('user')
 			);
 			// Build and return the HTML
 		return $app['twig']->render('voluntarios/formulario.twig',$data);
@@ -352,15 +375,19 @@ class voluntariosController implements ControllerProviderInterface {
 
 
 	/**
-	 * Volunteer Edit
+	 * Volunteer new
 	 * @param Application $app An Application instance
-	 * @param int $id ID of the tweet (URL Param)
 	 * @return string A blob of HTML
 	 */
-	public function newVoluntario(Application $app) {	
+	public function newVoluntario(Application $app) {
+		//checking if the user is loged in	
 		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
+		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+			return $app->redirect($app['url_generator']->generate('logout'));
+			die();
+		
 		}	
 		//making of the form
 		$nuevoform = $app['form.factory']->createNamed('nuevoform')
@@ -388,6 +415,14 @@ class voluntariosController implements ControllerProviderInterface {
 		->add('Nivel', 'text', array(
 			'constraints' => array(new Assert\NotBlank())
 			))
+		->add('Area', 'choice', array(
+            'choices' => array(
+            	1 => 'Comunicación', 
+            	2 => 'Mercadeo',
+            	3=>'Área Educativa',
+            	4=>'Programa de Voluntariado',
+            	5=>'Monitoreo y Evaluación',
+            	6=>'Técnico')))
 		->add('DiaInicio','text')
 		->add('DiaFinal','text')
 		->add('trabajoLunes', 'checkbox',array('required' => false))
@@ -424,7 +459,8 @@ class voluntariosController implements ControllerProviderInterface {
 				'CarreraCurso' => $data['CarreraCurso'], 
 				'Nivel' => $data['Nivel'], 
 				'DiaInicio' => $data['DiaInicio'], 
-				'DiaFinal' => $data['DiaFinal']
+				'DiaFinal' => $data['DiaFinal'],
+				'Area' => $data['Area']
 				);
 			$app['db.persona']->insert($persona);
 
@@ -477,7 +513,8 @@ class voluntariosController implements ControllerProviderInterface {
 		$data = array(
 			'page' => 'voluntarios',
 			'formulario' => 'new',
-			'nuevoform' => $nuevoform->createView()
+			'nuevoform' => $nuevoform->createView(),
+			'session' => $app['session']->get('user')
 			);
 			// Build and return the HTML
 		return $app['twig']->render('voluntarios/formulario.twig',$data);

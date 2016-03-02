@@ -1,0 +1,99 @@
+{% extends 'layout.twig' %}
+
+{% set pageTitle = 'imprimir la medalla' %}
+{% block pageContent %}
+<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/printPage.css"/>
+<div id="toRemove">
+	<a class="btn btn-info buttonright" role="button" onclick="printPage()"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir voluntario</a>
+	<a href="/OLPC_Voluntarios/public_html/voluntarios/{{voluntario.idPersona}}" class="btn btn-info buttonleft" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Retorno</a>
+</div>
+<img src="{{ app.request.baseUrl }}/assets/img/Fundacion-Zamora-Teran.jpg" class="logo">
+<h2>CONSTANCIA</h2>
+{%  if voluntario.Area == 1 %}
+<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como voluntaria/voluntario en el área de Soporte Comunicación de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
+<p>A continuación se detallan algunas de las actividades en las cuales <b>{{voluntario.Nombre}}</b> aportó generosamente con sus habilidades y tiempo:
+	<ul>
+		<li>Edición de videos oficiales de la organización.</li>
+		<li>Diseño de: artes publicitarios, e-proms para redes sociales, invitaciones y materiales impresos.</li>
+		<li>Apoyo en el diseño y formato de boletines informativos mensuales.</li>
+	</ul>
+</p>
+{% elseif voluntario.Area == 2 %}
+<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como voluntaria/voluntario en el área de Soporte Mercadeo de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
+<p>A continuación se detallan algunas de las actividades en las cuales <b>{{voluntario.Nombre}}</b> aportó generosamente con sus habilidades y tiempo:
+	<ul>
+		<li>Redacción de cartas de agradecimiento a donantes de la organización.</li>
+		<li>Capacitaciones a personal de empresas donantes.</li>
+		<li>Elaboración de bases de datos</li>
+		<li>Elaboración de inventarios de artículos.</li>
+	</ul>
+</p>
+{% elseif voluntario.Area == 3 %}
+<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como voluntaria/voluntario en el área de Soporte Área Educativa de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
+<p>A continuación se detallan algunas de las actividades en las cuales <b>{{voluntario.Nombre}}</b> aportó generosamente con sus habilidades y tiempo:
+	<ul>
+	<li>Visitas de acompañamiento a escuelas beneficiadas por el Programa Educativo: “Una Computadora por Niño”.</li>
+		<li>Asistencia a docentes en uso de actividades de la laptop XO.</li>
+		<li>Asistencia en estrategias de integración de la XO en las asignaturas impartidas.</li>
+		<li>Mantenimiento preventivo de laptops XO.</li>
+	</ul>
+</p>
+{% elseif voluntario.Area == 4 %}
+<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como voluntaria/voluntario en el área de Soporte Programa de Voluntariado de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
+<p>A continuación se detallan algunas de las actividades en las cuales <b>{{voluntario.Nombre}}</b> aportó generosamente con sus habilidades y tiempo:
+	<ul>
+<li>Captación de voluntarios en universidades y organizaciones aliadas.</li>
+
+<li>Desarrollo de actividades de formación de voluntarios.</li>
+
+<li>Apoyo en logística y presentaciones informativas del Programa Educativo: “Una Computadora por Niño”.</li>
+	</ul>
+</p>
+{% elseif voluntario.Area == 5 %}
+<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como voluntaria/voluntario en el área de Soporte Monitoreo y Evaluación de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
+<p>A continuación se detallan algunas de las actividades en las cuales <b>{{voluntario.Nombre}}</b> aportó generosamente con sus habilidades y tiempo:
+	<ul>
+<li>Aplicación y digitación de instrumentos de recolección de información primaria de escuelas beneficiadas por el Programa Educativo: “Una Computadora por Niño”.</li>
+
+<li>Limpieza y tabulación de bases de datos.</li>
+
+<li>Creación de máscaras para clasificación de escuelas.</li>
+	</ul>
+</p>
+{% elseif voluntario.Area == 6 %}
+<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como voluntaria/voluntario en el área de Soporte Técnico de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
+<p>A continuación se detallan algunas de las actividades en las cuales <b>{{voluntario.Nombre}}</b> aportó generosamente con sus habilidades y tiempo:
+	<ul>
+		<li>Diagnóstico de daños y defectos de computadoras XO.</li>
+		<li>Mantenimiento y Reparación de laptops XO.</li>
+		<li>Verificación de componentes electrónicos y no electrónicos</li>
+	</ul>
+</p>
+{% endif %}
+
+<p>Como Coordinadora del Programa de Voluntariado de esta institución, he tenido la oportunidad de valorar la calidad de trabajo que realiza <b>{{voluntario.Nombre}}</b> para la implementación del Programa Educativo "Una Computadora por Niño", identificando en ella un alto grado de disposición y responsabilidad en las tareas asignadas para el buen functionamiento de nuestra organización.</p>
+<p>Dado en la ciudad de Managua a los {{ "now"|date("m/d/Y") }}</p>
+
+<p class="greeting atentamente">Atentamente,</p>
+<p class="greeting"><b>Sofana Barreto Barrera</b></p>
+<p class="greeting"><b>Coordinadora</b></p>
+<p class="greeting"><b>Programa de Voluntariado</b></p>
+<div id="down">	
+	<p class="quote"><i><b>"Uniendo Esfuerzos Construyendo el Futuro"</b></i></p>
+	<p class="footer" id="footer"><b>Centro Financiero LAFISE, KM. 5.5 Carretera a Masaya. Tel.:(505) 2270-4786 &#9679; (505) 2278-2777 &#9679; www.fundacionzt.org &#9679; info@fundacionzt.org</b></p>
+</div>
+<script>
+	function printPage() {
+		document.getElementById("toRemove").style.opacity = 0;
+		document.getElementById("toRemove").style.height = 0;		
+		document.getElementById("down").style.position = "absolute";
+		document.getElementById("down").style.bottom = "0";
+		window.print();
+		setTimeout(100)
+		document.getElementById("down").style.position = "static";
+		document.getElementById("toRemove").style.opacity = 100;
+		document.getElementById("toRemove").style.height = 75;	
+	}
+</script>
+
+{% endblock %}

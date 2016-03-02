@@ -77,6 +77,13 @@
 		{{ form_errors(nuevoform.Nivel) }}
 	</div>
 </div>
+<div class="form-group row">
+	{{ form_label(nuevoform.Area, 'Area', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+	<div class="col-sm-10">
+		{{ form_widget(nuevoform.Area,{'attr':{'class': 'form-control','id':'carreracurso'}}) }}
+		{{ form_errors(nuevoform.Area) }}
+	</div>
+</div>
 <div class="col-md-12">
 	<div class='col-md-6'>
 		<p><b>día inicio</b></p>

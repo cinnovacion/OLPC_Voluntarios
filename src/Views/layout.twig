@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ni">
 <head>
-	<title> Home </title>
+	<title> {{pageTitle}} </title>
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/bootstrap.css"/>
 	<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/start.css" />
 	<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/header.css" />
 </head>
 <body>
-	{% if page != 'logger' %}
+	{% if page != 'noheader' %}
 	<header class="header-search">
 
 		<div class="header-limiter">
@@ -19,20 +19,23 @@
 				{% if page == 'home' %}
 				<a href="{{ path('voluntarios.overview') }}">Volunteers</a>
 				<a href="{{ path('empleados.overview') }}">Empleados</a>
+				<a href="{{ path('logger.log') }}">Log</a>
 				{% elseif page == 'voluntarios' %}
 				<a href="{{ path('voluntarios.overview') }}"class="selected">Volunteers</a>
 				<a href="{{ path('empleados.overview') }}">Empleados</a>
+				<a href="{{ path('logger.log') }}">Log</a>
 				{% elseif page == 'empleados' %}
 				<a href="{{ path('voluntarios.overview') }}">Volunteers</a>
 				<a href="{{ path('empleados.overview') }}" class="selected">Empleados</a>
+				<a href="{{ path('logger.log') }}">Log</a>
+
 				{% endif %}
 			</nav>
 			{% if session is defined %}
 			{% if session != null %}
 			
 			<div class="loginNavigation">
-				{{ session.nombre }}
-				<a href="{{ path('logout') }}" class="btn btn-primary-outline">Log out</a>
+				<a href="{{ path('logout') }}" class="btn btn-primary-outline">Log out ({{ session.nombre }})</a>
 				
 			</div>
 			{% endif %}

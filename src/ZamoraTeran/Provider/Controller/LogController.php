@@ -38,6 +38,12 @@ class logController implements ControllerProviderInterface {
 		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
+		}elseif ($app['session']->get('user')['nombre'] != 'logger') {
+			$app['session']->remove('user');
+			$app['session']->set('user', array(
+				'id' => 0,
+				'nombre' => 'logger'
+				));
 		}
 
 		$logform = $app['form.factory']->createNamed('loginform', 'form')
@@ -47,7 +53,17 @@ class logController implements ControllerProviderInterface {
 
 		if($logform->isValid()){
 			$data = $logform->getData();
-			$personaId= $app['db.persona']->getIdByName($data['barcode'])['id'];
+			$personaId= $app['db.persona']->getIdByNoCedula($data['barcode'])['id'];
+			if($personaId == null){
+				$logform->get('barcode')->addError(new \Symfony\Component\Form\FormError('El code no existe'));
+				$data = array(
+					'logform' => $logform->createView(),
+					'page' => 'noheader'
+					);
+
+		// Inject data into the template which will show 'm all
+				return $app['twig']->render('Log/log.twig',$data); 
+			}
 			$lastInput = $app['db.trabajar']->getLastInput($personaId);
 			if($lastInput['dia'] == date("Y-m-d")){
 				if($lastInput['horaFinal'] == null){
@@ -76,16 +92,10 @@ class logController implements ControllerProviderInterface {
 
 		$data = array(
 			'logform' => $logform->createView(),
-			'page' => 'logger'
+			'page' => 'noheader'
 			);
 
 		// Inject data into the template which will show 'm all
 		return $app['twig']->render('Log/log.twig',$data);
-
 	}
-
-	
-
-
-	
 }

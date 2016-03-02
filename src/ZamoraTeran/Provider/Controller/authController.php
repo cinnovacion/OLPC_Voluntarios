@@ -40,10 +40,11 @@ class authController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function login(Application $app) {
-		if($app['session']->get('user') != null){
+		if($app['session']->get('user') != null || !(empty($app['session']->get('user')))){
 			return $app->redirect($app['url_generator']->generate('voluntarios.overview'));
 			die();
 		}
+		
 		include('\..\..\..\Classes\Encrypt.php');
 		$encrypt = new \Encrypt();
 		$loginform = $app['form.factory']->createNamed('loginform', 'form')

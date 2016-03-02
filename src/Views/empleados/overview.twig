@@ -2,30 +2,37 @@
 
 {% set pageTitle = 'Empleados' %}
 {% block pageContent %}
-<form class="form-inline searchForm" role="form" >
-	<div class="form-group">
-		<input type="text" class="form-control" id="busqueda" placeholder="Búsqueda">
-	</div>
-	<button type="submit" class="btn btn-info">Búsqueda</button>
-</form>
 
+<a href="{{path('empleados.nuevo')}}" class="btn btn-info" role="button">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"/> Nuevo
+				</a>
 <table class="table table-hover">
 	<thead>
 		<tr>
 			<th>Nombre</th>
-			<th></th>
+			<th>Cambia</th>
+			<th>Borrar empleado</th>
 		</tr>
 	</thead>
 	<tbody>
-		{% for voluntario in voluntarios %}
+		{% for empleado in empleados %}
 		<tr>
-			<td>{{voluntario.NoDeCedula}}</td>
-			<td>{{voluntario.Nombre}}</td>
 			
-			{% endfor %}
+			<td>{{empleado.Nombre}}</td>
+			<td>
+				<a href="{{path('empleados.details',{'id': empleado.idAdmins })}}" class="btn btn-info" role="button">
+					<span class="glyphicon glyphicon-cog" aria-hidden="true"/> Cambia
+				</a>
+			</td>
+			<td>
+				<a href="{{path('empleados.delete',{'id': empleado.idAdmins })}}" class="btn btn-info" role="button">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"/> Borrar
+				</a>
 
+			</td>
+		</tr>
+		{% endfor %}
 
-
-		</tbody>
-	</table>
-	{% endblock %}
+	</tbody>
+</table>
+{% endblock %}
