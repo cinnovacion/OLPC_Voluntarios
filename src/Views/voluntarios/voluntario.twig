@@ -4,7 +4,7 @@
 {% block pageContent %}
 
 <div class="col-md-12" style="height: 40px;">
-	<a href="{{path('voluntarios.overview')}}" class="btn btn-info btnreturn" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Retorno</a>
+	<a href="{{path('voluntarios.overview')}}" class="btn btn-info btnreturn" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
 	<a href="{{ app.request.baseUrl}}/print/{{voluntario.idPersona}}/card" class="btn btn-info print" role="button"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir insignia</a>
 </div>
 <div class="col-md-12">
@@ -38,35 +38,69 @@
 		<p><b>Teléfono:</b> {{voluntario.Telefono}}</p>
 		<p><b>institucion academica:</b> {{voluntario. InstitucionAcademica}}</p>
 		<p><b>Carrerra o curso:</b> {{voluntario.CarreraCurso}}</p>
-		<p><b>Nivel:</b> {{voluntario.Nivel}}  anto</p>
+		<p><b>Nivel:</b> {{voluntario.Nivel}}</p>
 	</div>
-	<div class="col-md-12">
-
-		<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}/edit" class="btn btn-info edit" role="button"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-		
-	</div>
+	
 </div>
+{% if voluntario.Observaciones == null %}
 <div class="col-md-12">
-	<p class="frame"><b>Trabaja para:</b> {% if trabajaPara.Total == 0 %}0{% else %}{{trabajaPara.Total}}{% endif %} horas</p>
-	<p class="frame"><b>Trabaja del</b> {{voluntario.DiaInicio}} <b>al el </b>{{voluntario.DiaFinal}}</p>
+	<p class="frameWide"><b>Horas acumuladas:</b> {% if trabajaPara.Total == 0 %}0{% else %}{{trabajaPara.Total}}{% endif %} horas</p>
+	<p class="frameWide"><b>Trabaja desde</b> {{voluntario.DiaInicio}} {% if voluntario.DiaFinal != null %}<b> hasta </b>{{voluntario.DiaFinal}}{% endif %}</p>
 	{% if disponibilidad != null %}
-	<div class="col-md-12 trabajaade">
-		<div class="col-md-2">
+	<div class="frame trabajaadeWide">
+		<div class="col-md-3">
 			<b>Trabaja a </b>
 		</div>
 		<div class="col-md-9">
-			<ul>
+			<ul style='padding-left: 10px'>
 				{% for disp in disponibilidad %}
 				<li>		
-					{{ disp['dia'] }} de 
-					{{ disp['horaInicio'] }} a
+					{{ disp['dia'] }} desde 
+					{{ disp['horaInicio'] }} hasta
 					{{ disp['horaFinal'] }}
 				</li>
 				{% endfor %}
 			</ul>
 		</div>
 	</div>
+
 	{% endif %}
+</div>
+{% else %}
+<div class="col-md-12">
+	<div class="col-md-6 column1">
+		<p><b>Observaciones: </b>{{ voluntario.Observaciones }}</p>
+	</div>
+	<div class="col-md-6 column2">
+		<p class="frame"><b>Horas acumuladas:</b> {% if trabajaPara.Total == 0 %}0{% else %}{{trabajaPara.Total}}{% endif %} horas</p>
+		<p class="frame"><b>Trabaja desde</b> {{voluntario.DiaInicio}} {% if voluntario.DiaFinal != null %}<b> hasta </b>{{voluntario.DiaFinal}}{% endif %}</p>
+		{% if disponibilidad != null %}
+		<div class="col-md-12 trabajaade">
+			<div class="col-md-3" style="padding-left: 0">
+				<b>Trabaja a </b>
+			</div>
+			<div class="col-md-9" style="padding-left: 0">
+				<ul style="padding-left: 10px;">
+					{% for disp in disponibilidad %}
+					<li>		
+						{{ disp['dia'] }} desde 
+						{{ disp['horaInicio'] }} hasta
+						{{ disp['horaFinal'] }}
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</div>
+{% endif %}
+
+
+<div class="col-md-12">
+
+	<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}/edit" class="btn btn-info edit" role="button"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+
 </div>
 <div class="workingTable col-md-12">
 	<div class="col-md-2"></div>
@@ -83,10 +117,10 @@
 			<tbody>
 				{% for ahoras in trabaja %}
 				<tr>
-					<td>{{ahoras.dia}}</td>
-					<td>{{ahoras.horaInicio}}</td>
-					<td>{{ahoras.horaFinal}}</td>
-					<td>{{ahoras.tiempo}} horas</td>
+					<td>{% if ahoras.dia != null %}{{ahoras.dia}}{% else %}/{% endif %}</td>
+					<td>{% if ahoras.horaInicio != null %}{{ahoras.horaInicio}}{% else %}/{% endif %}</td>
+					<td>{% if ahoras.horaFinal != null %}{{ahoras.horaFinal}}{% else %}/{% endif %}</td>
+					<td>{% if ahoras.tiempo != null %}{{ahoras.tiempo}} horas{% else %}/{% endif %}</td>
 				</tr>
 				{% endfor %}
 			</tbody>

@@ -1,13 +1,11 @@
 {% extends 'layout.twig' %}
 
-{% set pageTitle = 'Volentarios' %}
+{% set pageTitle = 'Nuevo volentarios' %}
 {% block pageContent %}
 
 <div class="col-md-12" style="margin-bottom: 15px;">
 
-	
-	
-	{% if formulario == 'new' %}
+{% if formulario == 'new' %}
 <a href="{{ path('voluntarios.overview')}}" class="btn btn-info">Cancellar</a>
 {% elseif formulario == 'edit' %}
 <a href="{{ detailpath }}" class="btn btn-info">Cancellar</a>
@@ -25,7 +23,14 @@
 	{{ form_label(nuevoform.Nombre, 'Nombre completo', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 	<div class="col-sm-10">
 		{{ form_widget(nuevoform.Nombre,{'attr':{'class': 'form-control','id':'nombre','placeholder':'Nombre completo'}}) }}
-		{{ form_errors(nuevoform.Nombre) }}
+		{{ form_errors(nuevoform.Nombre,{'attr':{'class': 'form-error'}}) }}
+	</div>
+</div>
+<div class="form-group row">
+	{{ form_label(nuevoform.Sexo, 'Sexo', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+	<div class="col-sm-10">
+		{{ form_widget(nuevoform.Sexo,{'attr':{'class': 'form-control','id':'nombre','placeholder':'Nombre completo','style':'margin-left:8px'}}) }}
+		{{ form_errors(nuevoform.Sexo) }}
 	</div>
 </div>
 <div class="form-group row">
@@ -89,7 +94,7 @@
 		<p><b>día inicio</b></p>
 		<div class="form-group">
 			<div class='input-group date' id='datetimepicker1'>
-				{{ form_widget(nuevoform.DiaInicio,{'attr':{'class':'form-control'}})}}
+				{{ form_widget(nuevoform.DiaInicio,{'attr':{'class':'form-control','style':'margin-top: 0px;margin-left: 0px;    height: 34.6px;'}})}}
 				<span class="input-group-addon">
 					<span class="glyphicon glyphicon-calendar"></span>
 				</span>
@@ -101,7 +106,7 @@
 		<p><b>día final</b></p>
 		<div class="form-group">
 			<div class='input-group date' id='datetimepicker2'>
-				{{ form_widget(nuevoform.DiaFinal,{'attr':{'class':'form-control'}})}}
+				{{ form_widget(nuevoform.DiaFinal,{'attr':{'class':'form-control','style':'margin-top: 0px;margin-left: 0px;    height: 34.6px;'}})}}
 				<span class="input-group-addon">
 					<span class="glyphicon glyphicon-calendar"></span>
 				</span>
@@ -143,13 +148,13 @@
 				<tr>
 					<td id="lunes">
 						<div class="form-group row">
-							{{ form_label(nuevoform.fromLunes,'De', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+							{{ form_label(nuevoform.fromLunes,'Desde', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 							<div class="input-group bootstrap-timepicker timepicker">
 								{{ form_widget(nuevoform.fromLunes,{'attr':{'class':'form-control input-small','id':'fromLunes'}})}}
 							</div>
 						</div>
 						<div class="form-group row">
-							{{ form_label(nuevoform.toLunes,'A', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+							{{ form_label(nuevoform.toLunes,'Hasta', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 							<div class="input-group bootstrap-timepicker timepicker">
 								{{ form_widget(nuevoform.toLunes,{'attr':{'class':'form-control input-small','id':'toLunes'}})}}
 							</div>
@@ -157,14 +162,14 @@
 					</td>
 					<td id="martes">
 						<div class="form-group row">
-							{{ form_label(nuevoform.fromMartes,'De', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+							{{ form_label(nuevoform.fromMartes,'Desde', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 							<div class="input-group bootstrap-timepicker timepicker">
 								{{ form_widget(nuevoform.fromMartes,{'attr':{'class':'form-control input-small','id':'fromMartes'}})}}
 							</div>
 
 						</div>
 						<div class="form-group row">
-							{{ form_label(nuevoform.toMartes,'A', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+							{{ form_label(nuevoform.toMartes,'Hasta', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 							<div class="input-group bootstrap-timepicker timepicker">
 								{{ form_widget(nuevoform.toMartes,{'attr':{'class':'form-control input-small','id':'toMartes'}})}}
 							</div>
@@ -173,14 +178,14 @@
 					</td>
 					<td id="miercoles">
 						<div class="form-group row">
-							{{ form_label(nuevoform.fromMiercoles,'De', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+							{{ form_label(nuevoform.fromMiercoles,'Desde', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 							<div class="input-group bootstrap-timepicker timepicker">
 								{{ form_widget(nuevoform.fromMiercoles,{'attr':{'class':'form-control input-small','id':'fromMiercoles'}})}}
 							</div>
 
 						</div>
 						<div class="form-group row">
-							{{ form_label(nuevoform.toMiercoles,'A', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+							{{ form_label(nuevoform.toMiercoles,'Hasta', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 							<div class="input-group bootstrap-timepicker timepicker">
 								{{ form_widget(nuevoform.toMiercoles,{'attr':{'class':'form-control input-small','id':'toMiercoles'}})}}
 							</div>
@@ -189,14 +194,14 @@
 					</td>
 					<td id="jueves">
 						<div class="form-group row">
-							{{ form_label(nuevoform.fromJueves,'De', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+							{{ form_label(nuevoform.fromJueves,'Desde', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 							<div class="input-group bootstrap-timepicker timepicker">
 								{{ form_widget(nuevoform.fromJueves,{'attr':{'class':'form-control input-small','id':'fromJueves'}})}}
 							</div>
 
 						</div>
 						<div class="form-group row">
-							{{ form_label(nuevoform.toJueves,'A', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+							{{ form_label(nuevoform.toJueves,'Hasta', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 							<div class="input-group bootstrap-timepicker timepicker">
 								{{ form_widget(nuevoform.toJueves,{'attr':{'class':'form-control input-small','id':'toJueves'}})}}
 							</div>
@@ -205,14 +210,14 @@
 					</td>
 					<td id="viernes">
 						<div class="form-group row">
-							{{ form_label(nuevoform.fromViernes,'De', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+							{{ form_label(nuevoform.fromViernes,'Desde', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 							<div class="input-group bootstrap-timepicker timepicker">
 								{{ form_widget(nuevoform.fromViernes,{'attr':{'class':'form-control input-small','id':'fromViernes'}})}}
 							</div>
 
 						</div>
 						<div class="form-group row">
-							{{ form_label(nuevoform.toViernes,'A', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+							{{ form_label(nuevoform.toViernes,'Hasta', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 							<div class="input-group bootstrap-timepicker timepicker">
 								{{ form_widget(nuevoform.toViernes,{'attr':{'class':'form-control input-small','id':'toViernes'}})}}
 							</div>
@@ -225,18 +230,33 @@
 	</div>
 </div>
 <div class="form-group row">
+	{{ form_label(nuevoform.HorasAccumuladas, 'Horas accumulados en el pasado', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+	<div class="col-sm-10">
+		{{ form_widget(nuevoform.HorasAccumuladas,{'attr':{'class': 'form-control','id':'HorasAccumulados','placeholder':'0','value': '0','type':'number'}}) }}
+		{{ form_errors(nuevoform.HorasAccumuladas) }}
+	</div>
+</div>
+
+<div class="form-group row">
+	{{ form_label(nuevoform.Observaciones, 'Observaciones', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+	<div class="col-sm-10">
+		{{ form_widget(nuevoform.Observaciones,{'attr':{'class': 'form-control','id':'Observaciones','placeholder':'Observaciones','rows':'5'}}) }}
+		{{ form_errors(nuevoform.Observaciones) }}
+	</div>
+</div>
+<div class="form-group row">
 	<div class="col-sm-offset-2 col-sm-10">
 		{% if formulario == 'new' %}
 		<button type="submit" class="btn btn-info submitButton">Añadir el voluntario</button>
 		{% elseif formulario == 'edit' %}
-		<button type="submit" class="btn btn-info submitButton">Cambia el voluntario</button>
+		<button type="submit" class="btn btn-info submitButton">Guardar el voluntario</button>
 		{% endif %}
 
 	</div>
 </div>
 {{ form_widget(nuevoform._token)}}
 </form>
-<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/jquery.js"></script>
 <script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/moment.js"></script>
 <script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/bootstrap.js"></script>
 <script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/bootstrap-timepicker.js"></script>

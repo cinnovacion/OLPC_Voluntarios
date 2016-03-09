@@ -16,6 +16,14 @@ class personaRepository extends \Knp\Repository {
 		return $this->db->fetchAssoc('SELECT count(*) as count FROM persona');
 	}
 
+	public function countByString($search){
+		return $this->db->fetchAssoc('
+			SELECT count(*) as count FROM persona
+			WHERE nombre LIKE "%'.$search.'%" OR
+			NoDeCedula LIKE "%'.$search.'%" OR
+			Telefono LIKE "%'.$search.'%" OR
+			CorreoElectronico LIKE "%'.$search.'%"');
+	}
 	public function findAll($curpage,$numItemsPerPage){
 		return $this->db->fetchAll('SELECT * FROM persona LIMIT ' . (int) (($curpage - 1) * $numItemsPerPage) . ',' .
 			(int) ($numItemsPerPage));
@@ -25,14 +33,12 @@ class personaRepository extends \Knp\Repository {
 		if($search == null){
 			return $this->findAll();
 		}
-		return $this->db->fetchAll('SELECT * FROM persona WHERE 
-			nombre LIKE "%'.$search.'%" OR
+		return $this->db->fetchAll('
+			SELECT * FROM persona 
+			WHERE nombre LIKE "%'.$search.'%" OR
 			NoDeCedula LIKE "%'.$search.'%" OR
-			DireccionDeResidencia LIKE "%'.$search.'%" OR
 			Telefono LIKE "%'.$search.'%" OR
-			CorreoElectronico LIKE "%'.$search.'%" OR
-			InstitucionAcademica LIKE "%'.$search.'%" OR
-			CarreraCurso LIKE "%'.$search.'%"
+			CorreoElectronico LIKE "%'.$search.'%"
 			LIMIT ' . (int) (($curpage - 1) * $numItemsPerPage) . ',' .
 			(int) ($numItemsPerPage));
 	}
@@ -41,12 +47,12 @@ class personaRepository extends \Knp\Repository {
 		return $this->db->fetchAssoc('SELECT idPersona as id FROM persona WHERE NoDeCedula = ?',array($cedula));
 	}
 
-	public function getIdByName($name){
-		return $this->db->fetchAssoc('SELECT idPersona AS id FROM persona WHERE Nombre = ?',array($name));
+	public function getPersonByCedula($cedula){
+		return $this->db->fetchAssoc('SELECT * FROM persona WHERE NoDeCedula = ?',array($cedula));
 	}
 
-	public function getIdByNoCedula($cedula){
-		return $this->db->fetchAssoc('SELECT idPersona AS id FROM persona WHERE NoDeCedula = ?',array($cedula));
+	public function getIdByName($name){
+		return $this->db->fetchAssoc('SELECT idPersona AS id FROM persona WHERE Nombre = ?',array($name));
 	}
 }
 //EOF
