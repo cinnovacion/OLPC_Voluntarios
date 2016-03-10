@@ -1,0 +1,632 @@
+.content{
+	width: 98em;
+	margin: auto;
+}
+.container{
+	margin-top: 15px;
+}
+
+.structural {
+	position: absolute;
+	left: -9999px;
+}
+
+.loginBox{
+	position:fixed;
+	top: 50%;
+	left: 45%;
+	width:24em;
+	height:14em;
+	margin-top: -10em; /*set to a negative number 1/2 of your height*/
+	margin-left: -9em; /*set to a negative number 1/2 of your width*/
+	border: 1px solid #ccc;
+	background-color: #f3f3f3;
+	padding: auto;
+}
+
+.loginTitle{
+	margin-left: 1em;
+}
+
+form{
+	margin-left: 2em;
+
+}
+
+input{
+	margin: 0.5em;
+	margin-right: 3.5em;
+}
+
+.button{
+	margin-right: 4.5em;
+	float:right;
+}
+
+.login{
+	margin-left: 1em;
+}
+
+input{
+	width: 20em;
+}
+
+.timepicker{
+	width: 9em;
+	float: right;
+	margin-right: 15px;
+}
+
+.submitButton{
+	float: right;
+}
+
+.trabajoLunes, .trabajoMartes, .trabajoMiercoles, .trabajoJueves,.trabajoViernes{
+	width: 1em;
+	margin-left: 15px;
+}
+
+input[type="checkbox"]{
+	margin-left: 10px;
+	margin-right: 15px;
+}
+
+#lunes, #martes,#miercoles,#jueves,#viernes{
+	opacity: 0;
+}
+
+.btnreturn{
+	margin-bottom: 3em;
+}
+
+.searchForm{
+	float: right;
+}
+
+.column1{
+	float: left;
+	padding-left: 10%;
+}
+.column2{
+	float:right;
+	padding-left: 10%;
+}
+
+.workingTable{
+	margin-top: 1em;
+}
+
+.edit{
+	float: right;
+	margin-right: 10%;
+}
+
+.buttonright{
+	float: right;
+	margin-right: 10%;
+}
+
+.buttonleft{
+	float: right;
+	margin-right: 15px;
+}
+
+.frameWide{
+	margin: auto;
+	width: 30em;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+.btnreturn{
+	margin-left: 10%;
+	margin-bottom: 3em;
+}
+
+input{
+	width: 20em;
+}
+
+.timepicker{
+	width: 9em;
+	float: right;
+	margin-right: 15px;
+}
+
+.submitButton{
+	float: right;
+}
+
+.trabajoLunes, .trabajoMartes, .trabajoMiercoles, .trabajoJueves,.trabajoViernes{
+	width: 1em;
+	margin-left: 15px;
+}
+
+input[type="checkbox"]{
+	margin-left: 10px;
+	margin-right: 15px;
+}
+
+#lunes, #martes,#miercoles,#jueves,#viernes{
+	opacity: 0;
+}
+
+.btnreturn{
+	margin-bottom: 3em;
+}
+
+.searchForm{
+	float: right;
+}
+
+.column1{
+	float: left;
+	padding-left: 10%;
+}
+.column2{
+	float:right;
+	padding-left: 10%;
+}
+
+.workingTable{
+	margin-top: 1em;
+}
+
+.edit{
+	float: right;
+	margin-right: 10%;
+}
+
+
+.btnreturn{
+	margin-left: 10%;
+	margin-bottom: 3em;
+}
+
+#busquedaform_Busqueda{
+	margin-right: 0;
+}
+
+.trabajaade{
+	padding-left:0;
+}
+
+.trabajaadeWide{
+	text-align: center;
+	padding-left:0;
+}
+
+.trabajaadeWide > .col-md-9 > ul{
+	text-align: left;
+}
+
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+	margin-bottom: 10px;
+}
+.form-signin .checkbox {
+	font-weight: normal;
+}
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+.form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+
+.lineAbove{
+	margin-top: 5px;
+	border-top: 1px solid gray;
+	padding-top: 5px;
+}
+
+.print{
+	float: right;
+    margin-right: 10%;
+}
+
+#contrasenaform_newpassword, #contrasenaform_repeatpassword,#contrasenaform_Nombre{
+	margin: 5px;
+}
+
+.submitPassword{
+	width: 100px;
+}
+
+.detailsempleado{
+	margin:auto;
+}
+
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay a, .overlay p {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+
+.closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px !important;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a, .overlay p  {font-size: 20px}
+  .closebtn {
+    font-size: 40px !important;
+    top: 15px;
+    right: 35px;
+  }
+}
+
+
+.form-error{
+	color: red;
+}.content{
+	width: 98em;
+	margin: auto;
+}
+.container{
+	margin-top: 15px;
+}
+
+.structural {
+	position: absolute;
+	left: -9999px;
+}
+
+.loginBox{
+	position:fixed;
+	top: 50%;
+	left: 45%;
+	width:24em;
+	height:14em;
+	margin-top: -10em; /*set to a negative number 1/2 of your height*/
+	margin-left: -9em; /*set to a negative number 1/2 of your width*/
+	border: 1px solid #ccc;
+	background-color: #f3f3f3;
+	padding: auto;
+}
+
+.loginTitle{
+	margin-left: 1em;
+}
+
+form{
+	margin-left: 2em;
+
+}
+
+input{
+	margin: 0.5em;
+	margin-right: 3.5em;
+}
+
+.button{
+	margin-right: 4.5em;
+	float:right;
+}
+
+.login{
+	margin-left: 1em;
+}
+
+input{
+	width: 20em;
+}
+
+.timepicker{
+	width: 9em;
+	float: right;
+	margin-right: 15px;
+}
+
+.submitButton{
+	float: right;
+}
+
+.trabajoLunes, .trabajoMartes, .trabajoMiercoles, .trabajoJueves,.trabajoViernes{
+	width: 1em;
+	margin-left: 15px;
+}
+
+input[type="checkbox"]{
+	margin-left: 10px;
+	margin-right: 15px;
+}
+
+#lunes, #martes,#miercoles,#jueves,#viernes{
+	opacity: 0;
+}
+
+.btnreturn{
+	margin-bottom: 3em;
+}
+
+.searchForm{
+	float: right;
+}
+
+.column1{
+	float: left;
+	padding-left: 10%;
+}
+.column2{
+	float:right;
+	padding-left: 10%;
+}
+
+.workingTable{
+	margin-top: 1em;
+}
+
+.edit{
+	float: right;
+	margin-right: 10%;
+}
+
+.buttonright{
+	float: right;
+	margin-right: 10%;
+}
+
+.buttonleft{
+	float: right;
+	margin-right: 15px;
+}
+
+.frame{
+	margin: auto;
+	width: 30em;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+.frameWide{
+	margin: auto;
+	width: 30em;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+.btnreturn{
+	margin-left: 10%;
+	margin-bottom: 3em;
+}
+
+input{
+	width: 20em;
+}
+
+.timepicker{
+	width: 9em;
+	float: right;
+	margin-right: 15px;
+}
+
+.submitButton{
+	float: right;
+}
+
+.trabajoLunes, .trabajoMartes, .trabajoMiercoles, .trabajoJueves,.trabajoViernes{
+	width: 1em;
+	margin-left: 15px;
+}
+
+input[type="checkbox"]{
+	margin-left: 10px;
+	margin-right: 15px;
+}
+
+#lunes, #martes,#miercoles,#jueves,#viernes{
+	opacity: 0;
+}
+
+.btnreturn{
+	margin-bottom: 3em;
+}
+
+.searchForm{
+	float: right;
+}
+
+.column1{
+	float: left;
+	padding-left: 10%;
+}
+.column2{
+	float:right;
+	padding-left: 10%;
+}
+
+.workingTable{
+	margin-top: 1em;
+}
+
+.edit{
+	float: right;
+	margin-right: 10%;
+}
+
+
+.btnreturn{
+	margin-left: 10%;
+	margin-bottom: 3em;
+}
+
+#busquedaform_Busqueda{
+	margin-right: 0;
+}
+
+.trabajaade{
+	padding-left:0;
+}
+
+.trabajaadeWide{
+	text-align: center;
+	padding-left:0;
+}
+
+.trabajaadeWide > .col-md-9 > ul{
+	text-align: left;
+}
+
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+	margin-bottom: 10px;
+}
+.form-signin .checkbox {
+	font-weight: normal;
+}
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+.form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+
+.lineAbove{
+	margin-top: 5px;
+	border-top: 1px solid gray;
+	padding-top: 5px;
+}
+
+.print{
+	float: right;
+    margin-right: 10%;
+}
+
+#contrasenaform_newpassword, #contrasenaform_repeatpassword,#contrasenaform_Nombre{
+	margin: 5px;
+}
+
+.submitPassword{
+	width: 100px;
+}
+
+.detailsempleado{
+	margin:auto;
+}
+
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay a, .overlay p {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+
+.closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px !important;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a, .overlay p  {font-size: 20px}
+  .closebtn {
+    font-size: 40px !important;
+    top: 15px;
+    right: 35px;
+  }
+}
+
+
+.form-error{
+	color: red;
+}

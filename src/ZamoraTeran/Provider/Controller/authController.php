@@ -43,8 +43,9 @@ class authController implements ControllerProviderInterface {
 		if($app['session']->get('user') != null /**|| !(empty($app['session']->get('user')))**/){
 			return $app->redirect($app['url_generator']->generate('voluntarios.overview'));
 			die();
-		}
-		
+	}	
+
+	
 		include('/var/www/html/src/Classes/Encrypt.php');
 		$encrypt = new \Encrypt();
 		$loginform = $app['form.factory']->createNamed('loginform', 'form')
