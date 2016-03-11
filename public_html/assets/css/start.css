@@ -111,12 +111,6 @@ input[type="checkbox"]{
 	margin-right: 15px;
 }
 
-.frame{
-	margin: auto;
-	width: 30em;
-	margin-bottom: 5px;
-}
-
 .frameWide{
 	margin: auto;
 	width: 30em;
@@ -433,6 +427,7 @@ input[type="checkbox"]{
 	margin: auto;
 	width: 30em;
 	margin-bottom: 5px;
+	text-align: center;
 }
 
 .frameWide{

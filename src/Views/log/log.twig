@@ -11,7 +11,7 @@
 		{{ form_errors(logform) }}
 		<h2 class="form-signin-heading">Escanear o introducir su numero de cedula</h2>
 		{{ form_label(logform.barcode, 'Barcode', { 'label_attr': {'class': 'sr-only'}}) }}
-		{{ form_widget(logform.barcode,{'attr':{'class': 'form-control barcode','id':'nombre','placeholder':'Código de barras','autofocus':'autofocus','style':'margin-left:0;','autocomplete':'off'}}) }}
+		{{ form_widget(logform.barcode,{'attr':{'class': 'form-control barcode','id':'nombre','placeholder':'000-000000-0000X','autofocus':'autofocus','style':'margin-left:0;','autocomplete':'off'}}) }}
 		<ul id="error" style="opacity: 0;"><li>El code no existe</li></ul>
 		
 		{{ form_errors(logform.barcode) }}
