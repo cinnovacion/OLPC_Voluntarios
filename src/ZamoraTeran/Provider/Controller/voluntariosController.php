@@ -5,7 +5,7 @@ namespace ZamoraTeran\Provider\Controller;
 use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Silex\ControllerCollection;
-use Symfony\Component\Validator\constraints as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class voluntariosController implements ControllerProviderInterface {
 
@@ -61,7 +61,7 @@ class voluntariosController implements ControllerProviderInterface {
 		}
 
 		//pagination
-		require_once '\..\..\..\Classes\Pagination.php';
+		require_once '/var/www/html/src/Classes/Pagination.php';
 		$numItemsPerPage = 15;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
 
@@ -118,7 +118,7 @@ class voluntariosController implements ControllerProviderInterface {
 			die();
 
 		}
-		require_once '\..\..\..\Classes\Pagination.php';
+		require_once '/var/www/html/src/Classes/Pagination.php';
 		$numItems = $app['db.trabajar']->countById($id)['count'];
 		$numItemsPerPage = 10;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;

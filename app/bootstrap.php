@@ -8,17 +8,18 @@ $app = new Silex\Application();
 // App Configuration
 $app['debug'] = true;
 
+
 // Use Twig — @note: Be sure to install Twig via Composer first!
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-	'twig.path' => __DIR__ .  DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'views'
+	'twig.path' => '/var/www/html/src/Views'
 ));
 
 // Use Doctrine — @note: Be sure to install Doctrine via Composer first!
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 	'db.options' => array(
         'driver' => 'pdo_mysql',
-        'host' => 'localhost',
-        'dbname' => 'olpc_voluntarios',
+        'host' => '127.0.0.1',
+        'dbname' => 'voluntarios',
         'user' => 'root',
         'password' => '',
         'charset' => 'utf8mb4'
@@ -35,11 +36,6 @@ $app->register(new Knp\Provider\RepositoryServiceProvider(), array(
     )
 ));
 
-// Use Twig — @note: Be sure to install Twig via Composer first!
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__ .  DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'views'
-));
-
 // Use UrlGenerator Service Provider - @note: Be sure to install "symfony/twig-bridge" via Composer if you want to use the `url` & `path` functions in Twig
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
@@ -51,8 +47,7 @@ $app->register(new Silex\Provider\FormServiceProvider());
 
 // Use Translation Service Provider because without it our form won't work
 $app->register(new Silex\Provider\TranslationServiceProvider(), array(
-    'locale' => 'es',
-    'translator.messages' => array()    
+    'translator.messages' => array(),
 ));
 
 // Use Session Service Provider

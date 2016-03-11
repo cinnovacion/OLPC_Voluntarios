@@ -113,15 +113,9 @@ input[type="checkbox"]{
 
 .frame{
 	margin: auto;
-	width: 30em;
-	margin-bottom: 5px;
-}
-
-.frameWide{
-	margin: auto;
-	width: 30em;
-	margin-bottom: 5px;
+	width: 20em;
 	text-align: center;
+	margin-bottom: 5px;
 }
 
 .btnreturn{
@@ -194,17 +188,9 @@ input[type="checkbox"]{
 }
 
 .trabajaade{
-	padding-left:0;
+	padding-left: 34.5%;
 }
 
-.trabajaadeWide{
-	text-align: center;
-	padding-left:0;
-}
-
-.trabajaadeWide > .col-md-9 > ul{
-	text-align: left;
-}
 
 .form-signin {
 	max-width: 330px;
@@ -250,11 +236,12 @@ input[type="checkbox"]{
 
 .print{
 	float: right;
-    margin-right: 10%;
 }
 
 #contrasenaform_newpassword, #contrasenaform_repeatpassword,#contrasenaform_Nombre{
+	width: 200px;
 	margin: 5px;
+	float: left;
 }
 
 .submitPassword{
@@ -263,57 +250,4 @@ input[type="checkbox"]{
 
 .detailsempleado{
 	margin:auto;
-}
-
-.overlay {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0, 0.9);
-    overflow-x: hidden;
-}
-
-.overlay-content {
-    position: relative;
-    top: 25%;
-    width: 100%;
-    text-align: center;
-    margin-top: 30px;
-}
-
-.overlay a, .overlay p {
-    padding: 8px;
-    text-decoration: none;
-    font-size: 36px;
-    color: #818181;
-    display: block;
-}
-
-.overlay a:hover, .overlay a:focus {
-    color: #f1f1f1;
-}
-
-.closebtn {
-    position: absolute;
-    top: 20px;
-    right: 45px;
-    font-size: 60px !important;
-}
-
-@media screen and (max-height: 450px) {
-  .overlay a, .overlay p  {font-size: 20px}
-  .closebtn {
-    font-size: 40px !important;
-    top: 15px;
-    right: 35px;
-  }
-}
-
-
-.form-error{
-	color: red;
 }

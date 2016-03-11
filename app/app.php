@@ -15,6 +15,8 @@ $app->error(function (\Exception $e, $code) use ($app) {
 	}
 });
 
+
+
 // Mount our Controllers
 $app->mount('/', new ZamoraTeran\Provider\Controller\authController());
 $app->mount('/voluntarios/', new ZamoraTeran\Provider\Controller\voluntariosController());

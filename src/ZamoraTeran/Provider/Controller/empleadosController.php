@@ -5,7 +5,7 @@ namespace ZamoraTeran\Provider\Controller;
 use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Silex\ControllerCollection;
-use Symfony\Component\Validator\constraints as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class empleadosController implements ControllerProviderInterface {
 
@@ -109,7 +109,7 @@ class empleadosController implements ControllerProviderInterface {
 			}elseif($data['repeatpassword'] != $data['newpassword']){
 				$loginform->get('contrasena')->addError(new \Symfony\Component\Form\FormError('El contrasena no es correcto'));
 			}else{
-				include('\..\..\..\Classes\Encrypt.php');
+				include('/var/www/html/src/Classes/Encrypt.php');
 				$encrypt = new \Encrypt();
 				$encrypted = $encrypt->encryptPassword($data['newpassword']);
 				$admin = array('Nombre' => $data['Nombre'],'contraseña' => $encrypted['salt'].$encrypted['password'] );
@@ -169,10 +169,13 @@ class empleadosController implements ControllerProviderInterface {
 		if($contrasenaform->isValid()){
 			$data = $contrasenaform->getData();
 			if($data['newpassword'] == $data['repeatpassword']){
+				include('/var/www/html/src/Classes/Encrypt.php');
+				$encrypt = new \Encrypt();
+				$encrypted = $encrypt->encryptPassword($data['newpassword']);
+
 				$app['db.admins']->insert(array(
 					'Nombre'       => $data['Nombre'],
-					'contraseña' => $data['newpassword']
-					));
+					'contraseña' => $encrypted['salt'].$encrypted['password']));
 				return $app->redirect($app['url_generator']->generate('empleados.overview'));
 			}
 		}
