@@ -60,13 +60,26 @@ class empleadosController implements ControllerProviderInterface {
 			die();
 		}
 
-		
+		//pagination
+		require_once '/var/www/html/src/Classes/Pagination.php';
+		$numItemsPerPage = 15;
+		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
+		$numItems = $app['db.admins']->count()['count'];
+		$empleados = $app['db.admins']->findAll($curpage,$numItemsPerPage);
+		$numPages = ceil($numItems / $numItemsPerPage);
+		$pagination =  generatePaginationSequence($curpage,$numPages);
+	
 
 		$data = array(
 			
 			'empleados' => $app['db.admins']->getEmpleados(),
 			'page' => 'empleados',
-			'session' => $app['session']->get('user')
+			'session' => $app['session']->get('user'),
+			'pagination' => $pagination,
+			'curPage' => $curpage,
+			'numPages' => $numPages,
+			'baseUrl' => $app['url_generator']->generate('empleados.overview'),
+			'numItems' => $numItems,
 			);
 		// Inject data into the template which will show 'm all
 		return $app['twig']->render('empleados/overview.twig',$data);

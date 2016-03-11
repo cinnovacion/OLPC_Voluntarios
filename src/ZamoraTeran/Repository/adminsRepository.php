@@ -8,8 +8,12 @@ class adminsRepository extends \Knp\Repository {
 		return 'admins';
 	}
 
-	public function findAll(){
+/**	public function findAll(){
 		return $this->db->fetchAll('SELECT * FROM admins');
+	}**/
+
+	public function count(){
+		return $this->db->fetchAssoc('SELECT count(*) as count FROM admins');
 	}
 
 	public function getByName($nombre){
@@ -24,6 +28,10 @@ class adminsRepository extends \Knp\Repository {
 	public function getEmpleadoById($id){
 		return $this->db->fetchAssoc('SELECT * FROM admins WHERE idAdmins = ?',array($id));
 	}
-}
 
+
+	public function findAll($curpage,$numItemsPerPage){
+		return $this->db->fetchAll('SELECT * FROM admins LIMIT ' . (int) (($curpage - 1) * $numItemsPerPage) . ',' .(int) ($numItemsPerPage));
+	}
+}
 //EOF

@@ -1,4 +1,7 @@
 <?php
+
+date_default_timezone_set("America/Managua")i
+
 // Require Composer Autoloader
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
@@ -17,7 +20,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 // Use Doctrine — @note: Be sure to install Doctrine via Composer first!
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 	'db.options' => array(
-        'driver' => 'pdo_mysql',
+        'nagua"driver' => 'pdo_mysql',
         'host' => '127.0.0.1',
         'dbname' => 'voluntarios',
         'user' => 'root',
