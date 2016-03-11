@@ -52,7 +52,7 @@ class voluntariosController implements ControllerProviderInterface {
 	 */
 	public function voluntarios(Application $app) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
 		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
@@ -62,12 +62,8 @@ class voluntariosController implements ControllerProviderInterface {
 
 		//pagination
 		require_once '\..\..\..\Classes\Pagination.php';
-		$numItems = $app['db.persona']->count()['count'];
 		$numItemsPerPage = 15;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
-		$numPages = ceil($numItems / $numItemsPerPage);
-		$pagination =  generatePaginationSequence($curpage,$numPages);
-
 
 		//Make the searchform
 		$busquedaform = $app['form.factory']->createNamed('busquedaform', 'form')
@@ -77,11 +73,18 @@ class voluntariosController implements ControllerProviderInterface {
 
 		if($busquedaform->isValid()){
 			$data = $busquedaform->getData();
+			$numItems = $app['db.persona']->countByString($data['Busqueda'])['count'];
 			$voluntarios = $app['db.persona']->findAllByString($data['Busqueda'],$curpage,$numItemsPerPage);
 		}else{
+			$numItems = $app['db.persona']->count()['count'];
 			$voluntarios = $app['db.persona']->findAll($curpage,$numItemsPerPage);
 		}
 
+		//rest of pagination
+		$numPages = ceil($numItems / $numItemsPerPage);
+		$pagination =  generatePaginationSequence($curpage,$numPages);
+
+		//data to display in html
 		$data = array(
 			'page' => 'voluntarios',
 			'voluntarios' => $voluntarios,
@@ -107,13 +110,13 @@ class voluntariosController implements ControllerProviderInterface {
 	 */
 	public function detail(Application $app, $id) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
 		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
-		
+
 		}
 		require_once '\..\..\..\Classes\Pagination.php';
 		$numItems = $app['db.trabajar']->countById($id)['count'];
@@ -147,13 +150,13 @@ class voluntariosController implements ControllerProviderInterface {
 	 */
 	public function edit(Application $app, $id) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
 		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
-		
+
 		}
 		$persona = $app['db.persona']->find($id);
 		$disponibilidad  = $app['db.disponibilidad']->getDisponibilidad($id);
@@ -162,6 +165,10 @@ class voluntariosController implements ControllerProviderInterface {
 		->add('Nombre', 'text', array(
 			'constraints' => array(new Assert\NotBlank(),new Assert\Length(array('min' => 5))),
 			'data' => $persona['Nombre']
+			))
+		->add('Sexo', 'choice', array(
+			'choices' => array(true => 'Masculino', false => 'Femenino'),
+			'data' => $persona['Sexo']
 			))
 		->add('NoDeCedula', 'text', array(
 			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5))),
@@ -192,19 +199,23 @@ class voluntariosController implements ControllerProviderInterface {
 			'data' => $persona['Nivel']
 			))
 		->add('Area', 'choice', array(
-            'choices' => array(
-            	1 => 'Comunicación', 
-            	2 => 'Mercadeo',
-            	3=>'Área Educativa',
-            	4=>'Programa de Voluntariado',
-            	5=>'Monitoreo y Evaluación',
-            	6=>'Técnico'),'data' => $persona['Area']))
+			'choices' => array(
+				1 => 'Comunicación', 
+				2 => 'Mercadeo',
+				3=>'Área Educativa',
+				4=>'Programa de Voluntariado',
+				5=>'Monitoreo y Evaluación',
+				6=>'Técnico'),'data' => $persona['Area']))
 		->add('DiaInicio','text', array(
 			'data' => $persona['DiaInicio']
 			))
 		->add('DiaFinal','text', array(
 			'data' => $persona['DiaFinal']
-			));
+			))
+		->add('HorasAccumuladas','number')
+		->add('Observaciones', 'textarea', array(
+			'attr' => array('maxlength' => 500),
+			'data' => $persona['Observaciones']));
 
 		$stack = array();
 		foreach ($disponibilidad as $disp) {
@@ -311,7 +322,9 @@ class voluntariosController implements ControllerProviderInterface {
 				'Nivel' => $data['Nivel'], 
 				'DiaInicio' => $data['DiaInicio'], 
 				'DiaFinal' => $data['DiaFinal'],
-				'Area' => $data['Area']
+				'Area' => $data['Area'],
+				'Sexo' => $data['Sexo'],
+				'Observaciones' => $data['Observaciones']
 				);
 			$app['db.persona']->update($persona, array('idPersona' => $id));
 
@@ -381,18 +394,21 @@ class voluntariosController implements ControllerProviderInterface {
 	 */
 	public function newVoluntario(Application $app) {
 		//checking if the user is loged in	
-		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
 		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
-		
+
 		}	
 		//making of the form
 		$nuevoform = $app['form.factory']->createNamed('nuevoform')
 		->add('Nombre', 'text', array(
 			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5)))
+			))
+		->add('Sexo', 'choice', array(
+			'choices' => array(true => 'Masculino', false => 'Femenino'),
 			))
 		->add('NoDeCedula', 'text', array(
 			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5)))
@@ -416,13 +432,13 @@ class voluntariosController implements ControllerProviderInterface {
 			'constraints' => array(new Assert\NotBlank())
 			))
 		->add('Area', 'choice', array(
-            'choices' => array(
-            	1 => 'Comunicación', 
-            	2 => 'Mercadeo',
-            	3=>'Área Educativa',
-            	4=>'Programa de Voluntariado',
-            	5=>'Monitoreo y Evaluación',
-            	6=>'Técnico')))
+			'choices' => array(
+				1 => 'Comunicación', 
+				2 => 'Mercadeo',
+				3=>'Área Educativa',
+				4=>'Programa de Voluntariado',
+				5=>'Monitoreo y Evaluación',
+				6=>'Técnico')))
 		->add('DiaInicio','text')
 		->add('DiaFinal','text')
 		->add('trabajoLunes', 'checkbox',array('required' => false))
@@ -441,7 +457,10 @@ class voluntariosController implements ControllerProviderInterface {
 		->add('fromJueves','text',array('required' => false))
 		->add('toJueves','text',array('required' => false))
 		->add('fromViernes','text',array('required' => false))
-		->add('toViernes','text',array('required' => false));
+		->add('toViernes','text',array('required' => false))
+		->add('HorasAccumuladas','number')
+		->add('Observaciones', 'textarea', array(
+			'attr' => array('maxlength' => 500)));
 
 		$nuevoform->handleRequest($app['request']);
 
@@ -460,7 +479,9 @@ class voluntariosController implements ControllerProviderInterface {
 				'Nivel' => $data['Nivel'], 
 				'DiaInicio' => $data['DiaInicio'], 
 				'DiaFinal' => $data['DiaFinal'],
-				'Area' => $data['Area']
+				'Area' => $data['Area'],
+				'Sexo' => $data['Sexo'],
+				'Observaciones' => $data['Observaciones']
 				);
 			$app['db.persona']->insert($persona);
 
@@ -508,6 +529,15 @@ class voluntariosController implements ControllerProviderInterface {
 					'dia' => 'viernes');
 				$app['db.disponibilidad']->insert($dia);
 			}
+
+			if($data['HorasAccumulados'] != 0 && $data['HorasAccumulados'] != NULL){
+				$trabajar =  array(
+					'Persona_idPersona' => $id,
+					'tiempo' => $data['HorasAccumulados']
+					);
+				$app['db.trabajar']->insert($trabajar);
+			}
+			
 			return $app->redirect($app['url_generator']->generate('voluntarios.detail',array('id' => $id)));
 		}
 		$data = array(

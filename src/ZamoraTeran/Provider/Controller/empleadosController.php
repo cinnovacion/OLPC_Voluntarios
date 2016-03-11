@@ -52,7 +52,7 @@ class empleadosController implements ControllerProviderInterface {
 	 */
 	public function overview(Application $app) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
 		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
@@ -80,7 +80,7 @@ class empleadosController implements ControllerProviderInterface {
 	 */
 	public function details(Application $app,$id) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
 		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
@@ -92,7 +92,7 @@ class empleadosController implements ControllerProviderInterface {
 
 		$contrasenaform = $app['form.factory']->createNamed('contrasenaform', 'form')
 		->add('Nombre', 'text', array(
-			'constraints' => array(new Assert\NotBlank(),new Assert\Length(array('min' => 5))),
+			'constraints' => array(new Assert\NotBlank()),
 			'data' => $empleado['Nombre']
 			))
 		->add('repeatpassword', 'password')
@@ -136,7 +136,7 @@ class empleadosController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function delete(Application $app,$id) {
-		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
 		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
@@ -155,10 +155,14 @@ class empleadosController implements ControllerProviderInterface {
 	public function newEmpleado(Application $app) {
 		$contrasenaform = $app['form.factory']->createNamed('contrasenaform', 'form')
 		->add('Nombre', 'text', array(
-			'constraints' => array(new Assert\NotBlank(),new Assert\Length(array('min' => 5)))
+			'constraints' => array(new Assert\NotBlank())
 			))
-		->add('repeatpassword', 'password', array('required' => true))
-		->add('newpassword', 'password', array('required' => true));
+		->add('repeatpassword', 'password', array(
+			'constraints' => array(new Assert\NotBlank())
+			))
+		->add('newpassword', 'password', array(
+			'constraints' => array(new Assert\NotBlank())
+			));
 
 		$contrasenaform->handleRequest($app['request']);
 

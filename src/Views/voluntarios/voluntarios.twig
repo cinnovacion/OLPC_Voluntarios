@@ -23,7 +23,7 @@
 			<th>Nombre</th>
 			<th>Correo electrónico</th>
 			<th>Teléfono</th>
-			<th>Trabaja para</th>
+			<th>horas acumuladas</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -37,7 +37,7 @@
 			<td>
 				{% for ahora in ahoras %}
 				{% if voluntario.idPersona == ahora.Persona_idPersona %}
-				{{ ahora.tiempo }} horas
+				{{ ahora.tiempo|round }} horas
 				{% endif %}
 				{% endfor %} </td>
 				<td><a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}" class="btn btn-info" role="button">Más</a></td>

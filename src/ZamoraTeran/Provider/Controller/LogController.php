@@ -35,7 +35,7 @@ class logController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function log(Application $app) {
-		if($app['session']->get('user') == null || empty($app['session']->get('user'))){
+		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
 		}elseif ($app['session']->get('user')['nombre'] != 'logger') {
@@ -49,11 +49,9 @@ class logController implements ControllerProviderInterface {
 		$logform = $app['form.factory']->createNamed('loginform', 'form')
 		->add('barcode', 'text', array('required' => true));
 
-		$logform->handleRequest($app['request']);
-
-		if($logform->isValid()){
+		/**if($logform->isValid()){
 			$data = $logform->getData();
-			$personaId= $app['db.persona']->getIdByNoCedula($data['barcode'])['id'];
+			$personaId= $app['db.persona']->getIdByCedula($data['barcode'])['id'];
 			if($personaId == null){
 				$logform->get('barcode')->addError(new \Symfony\Component\Form\FormError('El code no existe'));
 				$data = array(
@@ -61,34 +59,47 @@ class logController implements ControllerProviderInterface {
 					'page' => 'noheader'
 					);
 
-		// Inject data into the template which will show 'm all
+				// Inject data into the template which will show 'm all
 				return $app['twig']->render('Log/log.twig',$data); 
 			}
-			$lastInput = $app['db.trabajar']->getLastInput($personaId);
-			if($lastInput['dia'] == date("Y-m-d")){
-				if($lastInput['horaFinal'] == null){
-					$lastInput['horaFinal'] = date('h:i A');
-					$lastInput['tiempo'] = $lastInput['horaFinal']-$lastInput['horaInicio'];
-					$app['db.trabajar']->update($lastInput,array('idTrabajar' => $lastInput['idTrabajar']));
+			try{
+				$lastInput = $app['db.trabajar']->getLastInput($personaId);
+
+				if($lastInput['dia'] == date("Y-m-d")){
+
+					if($lastInput['horaFinal'] == null){
+						$lastInput['horaFinal'] = date("Y-m-d H:i:s");
+						$lastInput['tiempo'] = round((
+							strtotime($lastInput['horaFinal'])-
+							strtotime($lastInput['horaInicio'])
+							)/(3600), 2);
+						$app['db.trabajar']->update($lastInput,array('idTrabajar' => $lastInput['idTrabajar']));
+					}else{
+						$trabaja = array(
+							'Persona_idPersona' => $personaId,
+							'horaInicio' => date("Y-m-d H:i:s"),
+							'dia' => date("Y-m-d")
+							);
+						$app['db.trabajar']->insert($trabaja);
+					}
+
 				}else{
+
 					$trabaja = array(
 						'Persona_idPersona' => $personaId,
-						'horaInicio' => date('h:i A'),
+						'horaInicio' => date("Y-m-d H:i:s"),
 						'dia' => date("Y-m-d")
 						);
 					$app['db.trabajar']->insert($trabaja);
+
 				}
-			}else{
-				$trabaja = array(
-					'Persona_idPersona' => $personaId,
-					'horaInicio' => date('h:i A'),
-					'dia' => date("Y-m-d")
-					);
-				$app['db.trabajar']->insert($trabaja);
+			}catch(Exception $e){
+				$data = array('barcode'=>$data['barcode'] );
+				return $app->redirect($app['url_generator']->generate('logger.log',$data));
 			}
 			return $app->redirect($app['url_generator']->generate('logger.log'));
 			die();
-		}
+		}**/
 
 		$data = array(
 			'logform' => $logform->createView(),

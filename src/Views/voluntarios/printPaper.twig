@@ -5,12 +5,12 @@
 <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/printPage.css"/>
 <div id="toRemove">
 	<a class="btn btn-info buttonright" role="button" onclick="printPage()"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir voluntario</a>
-	<a href="/OLPC_Voluntarios/public_html/voluntarios/{{voluntario.idPersona}}" class="btn btn-info buttonleft" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Retorno</a>
+	<a href="/OLPC_Voluntarios/public_html/voluntarios/{{voluntario.idPersona}}" class="btn btn-info buttonleft" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
 </div>
 <img src="{{ app.request.baseUrl }}/assets/img/Fundacion-Zamora-Teran.jpg" class="logo">
 <h2>CONSTANCIA</h2>
 {%  if voluntario.Area == 1 %}
-<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como voluntaria/voluntario en el área de Soporte Comunicación de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
+<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Soporte Comunicación de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
 <p>A continuación se detallan algunas de las actividades en las cuales <b>{{voluntario.Nombre}}</b> aportó generosamente con sus habilidades y tiempo:
 	<ul>
 		<li>Edición de videos oficiales de la organización.</li>
@@ -19,7 +19,7 @@
 	</ul>
 </p>
 {% elseif voluntario.Area == 2 %}
-<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como voluntaria/voluntario en el área de Soporte Mercadeo de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
+<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Soporte Mercadeo de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
 <p>A continuación se detallan algunas de las actividades en las cuales <b>{{voluntario.Nombre}}</b> aportó generosamente con sus habilidades y tiempo:
 	<ul>
 		<li>Redacción de cartas de agradecimiento a donantes de la organización.</li>
@@ -29,7 +29,7 @@
 	</ul>
 </p>
 {% elseif voluntario.Area == 3 %}
-<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como voluntaria/voluntario en el área de Soporte Área Educativa de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
+<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Soporte Área Educativa de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
 <p>A continuación se detallan algunas de las actividades en las cuales <b>{{voluntario.Nombre}}</b> aportó generosamente con sus habilidades y tiempo:
 	<ul>
 	<li>Visitas de acompañamiento a escuelas beneficiadas por el Programa Educativo: “Una Computadora por Niño”.</li>
@@ -39,7 +39,7 @@
 	</ul>
 </p>
 {% elseif voluntario.Area == 4 %}
-<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como voluntaria/voluntario en el área de Soporte Programa de Voluntariado de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
+<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Soporte Programa de Voluntariado de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
 <p>A continuación se detallan algunas de las actividades en las cuales <b>{{voluntario.Nombre}}</b> aportó generosamente con sus habilidades y tiempo:
 	<ul>
 <li>Captación de voluntarios en universidades y organizaciones aliadas.</li>
@@ -50,7 +50,7 @@
 	</ul>
 </p>
 {% elseif voluntario.Area == 5 %}
-<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como voluntaria/voluntario en el área de Soporte Monitoreo y Evaluación de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
+<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Soporte Monitoreo y Evaluación de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
 <p>A continuación se detallan algunas de las actividades en las cuales <b>{{voluntario.Nombre}}</b> aportó generosamente con sus habilidades y tiempo:
 	<ul>
 <li>Aplicación y digitación de instrumentos de recolección de información primaria de escuelas beneficiadas por el Programa Educativo: “Una Computadora por Niño”.</li>
@@ -61,7 +61,7 @@
 	</ul>
 </p>
 {% elseif voluntario.Area == 6 %}
-<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como voluntaria/voluntario en el área de Soporte Técnico de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
+<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Soporte Técnico de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde {{ trabajaDe|date("m/d/Y") }} hasta {{ trabajaA|date("m/d/Y") }}.</p>
 <p>A continuación se detallan algunas de las actividades en las cuales <b>{{voluntario.Nombre}}</b> aportó generosamente con sus habilidades y tiempo:
 	<ul>
 		<li>Diagnóstico de daños y defectos de computadoras XO.</li>

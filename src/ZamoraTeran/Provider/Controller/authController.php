@@ -40,7 +40,7 @@ class authController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function login(Application $app) {
-		if($app['session']->get('user') != null || !(empty($app['session']->get('user')))){
+		if($app['session']->get('user') != null /**|| !(empty($app['session']->get('user')))**/){
 			return $app->redirect($app['url_generator']->generate('voluntarios.overview'));
 			die();
 		}

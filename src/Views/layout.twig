@@ -17,16 +17,16 @@
 
 			<nav>
 				{% if page == 'home' %}
-				<a href="{{ path('voluntarios.overview') }}">Volunteers</a>
-				<a href="{{ path('empleados.overview') }}">Empleados</a>
+				<a href="{{ path('voluntarios.overview') }}">Voluntarios</a>
+				<a href="{{ path('empleados.overview') }}">Personal</a>
 				<a href="{{ path('logger.log') }}">Log</a>
 				{% elseif page == 'voluntarios' %}
-				<a href="{{ path('voluntarios.overview') }}"class="selected">Volunteers</a>
-				<a href="{{ path('empleados.overview') }}">Empleados</a>
+				<a href="{{ path('voluntarios.overview') }}"class="selected">Voluntarios</a>
+				<a href="{{ path('empleados.overview') }}">Personal</a>
 				<a href="{{ path('logger.log') }}">Log</a>
 				{% elseif page == 'empleados' %}
-				<a href="{{ path('voluntarios.overview') }}">Volunteers</a>
-				<a href="{{ path('empleados.overview') }}" class="selected">Empleados</a>
+				<a href="{{ path('voluntarios.overview') }}">Voluntarios</a>
+				<a href="{{ path('empleados.overview') }}" class="selected">Personal</a>
 				<a href="{{ path('logger.log') }}">Log</a>
 
 				{% endif %}
@@ -35,7 +35,7 @@
 			{% if session != null %}
 			
 			<div class="loginNavigation">
-				<a href="{{ path('logout') }}" class="btn btn-primary-outline">Log out ({{ session.nombre }})</a>
+				<a href="{{ path('logout') }}" class="btn btn-primary-outline">Cerrar sesión ({{ session.nombre }})</a>
 				
 			</div>
 			{% endif %}

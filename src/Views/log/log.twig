@@ -1,21 +1,38 @@
 {% extends 'layout.twig' %}
-
 {% set pageTitle = 'Registro de entrada y salida' %}
 {% block pageContent %}
 <div class="container">
 
 
-	<a href="{{path('logout')}}" class="btn btn-info btnNuevo" role="button"><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Retorno</a>
+	<a href="{{path('logout')}}" class="btn btn-info btnNuevo" role="button"><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
 
 
-	<form action="{{ path('logger.log') }}" class="form-signin" method="post" {{ form_enctype(logform)}}>
+	<form action="{{ path('logger.log') }}" class="form-signin" method="post" id="form" {{ form_enctype(logform)}}>
 		{{ form_errors(logform) }}
 		<h2 class="form-signin-heading">Escanear o introducir su numero de cedula</h2>
 		{{ form_label(logform.barcode, 'Barcode', { 'label_attr': {'class': 'sr-only'}}) }}
-		{{ form_widget(logform.barcode,{'attr':{'class': 'form-control','id':'nombre','placeholder':'Barcode','autofocus':'autofocus'}}) }}
+		{{ form_widget(logform.barcode,{'attr':{'class': 'form-control barcode','id':'nombre','placeholder':'Código de barras','autofocus':'autofocus','style':'margin-left:0;','autocomplete':'off'}}) }}
+		<ul id="error" style="opacity: 0;"><li>El code no existe</li></ul>
+		
 		{{ form_errors(logform.barcode) }}
-		<button class="btn btn-lg btn-primary btn-block">Proceed</button>
+		<button class="btn btn-lg btn-primary btn-block" id="proceder" type="button">proceder</button>
 		{{ form_widget(logform._token)}}
+		{{ form_row(logform._token) }}
+		{{ form_rest(logform._token) }}
 	</form>
+	<div id="myNav" class="overlay">
+		<div class="overlay-content">
+			<p id="line1"></p>
+			<p id="line2"></p>
+			<p id="line3"></p>
+			<a href="javascript:void(0)" id='si'>Sí</a>
+			<a href="javascript:void(0)" id='no'>No</a>
+			<a href="javascript:void(0)" id='ok'>Listo</a>
+
+		</div>
+	</div>
 </div>
+
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/jquery.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/log.js"></script>
 {% endblock %}

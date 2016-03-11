@@ -3,7 +3,7 @@
 {% set pageTitle = 'Nuevo empleado' %}
 {% block pageContent %}
 <div class="col-md-12"  style="padding-left: 0;">
-	<a href="{{path('empleados.overview')}}" class="btn btn-info btnreturn" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Retorno</a>
+	<a href="{{path('empleados.overview')}}" class="btn btn-info btnreturn" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras	</a>
 </div>
 <div class="col-md-2"></div>
 <div class="col-md-8">
@@ -16,7 +16,7 @@
 	" method="post" {{ form_enctype(contrasenaform)}} novalidate="novalidate" class="detailsempleado">
 	{{ form_errors(contrasenaform) }}
 	<div class="form-group row">
-		{{ form_label(contrasenaform.Nombre, 'nombre de usuario', { 'label_attr': {'class': 'col-sm-4 form-control-label'} }) }}
+		{{ form_label(contrasenaform.Nombre, 'Nombre de usuario', { 'label_attr': {'class': 'col-sm-4 form-control-label'} }) }}
 
 		<div class="col-sm-6">
 			{{ form_widget(contrasenaform.Nombre,{'attr':{'class': 'form-control','id':'nombre','placeholder':'nombre de usuario'}}) }}
@@ -25,14 +25,14 @@
 		</div>
 	</div>
 	<div class="form-group row">
-		{{ form_label(contrasenaform.repeatpassword, 'contraseña', { 'label_attr': {'class': 'col-sm-4 form-control-label'} }) }}
+		{{ form_label(contrasenaform.repeatpassword, 'Contraseña', { 'label_attr': {'class': 'col-sm-4 form-control-label'} }) }}
 		<div class="col-sm-6">
 			{{ form_widget(contrasenaform.repeatpassword,{'attr':{'class': 'form-control','id':'nombre','placeholder':'contraseña'}}) }}
 			{{ form_errors(contrasenaform.repeatpassword) }}
 		</div>
 	</div>
 	<div class="form-group row">
-		{{ form_label(contrasenaform.newpassword, 'repetir contraseña', { 'label_attr': {'class': 'col-sm-4 form-control-label'} }) }}
+		{{ form_label(contrasenaform.newpassword, 'Repetir contraseña', { 'label_attr': {'class': 'col-sm-4 form-control-label'} }) }}
 		<div class="col-sm-6">
 			{{ form_widget(contrasenaform.newpassword,{'attr':{'class': 'form-control','id':'nombre','placeholder':'repetir contraseña'}}) }}
 			{{ form_errors(contrasenaform.newpassword) }}

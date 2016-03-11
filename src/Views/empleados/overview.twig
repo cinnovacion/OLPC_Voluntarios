@@ -4,8 +4,8 @@
 {% block pageContent %}
 
 <a href="{{path('empleados.nuevo')}}" class="btn btn-info" role="button">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"/> Nuevo
-				</a>
+	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo
+</a>
 <table class="table table-hover">
 	<thead>
 		<tr>
@@ -21,12 +21,12 @@
 			<td>{{empleado.Nombre}}</td>
 			<td>
 				<a href="{{path('empleados.details',{'id': empleado.idAdmins })}}" class="btn btn-info" role="button">
-					<span class="glyphicon glyphicon-cog" aria-hidden="true"/> Cambia
+					<span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Cambia
 				</a>
 			</td>
 			<td>
-				<a href="{{path('empleados.delete',{'id': empleado.idAdmins })}}" class="btn btn-info" role="button">
-					<span class="glyphicon glyphicon-remove" aria-hidden="true"/> Borrar
+				<a href="javascript:void(0)" onclick="areYouSure({{empleado.idAdmins}})" class="btn btn-info" role="button" type="button">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Borrar
 				</a>
 
 			</td>
@@ -35,4 +35,36 @@
 
 	</tbody>
 </table>
+<div id="myNav" class="overlay">
+	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+	<div class="overlay-content">
+
+		<p>Estás seguro?</p>
+		<a href="javascript:void(0)" id='si' onclick="deleteAdmin()">Sí</a>
+		<a href="javascript:void(0)" id='no' onclick="closeNav()">No</a>		
+
+	</div>
+</div>
+
+<script type="text/javascript">
+	var idAdmins;
+
+	function areYouSure(id){
+		idAdmins = id;
+		openNav();
+	}
+
+	function openNav() {
+		document.getElementById("myNav").style.width = "100%";
+	}
+
+	function closeNav() {
+		overlay = false;
+		document.getElementById("myNav").style.width = "0%";
+	}
+
+	function deleteAdmin(){
+		window.location.href = "../empleados/" + idAdmins + "/delete";
+	}
+</script>
 {% endblock %}

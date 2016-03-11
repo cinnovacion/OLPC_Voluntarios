@@ -8,7 +8,6 @@ $app = new Silex\Application();
 // App Configuration
 $app['debug'] = true;
 
-
 // Use Twig — @note: Be sure to install Twig via Composer first!
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
 	'twig.path' => __DIR__ .  DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'views'
@@ -52,7 +51,8 @@ $app->register(new Silex\Provider\FormServiceProvider());
 
 // Use Translation Service Provider because without it our form won't work
 $app->register(new Silex\Provider\TranslationServiceProvider(), array(
-    'translator.messages' => array(),
+    'locale' => 'es',
+    'translator.messages' => array()    
 ));
 
 // Use Session Service Provider

@@ -2,9 +2,9 @@
 
 {% set pageTitle = 'imprimir la página' %}
 {% block pageContent %}
-<div id="toRemove" style="opacity:0;height:0;">
+<div id="toRemove" >
 	<a class="btn btn-info buttonright" role="button" onclick="printPage()"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir insignia</a>
-	<a href="/OLPC_Voluntarios/public_html/voluntarios/{{voluntario.idPersona}}" class="btn btn-info buttonleft" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Retorno</a>
+	<a href="/OLPC_Voluntarios/public_html/voluntarios/{{voluntario.idPersona}}" class="btn btn-info buttonleft" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
 </div>
 <div class="container">
 	<div class="col-md-12">
@@ -25,16 +25,16 @@
 		format:"CODE128C",
 		displayValue:true
 	});
-window.onload = function() { window.print(); }
+	
+	
 	function printPage() {
 		document.getElementById("toRemove").style.opacity = 0;
-		document.getElementById("toRemove").style.height = 0;
+		document.getElementById("toRemove").style.height = 0;	
 		window.print();
 		setTimeout(100)
 		document.getElementById("toRemove").style.opacity = 100;
-		document.getElementById("toRemove").style.height = 75;
+		document.getElementById("toRemove").style.height = 75;	
 
-		
 	}
 </script>
 {% endblock %}
