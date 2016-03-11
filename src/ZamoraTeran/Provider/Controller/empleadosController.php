@@ -62,19 +62,34 @@ class empleadosController implements ControllerProviderInterface {
 
 		//pagination
 		require_once '/var/www/html/src/Classes/Pagination.php';
-		$numItemsPerPage = 15;
+		$numItemsPerPage = 155555;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
-		$numItems = $app['db.admins']->count()['count'];
-		$empleados = $app['db.admins']->findAll($curpage,$numItemsPerPage);
+		
+		//Make the searchform
+		$busquedaform = $app['form.factory']->createNamed('busquedaform', 'form')
+		->add('Busqueda', 'text', array('required' => false));
+
+		$busquedaform->handleRequest($app['request']);
+
+		if($busquedaform->isValid()){
+			$data = $busquedaform->getData();
+			$numItems = $app['db.admins']->countByString($data['Busqueda'])['count'];
+			$empleados = $app['db.admins']->findAllByString($data['Busqueda'],$curpage,$numItemsPerPage);
+		}else{
+			$numItems = $app['db.admins']->count()['count'];
+			$empleados = $app['db.admins']->findAll($curpage,$numItemsPerPage);
+		}
+
+		//rest of pagiantion
 		$numPages = ceil($numItems / $numItemsPerPage);
 		$pagination =  generatePaginationSequence($curpage,$numPages);
 	
 
 		$data = array(
-			
-			'empleados' => $app['db.admins']->getEmpleados(),
+			'empleados' => $empleados,
 			'page' => 'empleados',
 			'session' => $app['session']->get('user'),
+			'busquedaform' => $busquedaform->createView(),
 			'pagination' => $pagination,
 			'curPage' => $curpage,
 			'numPages' => $numPages,
