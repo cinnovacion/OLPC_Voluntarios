@@ -111,13 +111,6 @@ input[type="checkbox"]{
 	margin-right: 15px;
 }
 
-.frameWide{
-	margin: auto;
-	width: 30em;
-	margin-bottom: 5px;
-	text-align: center;
-}
-
 .btnreturn{
 	margin-left: 10%;
 	margin-bottom: 3em;
@@ -427,7 +420,6 @@ input[type="checkbox"]{
 	margin: auto;
 	width: 30em;
 	margin-bottom: 5px;
-	text-align: center;
 }
 
 .frameWide{
@@ -629,4 +621,9 @@ input[type="checkbox"]{
 
 .form-error{
 	color: red;
+}
+
+.underline{
+	padding-bottom: 10px;
+	border-bottom: 1px solid #DADADA;
 }

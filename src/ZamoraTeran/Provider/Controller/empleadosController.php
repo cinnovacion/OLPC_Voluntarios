@@ -61,8 +61,8 @@ class empleadosController implements ControllerProviderInterface {
 		}
 
 		//pagination
-		require_once '/var/www/html/src/Classes/Pagination.php';
-		$numItemsPerPage = 155555;
+		require_once '/../../../Classes/Pagination.php';
+		$numItemsPerPage = 15;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
 		
 		//Make the searchform

@@ -30,11 +30,30 @@ class ajaxController implements ControllerProviderInterface {
 		->method('GET|POST')
 		->bind('ajax.logVolunteer');
 
+		$controllers
+		->get('/getListaSemana',array($this,'listaSemana'))
+		->method('GET|POST')
+		->bind('ajax.listaSemana');
+
 		return $controllers;
 
 	}
 
-	
+	public function listaSemana(Application $app) {
+		if(isset($_POST['action'])){
+			echo json_encode(array(
+				'1' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('-'.(1-date('w')).' days'))),
+				'2' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(2-date('w')).' days'))),
+				'3' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(3-date('w')).' days'))),
+				'4' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(4-date('w')).' days'))),
+				'5' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(5-date('w')).' days')))
+				));
+		}
+		// Inject data into the template which will show 'm all
+		return $app['twig']->render('Ajax/dump.twig');
+	}
+
+
 	public function getVolunteer(Application $app) {
 		if(isset($_POST['action'])){
 			echo json_encode($app['db.persona']->getPersonByCedula(json_decode($_POST['action'], true)['cedula']));

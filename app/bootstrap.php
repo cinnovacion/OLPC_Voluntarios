@@ -1,6 +1,6 @@
 <?php
 
-date_default_timezone_set("America/Managua")i
+date_default_timezone_set("America/Managua");
 
 // Require Composer Autoloader
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
@@ -14,7 +14,8 @@ $app['debug'] = true;
 
 // Use Twig — @note: Be sure to install Twig via Composer first!
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-	'twig.path' => '/var/www/html/src/Views'
+	'twig.path' => 
+    __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Views'
 ));
 
 // Use Doctrine — @note: Be sure to install Doctrine via Composer first!

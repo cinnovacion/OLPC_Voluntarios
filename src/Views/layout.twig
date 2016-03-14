@@ -9,7 +9,7 @@
 </head>
 <body>
 	{% if page != 'noheader' %}
-	<header class="header-search">
+	<header class="header-search" id="header">
 
 		<div class="header-limiter">
 
@@ -43,7 +43,7 @@
 		</div>
 	</header>
 	{% endif %}
-	<div class="container">
+	<div class="container" id="container">
 		{% block pageContent %}
 		Hello!
 		{% endblock %}

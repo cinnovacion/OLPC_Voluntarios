@@ -86,6 +86,14 @@ class trabajarRepository extends \Knp\Repository {
 			LIMIT 1',
 			array($cedula));
 	}
+
+	public function findVolunteersOnDate($date){
+		return $this->db->fetchAll('
+			SELECT persona.Nombre, persona.InstitucionAcademica as Inst, trabajar.tiempo FROM trabajar
+			INNER JOIN persona
+			ON persona.idPersona = trabajar.Persona_idPersona 
+			WHERE trabajar.dia = ?',array($date));
+	}
 }
 
 //EOF

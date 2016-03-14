@@ -61,7 +61,7 @@ class voluntariosController implements ControllerProviderInterface {
 		}
 
 		//pagination
-		require_once '/var/www/html/src/Classes/Pagination.php';
+		require_once '/../../../Classes/Pagination.php';
 		$numItemsPerPage = 15;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
 
@@ -118,7 +118,7 @@ class voluntariosController implements ControllerProviderInterface {
 			die();
 
 		}
-		require_once '/var/www/html/src/Classes/Pagination.php';
+		require_once '/../../../Classes/Pagination.php';
 		$numItems = $app['db.trabajar']->countById($id)['count'];
 		$numItemsPerPage = 10;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
@@ -549,4 +549,7 @@ class voluntariosController implements ControllerProviderInterface {
 			// Build and return the HTML
 		return $app['twig']->render('voluntarios/formulario.twig',$data);
 	}
+
+
+
 }
