@@ -35,38 +35,75 @@ class ajaxController implements ControllerProviderInterface {
 		->method('GET|POST')
 		->bind('ajax.listaSemana');
 
+		$controllers
+		->get('/fillWeeks',array($this,'fillWeeks'))
+		->method('GET|POST')
+		->bind('ajax.fillWeeks');
+
 		return $controllers;
 
 	}
 
+
 	public function listaSemana(Application $app) {
 		if(isset($_POST['action'])){
-			echo json_encode(array(
-				'1' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('-'.(1-date('w')).' days'))),
-				'2' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(2-date('w')).' days'))),
-				'3' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(3-date('w')).' days'))),
-				'4' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(4-date('w')).' days'))),
-				'5' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(5-date('w')).' days')))
-				));
-		}
+			$firstDay = json_decode($_POST['action'], true)['firstday'];
+			//echo json_encode($firstDay);
+			//echo json_encode(date($firstDay, strtotime('+'.(2-date('w')).' days')));
+			//echo json_encode(date('Y-m-d',strtotime($firstDay + 1)));
+
+			//echo json_encode("teststring");
+			//
+			$days = array(
+					'1' => date('d/m/Y',strtotime($firstDay)),
+					'2' => date('d/m/Y',strtotime($firstDay. ' +1 day')),
+					'3' => date('d/m/Y',strtotime($firstDay. ' +2 day')),
+					'4' => date('d/m/Y',strtotime($firstDay. ' +3 day')),
+					'5' => date('d/m/Y',strtotime($firstDay. ' +4 day'))
+					);
+			$volunteers = array(
+				'1' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d',strtotime($firstDay))),
+				'2' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d',strtotime($firstDay. ' +1 day'))),
+				'3' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d',strtotime($firstDay. ' +2 day'))),
+				'4' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d',strtotime($firstDay. ' +3 day'))),
+				'5' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d',strtotime($firstDay. ' +4 day')))
+				);
+			echo json_encode(
+				array(
+					'days' => $days, 
+					'volunteers' => $volunteers));
+				
+			
+			}
 		// Inject data into the template which will show 'm all
-		return $app['twig']->render('Ajax/dump.twig');
-	}
-
-
-	public function getVolunteer(Application $app) {
-		if(isset($_POST['action'])){
-			echo json_encode($app['db.persona']->getPersonByCedula(json_decode($_POST['action'], true)['cedula']));
+			return $app['twig']->render('Ajax/dump.twig');
 		}
+
+		public function getVolunteer(Application $app) {
+			if(isset($_POST['action'])){
+				echo json_encode($app['db.persona']->getPersonByCedula(json_decode($_POST['action'], true)['cedula']));
+			}
 		// Inject data into the template which will show 'm all
-		return $app['twig']->render('Ajax/dump.twig');
-	}	
+			return $app['twig']->render('Ajax/dump.twig');
+		}
 
-	public function logVolunteer(Application $app) {
-		if(isset($_POST['action'])){
-			$lastInput = $app['db.trabajar']->getLastInput(json_decode($_POST['action'], true)['idPersona']);
+		public function fillWeeks(Application $app) {
+			if(isset($_POST['action'])){
+				$weeks = array();
+				foreach (json_decode($_POST['action'], true)['mondays'] as $key => $value) {
+					array_push($weeks,"Semana:" + $value );
+				}
+				echo json_encode($weeks);
+			}
+		// Inject data into the template which will show 'm all
+			return $app['twig']->render('Ajax/dump.twig');
+		}	
 
-			if($lastInput['dia'] == date("Y-m-d")){
+		public function logVolunteer(Application $app) {
+			if(isset($_POST['action'])){
+				$lastInput = $app['db.trabajar']->getLastInput(json_decode($_POST['action'], true)['idPersona']);
+
+				if($lastInput['dia'] == date("Y-m-d")){
 
 					if($lastInput['horaFinal'] == null){
 						$lastInput['horaFinal'] = date("Y-m-d H:i:s");
@@ -94,7 +131,7 @@ class ajaxController implements ControllerProviderInterface {
 						'dia' => date("Y-m-d")
 						);
 					$app['db.trabajar']->insert($trabaja);
-						echo json_encode($trabaja);
+					echo json_encode($trabaja);
 
 				}
 /**
@@ -128,8 +165,8 @@ class ajaxController implements ControllerProviderInterface {
 					$app['db.trabajar']->insert($trabaja);
 
 				}**/
-		}
+			}
 		// Inject data into the template which will show 'm all
-		return $app['twig']->render('Ajax/dump.twig');
+			return $app['twig']->render('Ajax/dump.twig');
+		}
 	}
-}

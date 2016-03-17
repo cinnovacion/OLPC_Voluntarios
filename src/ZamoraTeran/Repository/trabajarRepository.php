@@ -89,7 +89,7 @@ class trabajarRepository extends \Knp\Repository {
 
 	public function findVolunteersOnDate($date){
 		return $this->db->fetchAll('
-			SELECT persona.Nombre, persona.InstitucionAcademica as Inst, trabajar.tiempo FROM trabajar
+			SELECT persona.Nombre, persona.InstitucionAcademica as Inst, persona.Area FROM trabajar
 			INNER JOIN persona
 			ON persona.idPersona = trabajar.Persona_idPersona 
 			WHERE trabajar.dia = ?',array($date));

@@ -627,3 +627,12 @@ input[type="checkbox"]{
 	padding-bottom: 10px;
 	border-bottom: 1px solid #DADADA;
 }
+
+.years,.months,.weeks{
+	width: 275px;
+	display: initial;
+}
+
+.listLabels{
+	width: 100px;
+}

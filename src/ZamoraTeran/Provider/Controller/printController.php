@@ -78,7 +78,6 @@ class printController implements ControllerProviderInterface {
 			die();
 		}
 		
-		
 		$data = array(
 			'voluntario' => $app['db.persona']->find($id),
 			'trabajaDe' => $app['db.trabajar']->findStartDateByPersona($id)['dia'],
@@ -106,12 +105,13 @@ class printController implements ControllerProviderInterface {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 		}
+
 		
 		$data = array(
 			'page' => 'voluntarios',
 			'months' => array('01' => 'enero', '02' => 'febrero', '03'=>'marzo', '04' => 'abril', '05' => 'mayo', '06' => 'junio', '07' => 'julio', '08' => 'agosto', '09' => 'septiembre', '10' => 'octubre', '11' => 'noviembre', '12' => 'diciembre'),
 			'days' => array(
-				'1' => 'Lunes ( ' . date('d/m/Y', strtotime('-'.(1-date('w')).' days')) . ' )',
+				'1' => 'Lunes ( ' . date('d/m/Y', strtotime('-'.(date('w')-1).' days')) . ' )',
 				'2' => 'Martes ( ' . date('d/m/Y', strtotime('+'.(2-date('w')).' days')) . ' )',
 				'3'=> 'Miercoles ( ' . date('d/m/Y', strtotime('+'.(3-date('w')).' days')) . ' )',
 				'4' => 'Jueves ( ' . date('d/m/Y', strtotime('+'.(4-date('w')).' days')) . ' )',
@@ -120,13 +120,13 @@ class printController implements ControllerProviderInterface {
 			'currentMonth' => date('m'),
 			'weekStart' =>date('d/m/Y', strtotime('-'.(date('w')-1).' days')),
 			'weekEnd' => date('d/m/Y', strtotime('+'.(5-date('w')).' days')),
-			'workdays' => array(
-				'1' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('-'.(1-date('w')).' days'))),
+			/**'workdays' => array(
+				'1' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('-'.(date('w')-1).' days'))),
 				'2' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(2-date('w')).' days'))),
 				'3' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(3-date('w')).' days'))),
 				'4' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(4-date('w')).' days'))),
 				'5' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(5-date('w')).' days')))
-				)
+				)**/
 			);
 		// Build and return the HTML
 		return $app['twig']->render('voluntarios/printListaSemana.twig',$data);
