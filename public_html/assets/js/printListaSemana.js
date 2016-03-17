@@ -1,16 +1,16 @@
 var monthNames = [
-"Enero", 
-"Febrero", 
-"Marzo",
-"Abril", 
-"Mayo", 
-"Junio", 
-"Julio",
-"Agosto", 
-"Septiembre",
-"Octubre",
-"Noviembre", 
-"Diciembre"
+"enero", 
+"febrero", 
+"marzo",
+"abril", 
+"mayo", 
+"junio", 
+"julio",
+"agosto", 
+"septiembre",
+"octubre",
+"noviembre", 
+"diciembre"
 ];
 
 var areas=[
@@ -22,19 +22,19 @@ var areas=[
 'Técnico'
 ];
 
-$( ".months" ).change(function() {
+/**$( ".months" ).change(function() {
 	fillWeeks();
 });
 
 $(".years").change(function(){
 	fillWeeks();
-});
+});**/
 
 $(window).load(function() {
 		//fillErUp();
 		fillWeeks();
-		setTitles();
-		fillErUp();
+		//setTitles();
+		//fillErUp();
 	});
 
 function getMondays(year, month_number) {
@@ -97,6 +97,7 @@ function getMondays(year, month_number) {
         console.log(secondTable);
         mainTable.find ( "tr" ).slice( splitBy ).remove();**/
 
+        splitTable($(".splitTable"), 500);
         var prtContent = document.getElementById("toPrint");
 		// window.open('', '', 'left=0,top=0,'height=' + screen.height + ',width=' + screen.width + ',toolbar=0,scrollbars=0,status=0');
 		var WinPrint =	window.open('', '','height=' + screen.height + ',width=' + screen.width + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes')
@@ -106,10 +107,11 @@ function getMondays(year, month_number) {
 		WinPrint.focus();
 		WinPrint.print();
 		WinPrint.close();
+		fillErUp();
 	}
 
 	function savePage() {
-
+		//splitTable($(".splitTable"), 600);
 		//document.getElementById("footer").style.width="522px";
 		var pdf = new jsPDF('l', 'pt', 'a4')
 
@@ -121,11 +123,27 @@ function getMondays(year, month_number) {
 			top: 10,
 			bottom: 10,
 			left: 40,
-			width: 600
+			width: 750,
+			height: 800
 		};
 
 
-		
+		/**var columnsLong = [
+			{title: "Lunes", dataKey: "id"},
+			{title: "Martes", dataKey: "name"}, 
+			{title: "Miercoles", dataKey: "country"}, 
+			{title: "Jueves", dataKey: "country"}, 
+			{title: "Viernes", dataKey: "country"}
+			];
+
+		pdf.autoTable(columnsLong, document.getElementById("toPrint"), {
+			startY: pdf.autoTableEndPosY() + 45,
+			margin: {horizontal: 10},
+			styles: {overflow: 'linebreak'},
+			bodyStyles: {valign: 'top'},
+			columnStyles: {email: {columnWidth: 'wrap'}},
+		});**/
+
 		// all coords and widths are in jsPDF instance's declared units
 		// 'inches' in this case
 		pdf.fromHTML(
@@ -133,28 +151,66 @@ function getMondays(year, month_number) {
 		  	, margins.left // x coord
 		  	, margins.top // y coord
 		  	, {
-		  		'width': margins.width // max width of content on PDF
+		  		'width': margins.width, // max width of content on PDF
+		  		'height': margins.height
 		  	},
 		  	function (dispose) {
 		  	  // dispose: object with X, Y of the last line add to the PDF
 		  	  //          this allow the insertion of new lines after html
-		  	  pdf.save(document.getElementById("year").innerHTML + ' ' + document.getElementById("month").innerHTML + ' ' + document.getElementById("week").innerHTML + '.pdf');
+		  	  pdf.save(document.getElementById("yearmonth").innerHTML  + ' ' + document.getElementById("week").innerHTML + '.pdf');
 		  	}, 
 		  	margins
 		  	)
+
+		//fillErUp();
 	}
 
 	function setTitles(){
-		document.getElementById("year").innerHTML =  $(".years").val();
-		document.getElementById("month").innerHTML =  monthNames[$(".months").val()-1];
+		document.getElementById("yearmonth").innerHTML =   $(".years").val() + ' ' + monthNames[$(".months").val()-1];
 		document.getElementById("week").innerHTML  =  $(".weeks :selected").text();
+	}
+
+	function splitTable(table, maxHeight) {
+		var header = table.children("thead"); 
+		if (!header.length)
+			return;
+
+		var headerHeight = header.outerHeight();
+		var header = header.detach();
+
+		var splitIndices = [0];
+		var rows = table.children("tbody").children();
+
+		maxHeight -= headerHeight;
+		var currHeight = 0;
+		rows.each(function(i, row) {
+			currHeight += $(rows[i]).outerHeight();
+			if (currHeight > maxHeight) {
+				splitIndices.push(i);
+				currHeight = $(rows[i]).outerHeight();
+			}
+		});
+		splitIndices.push(undefined);
+
+		table = table.replaceWith('<div id="_split_table_wrapper"></div>');
+		table.empty();
+
+		for(var i=0; i<splitIndices.length-1; i++) {
+			var newTable = table.clone();
+			header.clone().appendTo(newTable);
+			$('<tbody />').appendTo(newTable);
+			rows.slice(splitIndices[i], splitIndices[i+1]).appendTo(newTable.children('tbody'));
+			newTable.appendTo("#_split_table_wrapper");
+			if (splitIndices[i+1] !== undefined) {
+				$('<div style="page-break-after: always; margin:0; padding:0; border: none;"></div>').appendTo("#_split_table_wrapper");
+			}
+		}
 	}
 	
 	function fillErUp() {
 		setTitles();
 		$('#divToBeFilled').empty();
 		
-
 		var postData = 
 		{
 			"firstday" : $( ".weeks" ).val()
@@ -167,16 +223,13 @@ function getMondays(year, month_number) {
 			success: function(data){
 				var json = JSON.parse(data);
 
+				var maxVolunteers = Math.max(json['volunteers']['1'].length,json['volunteers']['2'].length,json['volunteers']['3'].length,json['volunteers']['4'].length,json['volunteers']['5'].length);
 
-				/**var maxVolunteers = Math.max(json['volunteers']['1'].length,json['volunteers']['2'].length,json['volunteers']['3'].length,json['volunteers']['4'].length,json['volunteers']['5'].length);
-
-				for (var i = 0; i < maxVolunteers; i = i + 4) {
+				for (var i = 0; i < maxVolunteers; i++) {
 					var lunes = json['volunteers']['1'].slice(i, i+4);
-				}$**/
+				}$
 				
-
-
-				$('#divToBeFilled').append('<table class="table-bordered" style="margin: auto;" id="tableVolunteers"><thead><tr><th id="lunesTitle"></th><th id="martesTitle"></th><th id="miercolesTitle"></th><th id="juevesTitle"></th><th id="viernesTitle"></th></tr></thead><tbody  id="fillMeUp"></tbody></table>');
+				$('#divToBeFilled').append('<table class="table-bordered splitTable" style="margin: auto;" id="tableVolunteers"><thead><tr><th id="lunesTitle" bgcolor="#ddd"></th><th id="martesTitle" bgcolor="#ddd"></th><th id="miercolesTitle" bgcolor="#ddd"></th><th id="juevesTitle" bgcolor="#ddd"></th><th id="viernesTitle" bgcolor="#ddd"></th></tr></thead><tbody  id="fillMeUp"></tbody></table>');
 				
 				// Find a <table> element with id="fillMeUp":
 				var table = document.getElementById("fillMeUp");
@@ -188,65 +241,69 @@ function getMondays(year, month_number) {
 				document.getElementById("juevesTitle").innerHTML =  'Jueves (' + json['days'][4]+ ')';
 				document.getElementById("viernesTitle").innerHTML =  'Viernes (' + json['days'][5]+ ')';
 
-
+				var counter = 1
 				while(json['volunteers']['1'].length != 0 || json['volunteers']['2'].length != 0 || json['volunteers']['3'].length != 0 || json['volunteers']['4'].length != 0 || json['volunteers']['5'].length != 0){
+
 					// Create an empty <tr> element and add it to the 1st position of the table:
 					var row = table.insertRow(-1);
 
 					if(typeof json['volunteers']['1'][0] !== 'undefined'){
 						row.insertCell(0).innerHTML = 
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Nombre:</b> " + json['volunteers']['1'][0]["Nombre"] + "</p>" + 
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Organización:</b> " +json['volunteers']['1'][0]["Inst"]+ "</p>" + 
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Area:</b> " +areas[json['volunteers']['1'][0]["Area"]]+ "</p>";
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Nombre: </b>" + json['volunteers']['1'][0]["Nombre"] + "</p>\n" + 
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Organización: </b>" +json['volunteers']['1'][0]["Inst"]+ "</p>\n" + 
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Area: </b>" +areas[json['volunteers']['1'][0]["Area"]]+ "</p>\n";
+						
+
+						json['volunteers']['1'].splice(0,1);
 					}else{
 						row.insertCell(0).innerHTML = "<p style='margin-left: 40%'>/</p>";
 					}
 					if(typeof json['volunteers']['2'][0] !== 'undefined'){
 						row.insertCell(1).innerHTML = 
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Nombre:</b> " + json['volunteers']['2'][0]["Nombre"] + "</p>"+
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Organización:</b> " +json['volunteers']['2'][0]["Inst"]+ "</p>"+
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Area:</b> " +areas[json['volunteers']['2'][0]["Area"]]+ "</p>";
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Nombre: </b>" + json['volunteers']['2'][0]["Nombre"] + "</p>\n"+
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Organización: </b>" +json['volunteers']['2'][0]["Inst"]+ "</p>\n"+
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Area: </b>" +areas[json['volunteers']['2'][0]["Area"]]+ "</p>\n";
+						
+						json['volunteers']['2'].splice(0,1);
 					}else{
 						row.insertCell(1).innerHTML = "<p style='margin-left: 40%'>/</p>";
 					}
 					if(typeof json['volunteers']['3'][0] !== 'undefined'){
 						row.insertCell(2).innerHTML = 
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Nombre:</b> " + json['volunteers']['3'][0]["Nombre"] + "</p>"+
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Organización:</b> " +json['volunteers']['3'][0]["Inst"]+ "</p>"+
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Area:</b> " +areas[json['volunteers']['3'][0]["Area"]]+ "</p>";
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Nombre: </b>" + json['volunteers']['3'][0]["Nombre"] + "</p>\n"+
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Organización: </b>" +json['volunteers']['3'][0]["Inst"]+ "</p>\n"+
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Area: </b>" +areas[json['volunteers']['3'][0]["Area"]]+ "</p>\n";
+
+						json['volunteers']['3'].splice(0,1);
 					}else{
 						row.insertCell(2).innerHTML = "<p style='margin-left: 40%'>/</p>";
 					}
 					if(typeof json['volunteers']['4'][0] !== 'undefined'){
 						row.insertCell(3).innerHTML = 
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Nombre:</b> " + json['volunteers']['4'][0]["Nombre"] + "</p>"+
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Organización:</b> " +json['volunteers']['4'][0]["Inst"]+ "</p>"+
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Area:</b> " +areas[json['volunteers']['4'][0]["Area"]]+ "</p>";
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Nombre: </b>" + json['volunteers']['4'][0]["Nombre"] + "</p>\n"+
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Organización: </b>" +json['volunteers']['4'][0]["Inst"]+ "</p>\n"+
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Area: </b>" +areas[json['volunteers']['4'][0]["Area"]]+ "</p>\n";
+
+						json['volunteers']['4'].splice(0,1);
 					}else{
 						row.insertCell(3).innerHTML = "<p style='margin-left: 40%'>/</p>";
 					}
 					if(typeof json['volunteers']['5'][0] !== 'undefined'){
 						row.insertCell(4).innerHTML = 
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Nombre:</b> " + json['volunteers']['4'][0]["Nombre"] + "</p>"+
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Organización:</b> " +json['volunteers']['5'][0]["Inst"]+ "</p>"+
-						"<p style='margin-left: 5px;margin-right: 5px;'><b>Area:</b> " +areas[json['volunteers']['5'][0]["Area"]]+ "</p>";
+
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Nombre: </b>" + json['volunteers']['5'][0]["Nombre"] + "</p>\n" + 
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Organización: </b>" +json['volunteers']['5'][0]["Inst"]+ "</p>\n" + 
+						"<p style='margin-left: 5px;margin-right: 5px; width: 200px;'><b>Area: </b>" +areas[json['volunteers']['5'][0]["Area"]]+ "</p>\n";
+
+						json['volunteers']['5'].splice(0,1);
 					}else{
 						row.insertCell(4).innerHTML = "<p style='margin-left: 40%'>/</p>";
 					}
-
-					json['volunteers']['1'].splice(0,1);
-					json['volunteers']['2'].splice(0,1);
-					json['volunteers']['3'].splice(0,1);
-					json['volunteers']['4'].splice(0,1);
-					json['volunteers']['5'].splice(0,1);
 				}
-
 			},
 			error: function(e){
 				console.log('error: ' + e);
 			}
-
-
 		});
 
 

@@ -3316,7 +3316,7 @@ var jsPDF = (function(global) {
             headers[i] = {
                 name : cell.textContent.toLowerCase().replace(/\s+/g, ''),
                 prompt : cell.textContent.replace(/\r?\n/g, ''),
-                width : (cell.clientWidth / table_with) * renderer.pdf.internal.pageSize.width
+                width : (cell.clientWidth / table_with) * (renderer.pdf.internal.pageSize.width + 190)
             };
             i++;
         }
@@ -3326,7 +3326,7 @@ var jsPDF = (function(global) {
             rowData = {};
             j = 0;
             while (j < tableRow.cells.length) {
-                rowData[headers[j].name] = tableRow.cells[j].textContent.replace(/\r?\n/g, '');
+                rowData[headers[j].name] = tableRow.cells[j].textContent.replace(/\r?/g, '');
                 j++;
             }
             data.push(rowData);

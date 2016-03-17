@@ -17,7 +17,7 @@
 	<div class="form-group">
 		<label for="years" class="listLabels">Años:</label>
 		<select class="years form-control">
-			{% for i in 2005..2050 %}
+			{% for i in 2015..2050 %}
 			<option value="{{i}}" {% if  "now"|date("Y") == i %}selected="selected"{% endif %}>{{i}}</option>
 			{% endfor %}
 		</select>
@@ -44,8 +44,7 @@
 
 	<div class="col-md-12">	
 
-		<h2 id="year"></h2>
-		<h2 id="month"></h2>
+		<h2 id="yearmonth"></h2>
 		<h2 id="week"></h2>
 	</div>
 	<div class="col-md-12" id="divToBeFilled">	
