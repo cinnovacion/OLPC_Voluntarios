@@ -6,7 +6,6 @@
 	<form action="{{ path('login') }}" class="form-signin" method="post" {{ form_enctype(loginform)}}>
 
 		{{ form_errors(loginform) }}
-		<h2 class="form-signin-heading">Please sign in</h2>
 		{{ form_label(loginform.Nombre, 'Nombre', { 'label_attr': {'class': 'sr-only'} }) }}
 		{{ form_widget(loginform.Nombre,{'attr':{'class': 'form-control','id':'nombre','placeholder':'Nombre','autocomplete':'off'}}) }}
 		{{ form_errors(loginform.Nombre) }}
@@ -16,7 +15,7 @@
 		{{ form_errors(loginform.contrasena) }}
 		<button class="btn btn-lg btn-primary btn-block" type="submit" style="
     margin-left: 10px;
-">Sign in</button>
+">Iniciar sesión</button>
 
 	{{ form_widget(loginform._token)}}
 	</form>

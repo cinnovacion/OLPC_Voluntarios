@@ -120,6 +120,7 @@ class printController implements ControllerProviderInterface {
 			'currentMonth' => date('m'),
 			'weekStart' =>date('d/m/Y', strtotime('-'.(date('w')-1).' days')),
 			'weekEnd' => date('d/m/Y', strtotime('+'.(5-date('w')).' days')),
+			'session' => $app['session']->get('user')
 			/**'workdays' => array(
 				'1' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('-'.(date('w')-1).' days'))),
 				'2' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(2-date('w')).' days'))),

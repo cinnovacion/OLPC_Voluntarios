@@ -35,6 +35,13 @@ $(window).keydown(function(event){
 	}
 });
 
+$('#loginform_barcode').keyup(function () {
+    if (this.value.length == 16) {
+    	this.blur();
+        $('#proceder').click();
+    }
+});
+
 $(window).load(function() {
 	$('#loginform_barcode').focus();
 });
