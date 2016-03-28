@@ -231,8 +231,8 @@ function getMondays(year, month_number) {
 				for (var i = 0; i < maxVolunteers; i++) {
 					var lunes = json['volunteers']['1'].slice(i, i+4);
 				}$
-				
-				$('#divToBeFilled').append('<table class="table-bordered splitTable" style="margin: auto;" id="tableVolunteers"><thead><tr><th id="lunesTitle" bgcolor="#ddd"></th><th id="martesTitle" bgcolor="#ddd"></th><th id="miercolesTitle" bgcolor="#ddd"></th><th id="juevesTitle" bgcolor="#ddd"></th><th id="viernesTitle" bgcolor="#ddd"></th></tr></thead><tbody  id="fillMeUp"></tbody></table>');
+			
+				$('#divToBeFilled').append('<table class="table-bordered splitTable" style="margin: auto;" id="tableVolunteers"><thead><tr><th id="lunesTitle" style="width:210px" bgcolor="#ddd"></th><th id="martesTitle" style="width:210px"  bgcolor="#ddd"></th><th id="miercolesTitle"  style="width:210px" bgcolor="#ddd"></th><th id="juevesTitle"  style="width:210px" bgcolor="#ddd"></th><th id="viernesTitle"  style="width:210px" bgcolor="#ddd"></th></tr></thead><tbody  id="fillMeUp"></tbody></table>');
 				
 				// Find a <table> element with id="fillMeUp":
 				var table = document.getElementById("fillMeUp");

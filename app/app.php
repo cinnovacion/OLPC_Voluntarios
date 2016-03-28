@@ -9,9 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 $app->error(function (\Exception $e, $code) use ($app) {
 	if ($code == 404) {
-		return '404 - Not Found! // ' . $e->getMessage();
+		return $app['twig']->render('errors/404.twig', array('error' => $e->getMessage()));
+		//return '404 - Not Found! // ' . $e->getMessage();
 	} else {
-		return 'Something went wrong! // ' . $e->getMessage();
+		return $app['twig']->render('errors/404.twig', array('error' => $e->getMessage()));
+		//return 'Something went wrong! // ' . $e->getMessage();
 	}
 });
 

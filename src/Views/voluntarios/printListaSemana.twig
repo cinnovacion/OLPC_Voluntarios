@@ -3,13 +3,22 @@
 {% set pageTitle = 'Lista de la semana' %}
 {% block pageContent %}
 <style type="text/css" media="print">
-  @page { size: landscape; }
+	@page { size: landscape; }
 </style>
 <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/printPage.css"/>
 <div id="toRemove" class="col-md-12">
-	<a class="btn btn-info buttonright"  id="toRemove1" role="button" onclick="savePage()"> <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Guardar lista</a>
-	<a class="btn btn-info buttonleft"  id="toRemove2" role="button" onclick="printPage()"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir lista</a>
-	<a href="{{path('voluntarios.overview')}}" class="btn btn-info buttonleft"  id="toRemove3" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
+	<a class="btn btn-info buttonright"  id="toRemove1 savePage" role="button" onclick="savePage()"> 
+		<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 
+		Guardar lista
+	</a>
+	<a class="btn btn-info buttonleft"  id="toRemove2 printPage" role="button" onclick="printPage()"> 
+		<span class="glyphicon glyphicon-print" aria-hidden="true"></span> 
+		Imprimir lista
+	</a>
+	<a href="{{path('voluntarios.overview')}}" class="btn btn-info buttonleft"  id="toRemove3" role="button"> 
+		<span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> 
+		Atras
+	</a>
 </div>
 
 

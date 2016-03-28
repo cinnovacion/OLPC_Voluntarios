@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/header.css" />
 </head>
 <body>
-	{% if page != 'noheader' %}
+	{% if page is defined and page != 'noheader' %}
 	<header class="header-search" id="header">
 
 		<div class="header-limiter">
@@ -16,6 +16,7 @@
 			<h1><a href="{{ path('login') }}"><img src="{{ app.request.baseUrl }}/assets/img/logo.png" alt=""></a></h1>
 
 			<nav>
+			{% if page is defined %}
 				{% if page == 'home' %}
 				<a href="{{ path('voluntarios.overview') }}">Voluntarios</a>
 				<a href="{{ path('empleados.overview') }}">Personal</a>
@@ -29,6 +30,11 @@
 				<a href="{{ path('empleados.overview') }}" class="selected">Personal</a>
 				<a href="{{ path('logger.log') }}">Log</a>
 
+				{% endif %}
+				{% else %}
+				<a href="{{ path('voluntarios.overview') }}">Voluntarios</a>
+				<a href="{{ path('empleados.overview') }}">Personal</a>
+				<a href="{{ path('logger.log') }}">Log</a>
 				{% endif %}
 			</nav>
 			{% if session is defined %}

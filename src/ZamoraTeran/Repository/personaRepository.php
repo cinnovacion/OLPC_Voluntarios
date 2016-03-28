@@ -19,10 +19,7 @@ class personaRepository extends \Knp\Repository {
 	public function countByString($search){
 		return $this->db->fetchAssoc('
 			SELECT count(*) as count FROM persona
-			WHERE nombre LIKE "%'.$search.'%" OR
-			NoDeCedula LIKE "%'.$search.'%" OR
-			Telefono LIKE "%'.$search.'%" OR
-			CorreoElectronico LIKE "%'.$search.'%"');
+			WHERE nombre LIKE "%'.$search.'%"');
 	}
 	public function findAll($curpage,$numItemsPerPage){
 		return $this->db->fetchAll('SELECT * FROM persona LIMIT ' . (int) (($curpage - 1) * $numItemsPerPage) . ',' .
