@@ -55,7 +55,7 @@
 			<ul style='padding-left: 10px'>
 				{% for disp in disponibilidad %}
 				<li>		
-					{{ disp['dia'] }} desde 
+					{{ disp['dia']|capitalize}} desde 
 					{{ disp['horaInicio'] }} hasta
 					{{ disp['horaFinal'] }}
 				</li>
@@ -77,13 +77,13 @@
 		{% if disponibilidad != null %}
 		<div class="col-md-12 trabajaade">
 			<div class="col-md-3" style="padding-left: 0">
-				<b>Trabaja a </b>
+				<b>Horario:</b>
 			</div>
 			<div class="col-md-9" style="padding-left: 0">
 				<ul style="padding-left: 10px;">
 					{% for disp in disponibilidad %}
 					<li>		
-						{{ disp['dia'] }} desde 
+						{{ disp['dia']|capitalize }} desde 
 						{{ disp['horaInicio'] }} hasta
 						{{ disp['horaFinal'] }}
 					</li>
