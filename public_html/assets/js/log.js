@@ -149,8 +149,8 @@ function showYesNo(){
 	document.getElementById("si").style.opacity = "100";
 	document.getElementById("no").style.opacity = "100";
 
-	document.getElementById("si").style.width = "100%";
-	document.getElementById("no").style.width = "100%";
+	document.getElementById("si").style.width = "10%";
+	document.getElementById("no").style.width = "10%";
 
 	document.getElementById("si").style.height = "100%";
 	document.getElementById("no").style.height = "100%";
@@ -170,7 +170,7 @@ function hideYesNo(){
 
 function showOk(){
 	document.getElementById("ok").style.opacity = "100";
-	document.getElementById("ok").style.width = "100%";
+	document.getElementById("ok").style.width = "10%";
 	document.getElementById("ok").style.height = "100%";
 	ok = true;
 }
