@@ -12,7 +12,7 @@ if(document.getElementById("nuevoform_trabajoLunes").checked){
 	$('#nuevoform_fromLunes').timepicker('setTime', document.getElementById("nuevoform_fromLunes").value);
 	$('#nuevoform_toLunes').timepicker('setTime', document.getElementById("nuevoform_toLunes").value);
 }else if(!document.getElementById("nuevoform_trabajoLunes").checked){
-	$('#nuevoform_fromLunes').timepicker('setTime', '8:30 AM');
+	$('#nuevoform_fromLunes').timepicker('setTime', '8:00 AM');
 	$('#nuevoform_toLunes').timepicker('setTime', '5:00 PM');
 }
 if(document.getElementById("nuevoform_trabajoMartes").checked){
@@ -20,7 +20,7 @@ if(document.getElementById("nuevoform_trabajoMartes").checked){
 	$('#nuevoform_fromMartes').timepicker('setTime', document.getElementById("nuevoform_fromMartes").value);
 	$('#nuevoform_toMartes').timepicker('setTime', document.getElementById("nuevoform_toMartes").value);
 }else if(!document.getElementById("nuevoform_trabajoMartes").checked){
-	$('#nuevoform_fromMartes').timepicker('setTime', '8:30 AM');
+	$('#nuevoform_fromMartes').timepicker('setTime', '8:00 AM');
 	$('#nuevoform_toMartes').timepicker('setTime', '5:00 PM');
 }
 if(document.getElementById("nuevoform_trabajoMiercoles").checked){
@@ -28,7 +28,7 @@ if(document.getElementById("nuevoform_trabajoMiercoles").checked){
 	$('#nuevoform_fromMiercoles').timepicker('setTime', document.getElementById("nuevoform_fromMiercoles").value);
 	$('#nuevoform_toMiercoles').timepicker('setTime', document.getElementById("nuevoform_toMiercoles").value);
 }else if(!document.getElementById("nuevoform_trabajoMiercoles").checked){
-	$('#nuevoform_fromMiercoles').timepicker('setTime', '8:30 AM');
+	$('#nuevoform_fromMiercoles').timepicker('setTime', '8:00 AM');
 	$('#nuevoform_toMiercoles').timepicker('setTime', '5:00 PM');
 }
 if(document.getElementById("nuevoform_trabajoJueves").checked){
@@ -36,7 +36,7 @@ if(document.getElementById("nuevoform_trabajoJueves").checked){
 	$('#nuevoform_fromJueves').timepicker('setTime', document.getElementById("nuevoform_fromJueves").value);
 	$('#nuevoform_toJueves').timepicker('setTime', document.getElementById("nuevoform_toJueves").value);
 }else if(!document.getElementById("nuevoform_trabajoJueves").checked){
-	$('#nuevoform_fromJueves').timepicker('setTime', '8:30 AM');
+	$('#nuevoform_fromJueves').timepicker('setTime', '8:00 AM');
 	$('#nuevoform_toJueves').timepicker('setTime', '5:00 PM');
 }
 if(document.getElementById("nuevoform_trabajoViernes").checked){
@@ -44,7 +44,7 @@ if(document.getElementById("nuevoform_trabajoViernes").checked){
 	$('#nuevoform_fromViernes').timepicker('setTime', document.getElementById("nuevoform_fromViernes").value);
 	$('#nuevoform_toViernes').timepicker('setTime', document.getElementById("nuevoform_toViernes").value);
 }else if(!document.getElementById("nuevoform_trabajoViernes").checked){
-	$('#nuevoform_fromViernes').timepicker('setTime', '8:30 AM');
+	$('#nuevoform_fromViernes').timepicker('setTime', '8:00 AM');
 	$('#nuevoform_toViernes').timepicker('setTime', '5:00 PM');
 }
 
@@ -96,3 +96,8 @@ function switchViernes() {
 		$('#nuevoform_toViernes').timepicker('setTime', '5:00 PM');
 	}
 }
+
+
+$( "#nuevoform_DiaInicio" ).focus(function() {
+	$('#openCalendar').click()
+});

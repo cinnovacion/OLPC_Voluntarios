@@ -371,6 +371,17 @@ class voluntariosController implements ControllerProviderInterface {
 				$app['db.disponibilidad']->insert($dia);
 			}
 
+			if($data["HorasAccumuladas"] != 0){
+				$trabaja = array(
+					'Persona_idPersona' => $id,
+					'tiempo' => $data["HorasAccumuladas"],
+					'horaInicio' => NULL,
+					'horaFinal' => NULL,
+					'dia' => NULL
+					);
+				$app['db.trabajar']->insert($trabaja);
+			}
+			
 			return $app->redirect($app['url_generator']->generate('voluntarios.detail',array('id' => $id)));
 			die();
 		}
@@ -538,7 +549,16 @@ class voluntariosController implements ControllerProviderInterface {
 				$app['db.trabajar']->insert($trabajar);
 			}
 			
+			if($data['HorasAccumuladas'] != 0){
+				$trabaja = array(
+					'Persona_idPersona' => $id,
+					'tiempo' => $data['HorasAccumuladas']
+					);
+				$app['db.trabajar']->insert($dia);
+			}
+
 			return $app->redirect($app['url_generator']->generate('voluntarios.detail',array('id' => $id)));
+			die();
 		}
 		$data = array(
 			'page' => 'voluntarios',

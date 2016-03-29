@@ -6,9 +6,9 @@
 <div class="col-md-12" style="margin-bottom: 15px;">
 
 {% if formulario == 'new' %}
-<a href="{{ path('voluntarios.overview')}}" class="btn btn-info">Cancellar</a>
+<a href="{{ path('voluntarios.overview')}}" class="btn btn-info">Cancelar</a>
 {% elseif formulario == 'edit' %}
-<a href="{{ detailpath }}" class="btn btn-info">Cancellar</a>
+<a href="{{ detailpath }}" class="btn btn-info">Cancelar</a>
 {% endif %}
 </div>
 <form action="
@@ -17,7 +17,7 @@
 {% elseif formulario == 'edit' %}
 {{ editpath }}
 {% endif %}
-" method="post" {{ form_enctype(nuevoform)}} novalidate="novalidate">
+" method="post" {{ form_enctype(nuevoform)}} novalidate="novalidate" onsubmit="return false;">
 {{ form_errors(nuevoform) }}
 <div class="form-group row">
 	{{ form_label(nuevoform.Nombre, 'Nombre completo', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
@@ -34,7 +34,7 @@
 	</div>
 </div>
 <div class="form-group row">
-	{{ form_label(nuevoform.NoDeCedula, 'No. De Cédula', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+	{{ form_label(nuevoform.NoDeCedula, 'No. De cédula', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 	<div class="col-sm-10">
 		{{ form_widget(nuevoform.NoDeCedula,{'attr':{'class': 'form-control','id':'cedula','placeholder':'No. De Cédula'}}) }}
 		{{ form_errors(nuevoform.NoDeCedula) }}
@@ -48,7 +48,7 @@
 	</div>
 </div>
 <div class="form-group row">
-	{{ form_label(nuevoform.Telefono, 'Teléfono', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+	{{ form_label(nuevoform.Telefono, 'Celular', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 	<div class="col-sm-10">
 		{{ form_widget(nuevoform.Telefono,{'attr':{'class': 'form-control','id':'Teléfono','placeholder':'+505 XXXX XXXX'}}) }}
 		{{ form_errors(nuevoform.Telefono) }}
@@ -83,37 +83,22 @@
 	</div>
 </div>
 <div class="form-group row">
-	{{ form_label(nuevoform.Area, 'Area', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+	{{ form_label(nuevoform.Area, 'Área', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 	<div class="col-sm-10">
 		{{ form_widget(nuevoform.Area,{'attr':{'class': 'form-control','id':'carreracurso'}}) }}
 		{{ form_errors(nuevoform.Area) }}
 	</div>
 </div>
-<div class="col-md-12">
-	<div class='col-md-6'>
-		<p><b>día inicio</b></p>
-		<div class="form-group">
-			<div class='input-group date' id='datetimepicker1'>
+<div class="form-group row">
+	{{ form_label(nuevoform.DiaInicio, 'Día inicio', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+	<div class="col-sm-10">
+		<div class='input-group date' id='datetimepicker1'>
 				{{ form_widget(nuevoform.DiaInicio,{'attr':{'class':'form-control','style':'margin-top: 0px;margin-left: 0px;    height: 34.6px;'}})}}
 				<span class="input-group-addon">
-					<span class="glyphicon glyphicon-calendar"></span>
+					<span class="glyphicon glyphicon-calendar" id="openCalendar"></span>
 				</span>
 			</div>
-			{{ form_errors(nuevoform.DiaInicio) }}
-		</div>
-	</div>
-	<div class='col-md-6'>
-		<p><b>día final</b></p>
-		<div class="form-group">
-			<div class='input-group date' id='datetimepicker2'>
-				{{ form_widget(nuevoform.DiaFinal,{'attr':{'class':'form-control','style':'margin-top: 0px;margin-left: 0px;    height: 34.6px;'}})}}
-				<span class="input-group-addon">
-					<span class="glyphicon glyphicon-calendar"></span>
-				</span>
-			</div>
-
-			{{ form_errors(nuevoform.DiaFinal) }}
-		</div>
+		{{ form_errors(nuevoform.DiaInicio) }}
 	</div>
 </div>
 
@@ -121,7 +106,7 @@
 	<div class="form-group row">
 		<table class="table table-bordered">
 			<thead>
-				<tr>
+				<tr style="height:35px;">
 					<th>
 						{{ form_widget(nuevoform.trabajoLunes,{'attr':{'class':'trabajoLunes','id':'trabajoLunes','onchange':'switchLunes()'}})}}
 						{{ form_label(nuevoform.trabajoLunes,'Lunes') }}
@@ -230,7 +215,7 @@
 	</div>
 </div>
 <div class="form-group row">
-	{{ form_label(nuevoform.HorasAccumuladas, 'Horas accumulados en el pasado', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+	{{ form_label(nuevoform.HorasAccumuladas, 'Horas accumuladas en el pasado', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 	<div class="col-sm-10">
 		{{ form_widget(nuevoform.HorasAccumuladas,{'attr':{'class': 'form-control','id':'HorasAccumulados','placeholder':'0','value': '0','type':'number'}}) }}
 		{{ form_errors(nuevoform.HorasAccumuladas) }}
@@ -247,9 +232,9 @@
 <div class="form-group row">
 	<div class="col-sm-offset-2 col-sm-10">
 		{% if formulario == 'new' %}
-		<button type="submit" class="btn btn-info submitButton">Añadir el voluntario</button>
+		<button type="submit" class="btn btn-info submitButton">Añadir</button>
 		{% elseif formulario == 'edit' %}
-		<button type="submit" class="btn btn-info submitButton">Guardar el voluntario</button>
+		<button type="submit" class="btn btn-info submitButton">Guardar</button>
 		{% endif %}
 
 	</div>

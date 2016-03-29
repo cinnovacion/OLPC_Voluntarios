@@ -3,7 +3,7 @@
 {% set pageTitle = 'Voluntarios' %}
 {% block pageContent %}
 <a href="{{path('voluntarios.nuevoVoluntario')}}" class="btn btn-info btnNuevo" role="button"> Nuevo Voluntario</a>
-<a href="{{path('print.listaSemana')}}" class="btn btn-info btnNuevo" role="button"> Lista de la semana</a>
+<a href="{{path('print.listaSemana')}}" class="btn btn-info btnNuevo" role="button"> Lista de asistencia</a>
 <form action="{{ path('voluntarios.overview')}}" method="post" {{ form_enctype(busquedaform)}} class="form-inline searchForm" >
 	<div class="form-group">
 

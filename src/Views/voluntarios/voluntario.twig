@@ -73,7 +73,7 @@
 	</div>
 	<div class="col-md-6 column2">
 		<p class="frame"><b>Horas acumuladas:</b> {% if trabajaPara.Total == 0 %}0{% else %}{{trabajaPara.Total}}{% endif %} horas</p>
-		<p class="frame"><b>Trabaja desde</b> {{voluntario.DiaInicio}} {% if voluntario.DiaFinal != null %}<b> hasta </b>{{voluntario.DiaFinal}}{% endif %}</p>
+		<p class="frame"><b>Desde</b> {{voluntario.DiaInicio}} {% if voluntario.DiaFinal != null %}<b> Hasta </b>{{voluntario.DiaFinal}}{% endif %}</p>
 		{% if disponibilidad != null %}
 		<div class="col-md-12 trabajaade">
 			<div class="col-md-3" style="padding-left: 0">
