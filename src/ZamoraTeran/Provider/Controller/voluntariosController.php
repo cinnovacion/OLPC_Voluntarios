@@ -101,7 +101,6 @@ class voluntariosController implements ControllerProviderInterface {
 			
 			return $app->redirect($app['url_generator']->generate('voluntarios.detail',array('id' => $trabaja['Persona_idPersona'])));
 			die();
-		}else{
 		}
 
 
@@ -124,9 +123,10 @@ class voluntariosController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function deleteHoras(Application $app,$id) {
+		$trabaja = $app['db.trabajar']->getById($id);
 		$app['db.trabajar']->delete(array('idTrabajar' => $id));
 
-		return $app->redirect($app['url_generator']->generate('voluntarios.overview'));
+		return $app->redirect($app['url_generator']->generate('voluntarios.detail',array('id' => $trabaja['Persona_idPersona'])));
 		die();
 
 	}
