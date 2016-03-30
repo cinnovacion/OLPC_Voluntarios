@@ -254,7 +254,7 @@ function getMondays(year, month_number) {
 						row.insertCell(0).innerHTML = 
 						"<p style='margin-top: 15px;margin-left: 5px;margin-right: 5px; width: 200px;'><b>Nombre: </b>" + json['volunteers']['1'][0]["Nombre"] + "</p>\n" + 
 						"<p style='margin: 5px;margin-right: 5px; width: 200px;'><b>Organización: </b>" +json['volunteers']['1'][0]["Inst"]+ "</p>\n" + 
-						"<p style='margin-bottom:15px;margin-top:5px;margin-left: 5px;margin-right: 5px; width: 200px;'><b>Area: </b>" +areas[json['volunteers']['1'][0]["Area"]]+ "</p>\n";
+						"<p style='margin-bottom:15px;margin-top:5px;margin-left: 5px;margin-right: 5px; width: 200px;'><b>Area: </b>" +areas[json['volunteers']['1'][0]["Area"]-1]+ "</p>\n";
 						
 
 						json['volunteers']['1'].splice(0,1);

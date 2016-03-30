@@ -1,0 +1,38 @@
+{% extends 'layout.twig' %}
+
+{% set pageTitle = 'edit time' %}
+{% block pageContent %}
+<div class="col-md-12">
+<a href="{{ detailpath }}" class="btn btn-info">Cancelar</a>
+
+<a href="{{ path('voluntarios.deleteHoras', {'id': trabaja.idTrabajar}) }}" class="btn btn-danger" style="margin-right: 32.5%;float: right;" onclick="return confirm('Estás seguro?');">Borrar horas</a>
+<div style="width: 500px;margin: auto; text-align: center;">
+<form action="{{path('voluntarios.editTime', {'id':trabaja.idTrabajar})}}" method="post" {{ form_enctype(timeform)}} novalidate="novalidate">
+{{ form_errors(timeform) }}
+
+<div class="form-group row">
+	{{ form_label(timeform.HoraInicio, 'Hora inicio', { 'label_attr': {'class': 'col-sm-4 form-control-label'} }) }}
+	<div class="input-group bootstrap-timepicker">
+		{{ form_widget(timeform.HoraInicio,{'attr':{'class': 'form-control','id':'horaInicio','placeholder':'8:00'}}) }}
+	</div>
+</div>
+<div class="form-group row">
+	{{ form_label(timeform.HoraFinal, 'Hora final', { 'label_attr': {'class': 'col-sm-4 form-control-label'} }) }}
+	<div class="input-group bootstrap-timepicker">
+		{{ form_widget(timeform.HoraFinal,{'attr':{'class': 'form-control','id':'horaFinal','placeholder':'17:00'}}) }}
+	</div>
+</div>
+
+{{ form_widget(timeform._token)}}
+
+<div class="form-group row">
+	<div class="col-sm-offset-2 col-sm-10">
+		<button type="submit" class="btn btn-info submitButton" style="margin-right: 55px;">Guardar</button>
+		
+
+	</div>
+</div>
+</form>
+</div>
+</div>
+{% endblock %}

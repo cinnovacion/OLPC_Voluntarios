@@ -41,7 +41,93 @@ class voluntariosController implements ControllerProviderInterface {
 		->method('GET|POST')
 		->bind('voluntarios.nuevoVoluntario');
 
+		$controllers
+		->get('/editTime/{id}',array($this,'editTime'))
+		->assert('id', '\d+')
+		->method('GET|POST')
+		->bind('voluntarios.editTime');
+
+
+		$controllers
+		->get('/deleteHoras/{id}',array($this,'deleteHoras'))
+		->assert('id', '\d+')
+		->bind('voluntarios.deleteHoras');
+
 		return $controllers;
+
+	}
+
+	/**
+	 * Volunteer Overview
+	 * @param Application $app An Application instance
+	 * @return string A blob of HTML
+	 */
+	public function editTime(Application $app,$id) {
+		//checking if the user is loged in
+		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
+			return $app->redirect($app['url_generator']->generate('login'));
+			die();
+		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+			return $app->redirect($app['url_generator']->generate('logout'));
+			die();
+		}
+
+		$trabaja = $app['db.trabajar']->getById($id);
+		
+		
+
+		$timeform = $app['form.factory']->createNamed('timeform', 'form')
+		->add('HoraInicio', 'text',array(
+			'data' => $trabaja["horaInicio"]
+			))
+		->add('HoraFinal', 'text',array(
+			'data' => $trabaja["horaFinal"]
+			));
+
+		$timeform->handleRequest($app['request']);
+
+		if($timeform->isValid()){
+			$data = $timeform->getData();
+			echo '<pre>'.var_dump($data).'</pre>';
+			$trabaja['horaInicio'] = $data['HoraInicio'];
+			$trabaja['horaFinal'] = $data['HoraFinal'];
+
+			$trabaja['tiempo'] = round((
+				strtotime($trabaja['horaFinal'])-
+				strtotime($trabaja['horaInicio'])
+				)/(3600), 2);
+
+			$app['db.trabajar']->update($trabaja, array('idTrabajar' => $trabaja['idTrabajar'] ));
+			
+			return $app->redirect($app['url_generator']->generate('voluntarios.detail',array('id' => $trabaja['Persona_idPersona'])));
+			die();
+		}else{
+		}
+
+
+		//data to display in html
+		$data = array(
+			'trabaja' => $trabaja,
+			'page' => 'voluntarios',
+			'session' => $app['session']->get('user'),
+			'timeform' => $timeform->createView(),
+			'detailpath' => $app['url_generator']->generate('voluntarios.detail',array('id' => $trabaja['Persona_idPersona'])),
+			);
+		// Inject data into the template which will show 'm all
+		return $app['twig']->render('voluntarios/editTime.twig',$data);
+
+	}
+
+	/**
+	 * Volunteer Overview
+	 * @param Application $app An Application instance
+	 * @return string A blob of HTML
+	 */
+	public function deleteHoras(Application $app,$id) {
+		$app['db.trabajar']->delete(array('idTrabajar' => $id));
+
+		return $app->redirect($app['url_generator']->generate('voluntarios.overview'));
+		die();
 
 	}
 

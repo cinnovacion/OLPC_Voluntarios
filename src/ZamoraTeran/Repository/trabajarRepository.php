@@ -94,6 +94,14 @@ class trabajarRepository extends \Knp\Repository {
 			ON persona.idPersona = trabajar.Persona_idPersona 
 			WHERE trabajar.dia = ?',array($date));
 	}
+
+	public function getById($id){
+		return $this->db->fetchAssoc('
+			SELECT * FROM trabajar
+			WHERE idTrabajar = ? 
+			',array($id));
+	}
+	
 }
 
 //EOF
