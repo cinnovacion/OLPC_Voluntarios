@@ -628,7 +628,7 @@ input[type="checkbox"]{
 	border-bottom: 1px solid #DADADA;
 }
 
-.years,.months,.weeks{
+.years,.months,.weeks,.filter{
 	width: 275px;
 	display: initial;
 }

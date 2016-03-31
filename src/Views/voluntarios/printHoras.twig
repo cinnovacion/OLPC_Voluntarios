@@ -1,0 +1,108 @@
+{% extends 'layout.twig' %}
+
+{% set pageTitle = 'imprimir la horas' %}
+{% block pageContent %}
+
+		<p class="hidden" id='voluntarioId'>{{voluntario.idPersona}}</p>
+		<p class="hidden" id='voluntarioName'>{{voluntario.Nombre}}</p>
+<div class="col-md-12" style="height: 40px;">
+	<a href="{{path('voluntarios.detail', { 'id': voluntario.idPersona })}}" class="btn btn-info buttonleft pull-left" role="button"> 
+		<span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> 
+		Atras
+	</a>
+	<a class="btn btn-info pull-right" role="button" onclick="savePage()"> 
+		<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 
+		Descargar
+	</a>
+</div>
+<div class="col-md-12">
+	<a class="btn btn-info pull-right"  role="button" onclick="printPage()"> 
+		<span class="glyphicon glyphicon-print" aria-hidden="true"></span> 
+		Imprimir
+	</a>
+</div>
+
+<div class="col-md-12">
+	<div class="form-group" >
+		<label for="filter" class="listLabels">Filter:</label>
+		<select class="filter form-control">
+			<option value="week">1 Week</option>
+			<option value="month">1 Month</option>
+			<option value="year">1 Year</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="years" class="listLabels">Años:</label>
+		<select class="years form-control">
+			{% for i in 2015..2050 %}
+			<option value="{{i}}" {% if  "now"|date("Y") == i %}selected="selected"{% endif %}>{{i}}</option>
+			{% endfor %}
+		</select>
+	</div>
+
+	
+	<div class="form-group">
+		<label for="months" class="listLabels">Meses:</label>
+		<select class="months form-control">
+			{% for month in months %}
+
+			<option value="{{loop.index}}" {% if  "now"|date("m") == loop.index %}selected="selected"{% endif %}>{{month|capitalize}}</option>
+			{% endfor %}
+		</select>
+	</div>
+
+	<div class="form-group">
+		<label for="weeks" class="listLabels">Semanas:</label>	
+		<select class="weeks form-control">	</select>
+	</div>
+	<button class="btn btn-info" onclick="fillErUp()" style="margin-left: 285px;">Búsqueda!</button>
+</div>
+<div id="toPrint">
+	<div class="col-md-6" style="">
+		<h3 id="year"></h3>
+		<h3 id="month"></h3>
+		<h3 id="week"></h3>
+	</div>
+	<div class="col-md-6" style="padding-top:20px;">
+		<p><b>Nombre completo:</b> {{voluntario.Nombre}}</p>
+		<p><b>No. De Cédula:</b> {{voluntario.NoDeCedula}}</p>
+		<p><b>Área: </b>
+			{%  if voluntario.Area == 1 %}
+			Comunicación
+			{% elseif voluntario.Area == 2 %}
+			Mercadeo
+			{% elseif voluntario.Area == 3 %}
+			Área Educativa
+			{% elseif voluntario.Area == 4 %}
+			Programa de Voluntariado
+			{% elseif voluntario.Area == 5 %}
+			Monitoreo y Evaluación
+			{% elseif voluntario.Area == 6 %}
+			Técnico
+			{% endif %}
+		</p>
+		<p><b>Institucion academica:</b> {{voluntario. InstitucionAcademica}}</p>
+	</div>
+
+
+	<div class="divToBeFilled">
+		<table class="table table-striped splitTable">
+			<thead>
+				<tr>
+					<th id="fecha">Fecha</th>
+					<th id="entrada">Hora de entrada</th>
+					<th id="salida">Hora de salida</th>
+					<th id="total">Total de horas</th>
+				</tr>
+			</thead>
+			<tbody id="fillMeUp">
+
+			</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/jquery.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/jspdf.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/jspdf.plugin.autotable.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/listaHoras.js"></script>
+{% endblock %}

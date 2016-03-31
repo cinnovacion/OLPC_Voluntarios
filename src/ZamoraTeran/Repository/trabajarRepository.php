@@ -101,6 +101,34 @@ class trabajarRepository extends \Knp\Repository {
 			WHERE idTrabajar = ? 
 			',array($id));
 	}
+
+	public function getWorkInYear($voluntarioId,$year){
+		return $this->db->fetchAll('
+			SELECT * FROM trabajar 
+			WHERE Persona_idPersona = ?
+			AND YEAR(dia) = ?
+			',array($voluntarioId,$year));
+	}
+
+
+	public function getWorkInMonth($voluntarioId,$year,$month){
+		return $this->db->fetchAll('
+			SELECT * FROM trabajar 
+			WHERE Persona_idPersona = ?
+			AND YEAR(dia) = ?
+			AND MONTH(dia) = ?
+			',array($voluntarioId,$year,$month));
+	}
+
+	public function getWorkInDay($voluntarioId,$date){
+		return $this->db->fetchAssoc('
+			SELECT * FROM trabajar 
+			WHERE Persona_idPersona = ?
+			AND dia = ?
+			',array($voluntarioId,$date));
+	}
+
+	
 	
 }
 

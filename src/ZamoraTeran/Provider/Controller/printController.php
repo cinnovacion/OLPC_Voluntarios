@@ -30,6 +30,11 @@ class printController implements ControllerProviderInterface {
 		->bind('print.card');
 
 		$controllers
+		->get('/{id}/horas', array($this, 'horas'))
+		->assert('id', '\d+')
+		->bind('print.horas');
+
+		$controllers
 		->get('/listaSemana', array($this,'listaSemana'))
 		->bind('print.listaSemana');
 
@@ -60,6 +65,32 @@ class printController implements ControllerProviderInterface {
 			);
 		// Build and return the HTML
 		return $app['twig']->render('voluntarios/printCard.twig',$data);
+	}
+
+	/**
+	 * Volunteer print out card
+	 * @param Application $app An Application instance
+	 * @param int $id ID of the user (URL Param)
+	 * @return string A blob of HTML
+	 */
+	public function horas(Application $app, $id) {
+		//checking if the user is loged in
+		if($app['session']->get('user') == null/** || empty($app['session']->get('user'))**/){
+			return $app->redirect($app['url_generator']->generate('login'));
+			die();
+		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+			return $app->redirect($app['url_generator']->generate('logout'));
+			die();
+		}
+		
+		$data = array(
+			'page' => 'voluntarios',
+			'id' => $id,
+			'voluntario' => $app['db.persona']->find($id),
+			'months' => array('01' => 'enero', '02' => 'febrero', '03'=>'marzo', '04' => 'abril', '05' => 'mayo', '06' => 'junio', '07' => 'julio', '08' => 'agosto', '09' => 'septiembre', '10' => 'octubre', '11' => 'noviembre', '12' => 'diciembre'),
+			);
+		// Build and return the HTML
+		return $app['twig']->render('voluntarios/printHoras.twig',$data);
 	}
 
 	/**

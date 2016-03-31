@@ -5,19 +5,27 @@
 <style type="text/css" media="print">
 	@page { size: landscape; }
 </style>
+
 <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/printPage.css"/>
-<div id="toRemove" class="col-md-12">
-	<a class="btn btn-info buttonright"  id="toRemove1 savePage" role="button" onclick="savePage()"> 
+
+
+
+
+<div id="toRemove" class="col-md-12" style="height: 40px;">
+	<a class="btn btn-info pull-right"  id="toRemove1 savePage" role="button" onclick="savePage()"> 
 		<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 
 		 Descargar
 	</a>
+	
+	<a href="{{path('voluntarios.overview')}}" class="btn btn-info buttonleft  pull-left"  id="toRemove3" role="button"> 
+		<span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> 
+		 Atras
+	</a>
+</div>
+<div class="col-md-12">
 	<a class="btn btn-info buttonleft"  id="toRemove2 printPage" role="button" onclick="printPage()"> 
 		<span class="glyphicon glyphicon-print" aria-hidden="true"></span> 
 		 Imprimir
-	</a>
-	<a href="{{path('voluntarios.overview')}}" class="btn btn-info buttonleft"  id="toRemove3" role="button"> 
-		<span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> 
-		 Atras
 	</a>
 </div>
 
