@@ -49,16 +49,13 @@ class ajaxController implements ControllerProviderInterface {
 
 	}
 
-
+	//controller for the volunteers who worked in a certain week
 	public function listaSemana(Application $app) {
 		if(isset($_POST['action'])){
+			//get first day of the week from data
 			$firstDay = json_decode($_POST['action'], true)['firstday'];
-			//echo json_encode($firstDay);
-			//echo json_encode(date($firstDay, strtotime('+'.(2-date('w')).' days')));
-			//echo json_encode(date('Y-m-d',strtotime($firstDay + 1)));
-
-			//echo json_encode("teststring");
-			//
+			
+			//get all the days of the week in an array
 			$days = array(
 				'1' => date('d/m/Y',strtotime($firstDay)),
 				'2' => date('d/m/Y',strtotime($firstDay. ' +1 day')),
@@ -66,6 +63,8 @@ class ajaxController implements ControllerProviderInterface {
 				'4' => date('d/m/Y',strtotime($firstDay. ' +3 day')),
 				'5' => date('d/m/Y',strtotime($firstDay. ' +4 day'))
 				);
+			//get al the volunteers of the week in an array
+			//every object in the volunteers array is a new array of all the volunteers of the specific day
 			$volunteers = array(
 				'1' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d',strtotime($firstDay))),
 				'2' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d',strtotime($firstDay. ' +1 day'))),
@@ -73,6 +72,8 @@ class ajaxController implements ControllerProviderInterface {
 				'4' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d',strtotime($firstDay. ' +3 day'))),
 				'5' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d',strtotime($firstDay. ' +4 day')))
 				);
+
+			//show the data
 			echo json_encode(
 				array(
 					'days' => $days, 
@@ -95,34 +96,16 @@ class ajaxController implements ControllerProviderInterface {
 				//echo json_encode($app['db.trabajar']->getWorkInMonth($search['voluntario'],$search['year'],$search['month'],$search['week']));
 				
 				$days = array(
-				$app['db.trabajar']->getWorkInDay($search['voluntario'],date('Y-m-d',strtotime($search['week']))),
-				$app['db.trabajar']->getWorkInDay($search['voluntario'],date('Y-m-d',strtotime($search['week']. ' +1 day'))),
-				$app['db.trabajar']->getWorkInDay($search['voluntario'],date('Y-m-d',strtotime($search['week']. ' +2 day'))),
-				$app['db.trabajar']->getWorkInDay($search['voluntario'],date('Y-m-d',strtotime($search['week']. ' +3 day'))),
-				$app['db.trabajar']->getWorkInDay($search['voluntario'],date('Y-m-d',strtotime($search['week']. ' +4 day')))
-				);
+					$app['db.trabajar']->getWorkInDay($search['voluntario'],date('Y-m-d',strtotime($search['week']))),
+					$app['db.trabajar']->getWorkInDay($search['voluntario'],date('Y-m-d',strtotime($search['week']. ' +1 day'))),
+					$app['db.trabajar']->getWorkInDay($search['voluntario'],date('Y-m-d',strtotime($search['week']. ' +2 day'))),
+					$app['db.trabajar']->getWorkInDay($search['voluntario'],date('Y-m-d',strtotime($search['week']. ' +3 day'))),
+					$app['db.trabajar']->getWorkInDay($search['voluntario'],date('Y-m-d',strtotime($search['week']. ' +4 day')))
+					);
+
 				echo json_encode($days);
 			}
-			/**
-			$days = array(
-				'1' => date('d/m/Y',strtotime($firstDay)),
-				'2' => date('d/m/Y',strtotime($firstDay. ' +1 day')),
-				'3' => date('d/m/Y',strtotime($firstDay. ' +2 day')),
-				'4' => date('d/m/Y',strtotime($firstDay. ' +3 day')),
-				'5' => date('d/m/Y',strtotime($firstDay. ' +4 day'))
-				);
-			$volunteers = array(
-				'1' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d',strtotime($firstDay))),
-				'2' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d',strtotime($firstDay. ' +1 day'))),
-				'3' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d',strtotime($firstDay. ' +2 day'))),
-				'4' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d',strtotime($firstDay. ' +3 day'))),
-				'5' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d',strtotime($firstDay. ' +4 day')))
-				);
-			echo json_encode(
-				array(
-					'days' => $days, 
-					'volunteers' => $volunteers));**/
-			//echo json_encode($search);
+			
 		}
 		// Inject data into the template which will show 'm all
 		return $app['twig']->render('Ajax/dump.twig');
@@ -151,72 +134,55 @@ class ajaxController implements ControllerProviderInterface {
 
 	public function logVolunteer(Application $app) {
 		if(isset($_POST['action'])){
-			$lastInput = $app['db.trabajar']->getLastInput(json_decode($_POST['action'], true)['idPersona']);
+			$idPersona = json_decode($_POST['action'], true)['idPersona'];
+			$lastInput = $app['db.trabajar']->getLastInput($idPersona);
 
+			//if the lastinput of the user is equal to today
 			if($lastInput['dia'] == date("Y-m-d")){
 
+				//if the final hour is null
 				if($lastInput['horaFinal'] == null){
+
+					//add final hour (now)
 					$lastInput['horaFinal'] = date("Y-m-d H:i:s");
+
+					//calculate the working time
 					$lastInput['tiempo'] = round((
 						strtotime($lastInput['horaFinal'])-
 						strtotime($lastInput['horaInicio'])
 						)/(3600), 2);
+
+					//update into database
 					$app['db.trabajar']->update($lastInput,array('idTrabajar' => $lastInput['idTrabajar']));
 					echo json_encode($lastInput);
 				}else{
+					//add starting time (now)
 					$trabaja = array(
-						'Persona_idPersona' => $lastInput['Persona_idPersona'],
+						'Persona_idPersona' => $idPersona,
 						'horaInicio' => date("Y-m-d H:i:s"),
 						'dia' => date("Y-m-d")
 						);
+
+					//insert into database
 					$app['db.trabajar']->insert($trabaja);
 					echo json_encode($trabaja);
 				}
 
 			}else{
-
+				//add starting time (now)
 				$trabaja = array(
-					'Persona_idPersona' => $lastInput['Persona_idPersona'],
+					'Persona_idPersona' => $idPersona,
 					'horaInicio' => date("Y-m-d H:i:s"),
 					'dia' => date("Y-m-d")
 					);
+
+				//insert into database
 				$app['db.trabajar']->insert($trabaja);
 				echo json_encode($trabaja);
 
 			}
-/**
-			$lastInput = $app['db.trabajar']->getLastInput($personaId);
-
-				if($lastInput['dia'] == date("Y-m-d")){
-
-					if($lastInput['horaFinal'] == null){
-						$lastInput['horaFinal'] = date("Y-m-d H:i:s");
-						$lastInput['tiempo'] = round((
-							strtotime($lastInput['horaFinal'])-
-							strtotime($lastInput['horaInicio'])
-							)/(3600), 2);
-						$app['db.trabajar']->update($lastInput,array('idTrabajar' => $lastInput['idTrabajar']));
-					}else{
-						$trabaja = array(
-							'Persona_idPersona' => $personaId,
-							'horaInicio' => date("Y-m-d H:i:s"),
-							'dia' => date("Y-m-d")
-							);
-						$app['db.trabajar']->insert($trabaja);
-					}
-
-				}else{
-
-					$trabaja = array(
-						'Persona_idPersona' => $personaId,
-						'horaInicio' => date("Y-m-d H:i:s"),
-						'dia' => date("Y-m-d")
-						);
-					$app['db.trabajar']->insert($trabaja);
-
-				}**/
-			}
-		// Inject data into the template which will show 'm all
-			return $app['twig']->render('Ajax/dump.twig');
 		}
+		// Inject data into the template which will show 'm all
+		return $app['twig']->render('Ajax/dump.twig');
 	}
+}

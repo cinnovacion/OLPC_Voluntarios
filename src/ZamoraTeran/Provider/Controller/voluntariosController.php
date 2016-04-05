@@ -147,7 +147,8 @@ class voluntariosController implements ControllerProviderInterface {
 		}
 
 		//pagination
-		require_once '/../../../Classes/Pagination.php';
+		require_once '/var/www/html/src/
+Classes/Pagination.php';
 		$numItemsPerPage = 15;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
 
@@ -204,7 +205,8 @@ class voluntariosController implements ControllerProviderInterface {
 			die();
 
 		}
-		require_once '/../../../Classes/Pagination.php';
+		require_once '/var/www/html/src/
+Classes/Pagination.php';
 		$numItems = $app['db.trabajar']->countById($id)['count'];
 		$numItemsPerPage = 10;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
@@ -286,12 +288,13 @@ class voluntariosController implements ControllerProviderInterface {
 			))
 		->add('Area', 'choice', array(
 			'choices' => array(
-				1 => 'Comunicación', 
-				2 => 'Mercadeo',
-				3=>'Área Educativa',
-				4=>'Programa de Voluntariado',
-				5=>'Monitoreo y Evaluación',
-				6=>'Técnico'),'data' => $persona['Area']))
+				1 => 'CEDESL',
+				2 => 'Comunicación', 
+				3 => 'Mercadeo',
+				4=>'Área Educativa',
+				5=>'Programa de Voluntariado',
+				6=>'Monitoreo y Evaluación',
+				7=>'Soporte técnico'),'data' => $persona['Area']))
 		->add('DiaInicio','text', array(
 			'data' => $persona['DiaInicio']
 			))
@@ -530,12 +533,13 @@ class voluntariosController implements ControllerProviderInterface {
 			))
 		->add('Area', 'choice', array(
 			'choices' => array(
-				1 => 'Comunicación', 
-				2 => 'Mercadeo',
-				3=>'Área Educativa',
-				4=>'Programa de Voluntariado',
-				5=>'Monitoreo y Evaluación',
-				6=>'Técnico')))
+				1 => 'CEDESL',
+				2 => 'Comunicación', 
+				3 => 'Mercadeo',
+				4=>'Área Educativa',
+				5=>'Programa de Voluntariado',
+				6=>'Monitoreo y Evaluación',
+				7=>'Soporte técnico')))
 		->add('DiaInicio','text')
 		->add('DiaFinal','text')
 		->add('trabajoLunes', 'checkbox',array('required' => false))

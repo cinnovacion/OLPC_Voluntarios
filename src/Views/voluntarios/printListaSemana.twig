@@ -14,49 +14,51 @@
 <div id="toRemove" class="col-md-12" style="height: 40px;">
 	<a class="btn btn-info pull-right"  id="toRemove1 savePage" role="button" onclick="savePage()"> 
 		<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 
-		 Descargar
+		Descargar
 	</a>
 	
 	<a href="{{path('voluntarios.overview')}}" class="btn btn-info buttonleft  pull-left"  id="toRemove3" role="button"> 
 		<span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> 
-		 Atras
+		Atras
 	</a>
 </div>
 <div class="col-md-12">
 	<a class="btn btn-info buttonleft"  id="toRemove2 printPage" role="button" onclick="printPage()"> 
 		<span class="glyphicon glyphicon-print" aria-hidden="true"></span> 
-		 Imprimir
+		Imprimir
 	</a>
 </div>
+	<div class="col-md-12">
+		<div class="form-group">
+			<label for="years" class="listLabels">Años:</label>
+			<select class="years form-control">
+				{% for i in 2015..2050 %}
+				<option value="{{i}}" {% if  "now"|date("Y") == i %}selected="selected"{% endif %}>{{i}}</option>
+				{% endfor %}
+			</select>
+		</div>
 
 
-<div class="col-md-12">
-	<div class="form-group">
-		<label for="years" class="listLabels">Años:</label>
-		<select class="years form-control">
-			{% for i in 2015..2050 %}
-			<option value="{{i}}" {% if  "now"|date("Y") == i %}selected="selected"{% endif %}>{{i}}</option>
-			{% endfor %}
-		</select>
+		<div class="form-group">
+			<label for="years" class="listLabels">Meses:</label>
+			<select class="months form-control">
+				{% for month in months %}
+
+				<option value="{{loop.index}}" {% if  "now"|date("m") == loop.index %}selected="selected"{% endif %}>{{month|capitalize}}</option>
+				{% endfor %}
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="years" class="listLabels">Semanas:</label>	
+			<select class="weeks form-control">	</select>
+		</div>
+		<button class="btn btn-info" onclick="fillErUp()" style="margin-left: 285px;">Búsqueda</button>
 	</div>
-
 	
-	<div class="form-group">
-		<label for="years" class="listLabels">Meses:</label>
-		<select class="months form-control">
-			{% for month in months %}
-
-			<option value="{{loop.index}}" {% if  "now"|date("m") == loop.index %}selected="selected"{% endif %}>{{month|capitalize}}</option>
-			{% endfor %}
-		</select>
+<div class="col-md-12">
+		<img src="{{ app.request.baseUrl }}/assets/img/ajax-loader.gif" id="ajaxLoader" style="margin-left: 50%;">
 	</div>
-
-	<div class="form-group">
-		<label for="years" class="listLabels">Semanas:</label>	
-		<select class="weeks form-control">	</select>
-	</div>
-	<button class="btn btn-info" onclick="fillErUp()" style="margin-left: 285px;">Búsqueda!</button>
-</div>
 <div id="toPrint">
 
 	<div class="col-md-12">	
@@ -64,6 +66,7 @@
 		<h2 id="yearmonth"></h2>
 		<h2 id="week"></h2>
 	</div>
+	
 	<div class="col-md-12" id="divToBeFilled">	
 		
 	</div>

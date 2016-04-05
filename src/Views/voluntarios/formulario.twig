@@ -5,11 +5,11 @@
 
 <div class="col-md-12" style="margin-bottom: 15px;">
 
-{% if formulario == 'new' %}
-<a href="{{ path('voluntarios.overview')}}" class="btn btn-info">Cancelar</a>
-{% elseif formulario == 'edit' %}
-<a href="{{ detailpath }}" class="btn btn-info">Cancelar</a>
-{% endif %}
+	{% if formulario == 'new' %}
+	<a href="{{ path('voluntarios.overview')}}" class="btn btn-info">Cancelar</a>
+	{% elseif formulario == 'edit' %}
+	<a href="{{ detailpath }}" class="btn btn-info">Cancelar</a>
+	{% endif %}
 </div>
 <form action="
 {% if formulario == 'new' %}
@@ -36,7 +36,7 @@
 <div class="form-group row">
 	{{ form_label(nuevoform.NoDeCedula, 'No. De cédula', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 	<div class="col-sm-10">
-		{{ form_widget(nuevoform.NoDeCedula,{'attr':{'class': 'form-control','id':'cedula','placeholder':'No. De Cédula'}}) }}
+		{{ form_widget(nuevoform.NoDeCedula,{'attr':{'class': 'form-control','id':'cedula','placeholder':'No. De cédula'}}) }}
 		{{ form_errors(nuevoform.NoDeCedula) }}
 	</div>
 </div>
@@ -78,7 +78,7 @@
 <div class="form-group row">
 	{{ form_label(nuevoform.Nivel, 'Nivel', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 	<div class="col-sm-10">
-		{{ form_widget(nuevoform.Nivel,{'attr':{'class': 'form-control','id':'carreracurso','placeholder':'5to anto'}}) }}
+		{{ form_widget(nuevoform.Nivel,{'attr':{'class': 'form-control','id':'carreracurso','placeholder':''}}) }}
 		{{ form_errors(nuevoform.Nivel) }}
 	</div>
 </div>
@@ -89,19 +89,14 @@
 		{{ form_errors(nuevoform.Area) }}
 	</div>
 </div>
-<div class="form-group row">
-	{{ form_label(nuevoform.DiaInicio, 'Día inicio', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
-	<div class="col-sm-10">
-		<div class='input-group date' id='datetimepicker1'>
-				{{ form_widget(nuevoform.DiaInicio,{'attr':{'class':'form-control','style':'margin-top: 0px;margin-left: 0px;    height: 34.6px;'}})}}
-				<span class="input-group-addon hidden">
-					<span class="glyphicon glyphicon-calendar" id="openCalendar"></span>
-				</span>
-			</div>
-		{{ form_errors(nuevoform.DiaInicio) }}
-	</div>
-</div>
 
+<div class=" form-group row">
+	{{ form_label(nuevoform.DiaInicio, 'Día de inicio', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+	<div class='col-sm-10'>
+		{{ form_widget(nuevoform.DiaInicio,{'attr':{'class':'form-control','style':'margin-top: 0px;margin-left: 0px;    height: 34.6px;'}})}}
+	</div>
+	{{ form_errors(nuevoform.DiaInicio) }}
+</div>
 <div class="col-md-12">
 	<div class="form-group row">
 		<table class="table table-bordered">
@@ -215,7 +210,7 @@
 	</div>
 </div>
 <div class="form-group row">
-	{{ form_label(nuevoform.HorasAccumuladas, 'Horas accumuladas en el pasado', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
+	{{ form_label(nuevoform.HorasAccumuladas, 'Horas acumuladas en el pasado', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
 	<div class="col-sm-10">
 		{{ form_widget(nuevoform.HorasAccumuladas,{'attr':{'class': 'form-control','id':'HorasAccumulados','placeholder':'0','value': '0','type':'number'}}) }}
 		{{ form_errors(nuevoform.HorasAccumuladas) }}
@@ -231,11 +226,7 @@
 </div>
 <div class="form-group row">
 	<div class="col-sm-offset-2 col-sm-10">
-		{% if formulario == 'new' %}
-		<button type="submit" class="btn btn-info submitButton">Añadir</button>
-		{% elseif formulario == 'edit' %}
 		<button type="submit" class="btn btn-info submitButton">Guardar</button>
-		{% endif %}
 
 	</div>
 </div>

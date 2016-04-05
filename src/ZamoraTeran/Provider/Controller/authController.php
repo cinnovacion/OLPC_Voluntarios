@@ -35,7 +35,7 @@ class authController implements ControllerProviderInterface {
 
 
 	/**
-	 * Home page
+	 * login page
 	 * @param Application $app An Application instance
 	 * @return string A blob of HTML
 	 */
@@ -45,19 +45,27 @@ class authController implements ControllerProviderInterface {
 			die();
 	}	
 
-	
+		//include pagination
 		include('/../../../Classes/Encrypt.php');
 		$encrypt = new \Encrypt();
+
+		//make a new login form
 		$loginform = $app['form.factory']->createNamed('loginform', 'form')
 		->add('Nombre', 'text', array('required' => true))
 		->add('contrasena', 'password', array('required' => true));
 
+		//check if form is submitted
 		$loginform->handleRequest($app['request']);
 
+		//is the form valid?
 		if($loginform->isValid()){
+
+			//get the data from the form
 			$data = $loginform->getData();
 			
+			//get the admin by name
 			$admin = $app['db.admins']->getByName($data['Nombre']);
+			
 			if($admin == null){
 				$loginform->get('Nombre')->addError(new \Symfony\Component\Form\FormError('El nombre no existe'));
 			}else{
@@ -72,7 +80,7 @@ class authController implements ControllerProviderInterface {
 							));
 						return $app->redirect($app['url_generator']->generate('voluntarios.overview'));
 					}else{
-						$loginform->get('contrasena')->addError(new \Symfony\Component\Form\FormError('El contrasena no es correcto'));
+						$loginform->get('contrasena')->addError(new \Symfony\Component\Form\FormError('La contraseña no es correcta'));
 					}
 					
 				};

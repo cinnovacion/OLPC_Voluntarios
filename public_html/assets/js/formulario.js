@@ -1,5 +1,4 @@
-$('#datetimepicker1').datetimepicker({ format: 'DD/MM/YYYY'}); 
-$("#datetimepicker2").datetimepicker({ format: 'DD/MM/YYYY'	});
+$('#nuevoform_DiaInicio').datetimepicker({ format: 'DD/MM/YYYY'}); 
 
 document.getElementsByClassName("trabajoLunes").onchange = switchLunes;
 document.getElementsByClassName("trabajoMartes").onchange = switchMartes;
@@ -101,3 +100,4 @@ function switchViernes() {
 $( "#nuevoform_DiaInicio" ).focus(function() {
 	$('#openCalendar').click()
 });
+$('input, select').keypress(function(event) { return event.keyCode != 13; });

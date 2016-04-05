@@ -104,7 +104,7 @@ class trabajarRepository extends \Knp\Repository {
 
 	public function getWorkInYear($voluntarioId,$year){
 		return $this->db->fetchAll('
-			SELECT * FROM trabajar 
+			SELECT dia,horaInicio,horaFinal,tiempo FROM trabajar 
 			WHERE Persona_idPersona = ?
 			AND YEAR(dia) = ?
 			',array($voluntarioId,$year));
@@ -113,7 +113,7 @@ class trabajarRepository extends \Knp\Repository {
 
 	public function getWorkInMonth($voluntarioId,$year,$month){
 		return $this->db->fetchAll('
-			SELECT * FROM trabajar 
+			SELECT dia,horaInicio,horaFinal,tiempo FROM trabajar 
 			WHERE Persona_idPersona = ?
 			AND YEAR(dia) = ?
 			AND MONTH(dia) = ?
@@ -122,7 +122,7 @@ class trabajarRepository extends \Knp\Repository {
 
 	public function getWorkInDay($voluntarioId,$date){
 		return $this->db->fetchAssoc('
-			SELECT * FROM trabajar 
+			SELECT dia,horaInicio,horaFinal,tiempo FROM trabajar 
 			WHERE Persona_idPersona = ?
 			AND dia = ?
 			',array($voluntarioId,$date));

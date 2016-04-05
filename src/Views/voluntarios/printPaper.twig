@@ -1,13 +1,13 @@
 {% extends 'layout.twig' %}
 
-{% set pageTitle = 'imprimir la medalla' %}
+{% set pageTitle = 'Imprimir formulario' %}
 {% block pageContent %}
 <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/printPage.css"/>
 <div id="toRemove">
 	<a class="btn btn-info buttonright"  id="toRemove1" role="button" onclick="savePage()"> <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Descargar</a>
 	<a class="btn btn-info buttonleft"  id="toRemove2" role="button" onclick="printPage()"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</a>
 	<a class="btn btn-info buttonleft"  id="toRemove3" role="button" onclick="addWork()"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Añadir actividades</a>
-	<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}" class="btn btn-info buttonleft"  id="toRemove3" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
+	<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}" class="btn btn-info buttonleft pull-left"  id="toRemove3" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
 	<div class="col-md-12" id="addwork">
 
 	</div>
@@ -37,12 +37,37 @@
 		hasta el {{ trabajaA|date('d')}} de {{  months[(trabajaA|date("m"))] }} de {{trabajaA|date('Y')}}.</p>
 		<p>A continuación se detallan algunas de las actividades en las cuales <b>{{voluntario.Nombre}}</b> aportó generosamente con sus habilidades y tiempo:
 			<ul id="worklist">
+				
+			</ul>
+		</p>
+
+	{%  elseif voluntario.Area == 2 %}
+	<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como 
+
+		{% if voluntario.Sexo != true %}
+		voluntaria
+		{% else %}
+		voluntario
+		{% endif %} 
+
+		en el área de Comunicación de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde el 
+
+		{% if trabajaDe != null %}
+		{{ trabajaDe|date('d')}} de {{ months[trabajaDe|date("m")] }} de {{trabajaDe|date('Y')}} 
+		{% else %}
+		{{ voluntario.DiaInicio|date('d')}} de {{ months[voluntario.DiaInicio|date("m")] }} de {{voluntario.DiaInicio|date('Y')}}
+		{% endif %}
+
+
+		hasta el {{ trabajaA|date('d')}} de {{  months[(trabajaA|date("m"))] }} de {{trabajaA|date('Y')}}.</p>
+		<p>A continuación se detallan algunas de las actividades en las cuales <b>{{voluntario.Nombre}}</b> aportó generosamente con sus habilidades y tiempo:
+			<ul id="worklist">
 				<li>Edición de videos oficiales de la organización.</li>
 				<li>Diseño de: artes publicitarios, e-proms para redes sociales, invitaciones y materiales impresos.</li>
 				<li>Apoyo en el diseño y formato de boletines informativos mensuales.</li>
 			</ul>
 		</p>
-		{% elseif voluntario.Area == 2 %}
+		{% elseif voluntario.Area == 3 %}
 		<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Mercadeo de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde el 
 
 
@@ -62,7 +87,7 @@
 					<li>Elaboración de inventarios de artículos.</li>
 				</ul>
 			</p>
-			{% elseif voluntario.Area == 3 %}
+			{% elseif voluntario.Area == 4 %}
 			<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Área Educativa de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde el 
 
 
@@ -81,7 +106,7 @@
 						<li>Mantenimiento preventivo de laptops XO.</li>
 					</ul>
 				</p>
-				{% elseif voluntario.Area == 4 %}
+				{% elseif voluntario.Area == 5 %}
 				<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Programa de Voluntariado de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde el 
 
 
@@ -102,7 +127,7 @@
 							<li>Apoyo en logística y presentaciones informativas del Programa Educativo: “Una Computadora por Niño”.</li>
 						</ul>
 					</p>
-					{% elseif voluntario.Area == 5 %}
+					{% elseif voluntario.Area == 6 %}
 					<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Monitoreo y Evaluación de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde el 
 
 
@@ -123,8 +148,8 @@
 								<li>Creación de máscaras para clasificación de escuelas.</li>
 							</ul>
 						</p>
-						{% elseif voluntario.Area == 6 %}
-						<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Técnico de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde el 
+						{% elseif voluntario.Area == 7 %}
+						<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de soporte técnico de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde el 
 
 
 							{% if trabajaDe != null %}

@@ -1,64 +1,74 @@
 var monthNames = [
-	"enero", 
-	"febrero", 
-	"marzo",
-	"abril", 
-	"mayo", 
-	"junio", 
-	"julio",
-	"agosto", 
-	"septiembre",
-	"octubre",
-	"noviembre", 
-	"diciembre"
-	];
+"Enero", 
+"Febrero", 
+"Marzo",
+"Abril", 
+"Mayo", 
+"Junio", 
+"Julio",
+"Agosto", 
+"Septiembre",
+"Octubre",
+"Noviembre", 
+"Diciembre"
+];
 
-	$( ".months" ).change(function() {
-		fillWeeks();
-		document.getElementById("month").innerHTML = monthNames[$('.months').val()-1];
-		document.getElementById("week").innerHTML = $(".weeks :selected").text();
-	});
 
-	$(".years").change(function(){
-		fillWeeks();
-		document.getElementById("year").innerHTML = $('.years').val();
-		document.getElementById("month").innerHTML = monthNames[$('.months').val()-1];
-		document.getElementById("week").innerHTML = $(".weeks :selected").text();
-	});
+$(document).ajaxStart(function() {
+	$('#ajaxLoader').show();
+});
 
-	$('.weeks').change(function(){
-		document.getElementById("week").innerHTML = $(".weeks :selected").text();
-	})
+$(document).ajaxStop(function() {
+	$('#ajaxLoader').hide();
+});
 
-	$(".filter").change(function(){
-		if($(this).val() == "week"){
-			$(".weeks").removeAttr('disabled');
-			$(".months").removeAttr('disabled');
-		}else if($(this).val() == "month"){
-			$(".weeks").attr('disabled', 'disabled');
-			$(".months").removeAttr('disabled');
-		}else if($(this).val() == "year"){
-			$(".weeks").attr('disabled', 'disabled');
-			$(".months").attr('disabled', 'disabled');
-		}
+$( ".months" ).change(function() {
+	fillWeeks();
+	document.getElementById("month").innerHTML = monthNames[$('.months').val()-1];
+	document.getElementById("week").innerHTML = $(".weeks :selected").text();
+});
 
-	});
+$(".years").change(function(){
+	fillWeeks();
+	document.getElementById("year").innerHTML = $('.years').val();
+	document.getElementById("month").innerHTML = monthNames[$('.months').val()-1];
+	document.getElementById("week").innerHTML = $(".weeks :selected").text();
+});
 
-	$(window).load(function() {
-		fillWeeks();
-		document.getElementById("year").innerHTML = $('.years').val();
-		document.getElementById("month").innerHTML = monthNames[$('.months').val()-1];
-		document.getElementById("week").innerHTML = $(".weeks :selected").text();
-		//$('#divToBeFilled').append('<table class="table table-striped splitTable"><thead><tr><th id="fecha">Fecha</th><th id="entrada">Hora de entrada</th><th id="salida">Hora de salida</th><th id="total">Total de horas</th></tr></thead><tbody id="fillMeUp"></tbody></table>');
-		//$('#divToBeFilled').append('<p>vince</p>');
-	});
+$('.weeks').change(function(){
+	document.getElementById("week").innerHTML = $(".weeks :selected").text();
+})
 
-	function getMondays(year, month_number) {
-		var d = new Date(year, month_number-1),
-		month = d.getMonth(),
-		mondays = [];
 
-		d.setDate(1);
+
+$(".filter").change(function(){
+	if($(this).val() == "week"){
+		$(".weeks").removeAttr('disabled');
+		$(".months").removeAttr('disabled');
+	}else if($(this).val() == "month"){
+		$(".weeks").attr('disabled', 'disabled');
+		$(".months").removeAttr('disabled');
+	}else if($(this).val() == "year"){
+		$(".weeks").attr('disabled', 'disabled');
+		$(".months").attr('disabled', 'disabled');
+	}
+
+});
+
+$(window).load(function() {
+	fillWeeks();
+	document.getElementById("year").innerHTML = $('.years').val();
+	document.getElementById("month").innerHTML = monthNames[$('.months').val()-1];
+	document.getElementById("week").innerHTML = $(".weeks :selected").text();
+	$('#ajaxLoader').hide();
+});
+
+function getMondays(year, month_number) {
+	var d = new Date(year, month_number-1),
+	month = d.getMonth(),
+	mondays = [];
+
+	d.setDate(1);
 
 	    // Get the first Monday in the month
 	    while (d.getDay() !== 1) {
@@ -100,7 +110,7 @@ var monthNames = [
 
 	function fillErUp() {
 		//$('#divToBeFilled').empty();
-				
+
 		var postData = 
 		{	
 			"voluntario" : $('#voluntarioId').text(),
@@ -116,7 +126,7 @@ var monthNames = [
 			url: '../../ajax/getListaTrabaja',
 			success: function(data){
 				var json = JSON.parse(data);
-				//console.log(json);
+				console.log(json);
 				
 				
 				
@@ -125,12 +135,15 @@ var monthNames = [
 				counter = 0;
 				for (var i = 0; i < json.length; i++) {
 					if(!json[i]){
-						break;
+						continue;
 					}
 					//console.log(json[i]);
 					var row = document.getElementById("fillMeUp").insertRow(-1);
 
-					row.insertCell(0).innerHTML = json[i]['dia'];
+					$dia  = new Date(json[i]['dia']);
+					row.insertCell(0).innerHTML = ($dia.getUTCDate()	) + '/'+ ($dia.getMonth()+1) + '/' + 	$dia.getUTCFullYear();
+
+
 					row.insertCell(1).innerHTML = json[i]['horaInicio'];
 
 					if(json[i]['horaFinal'] == null){
@@ -143,11 +156,9 @@ var monthNames = [
 						row.insertCell(3).innerHTML = "/";
 					}else{
 						row.insertCell(3).innerHTML = json[i]['tiempo'] + " horas";
+
 					}
 				}
-				
-
-				
 			},
 			error: function(e){
 				console.log('error: ' + e);
