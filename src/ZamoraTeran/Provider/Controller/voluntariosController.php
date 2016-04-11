@@ -88,7 +88,7 @@ class voluntariosController implements ControllerProviderInterface {
 
 		if($timeform->isValid()){
 			$data = $timeform->getData();
-			echo '<pre>'.var_dump($data).'</pre>';
+
 			$trabaja['horaInicio'] = $data['HoraInicio'];
 			$trabaja['horaFinal'] = $data['HoraFinal'];
 
@@ -147,8 +147,7 @@ class voluntariosController implements ControllerProviderInterface {
 		}
 
 		//pagination
-		require_once '/var/www/html/src/
-Classes/Pagination.php';
+		require_once '/var/www/html/src/Classes/Pagination.php';
 		$numItemsPerPage = 15;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
 
@@ -205,20 +204,19 @@ Classes/Pagination.php';
 			die();
 
 		}
-		require_once '/var/www/html/src/
-Classes/Pagination.php';
+		require_once '/var/www/html/src/Classes/Pagination.php';
 		$numItems = $app['db.trabajar']->countById($id)['count'];
 		$numItemsPerPage = 10;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
 		$numPages = ceil($numItems / $numItemsPerPage);
 		$pagination =  generatePaginationSequence($curpage,$numPages);
-
 		$data = array(
 			'page' => 'voluntarios',
 			'voluntario' => $app['db.persona']->find($id),
 			'trabaja' => $app['db.trabajar']->findByPersona($id,$curpage,$numItemsPerPage),
 			'trabajaPara' => $app['db.trabajar']->findTotalHoursByPersona($id),
 			'disponibilidad' => $app['db.disponibilidad']->getDisponibilidad($id),
+			'lastInput' => $app['db.trabajar']->getLastInput($id),
 			'pagination' => $pagination,
 			'curPage' => $curpage,
 			'numPages' => $numPages,
@@ -282,10 +280,15 @@ Classes/Pagination.php';
 			'constraints' => array(new Assert\NotBlank()),
 			'data' => $persona['CarreraCurso']
 			))
-		->add('Nivel', 'text', array(
-			'constraints' => array(new Assert\NotBlank()),
-			'data' => $persona['Nivel']
-			))
+		->add('Nivel', 'choice', array(
+			'choices' => array(
+				1 => '1er.año',
+				2 => '2do.año', 
+				3 => '3er.año',
+				4 => '4to.año',
+				5 => '5to.año',
+				99 => 'Egresado',),
+			'data' => $persona['Nivel']))
 		->add('Area', 'choice', array(
 			'choices' => array(
 				1 => 'CEDESL',
@@ -294,7 +297,7 @@ Classes/Pagination.php';
 				4=>'Área Educativa',
 				5=>'Programa de Voluntariado',
 				6=>'Monitoreo y Evaluación',
-				7=>'Soporte técnico'),'data' => $persona['Area']))
+				7=>'Soporte Técnico'),'data' => $persona['Area']))
 		->add('DiaInicio','text', array(
 			'data' => $persona['DiaInicio']
 			))
@@ -528,10 +531,19 @@ Classes/Pagination.php';
 		->add('CarreraCurso', 'text', array(
 			'constraints' => array(new Assert\NotBlank())
 			))
-		->add('Nivel', 'text', array(
-			'constraints' => array(new Assert\NotBlank())
-			))
+		->add('Nivel', 'choice', array(
+			'constraints' => array(new Assert\NotBlank()),
+			'empty_value' => 'Elige una opción',
+			'choices' => array(
+				1 => '1er.año',
+				2 => '2do.año', 
+				3 => '3er.año',
+				4 => '4to.año',
+				5 => '5to.año',
+				99 => 'Egresado')))
 		->add('Area', 'choice', array(
+			'constraints' => array(new Assert\NotBlank()),
+			'empty_value' => 'Elige una opción',
 			'choices' => array(
 				1 => 'CEDESL',
 				2 => 'Comunicación', 
@@ -539,7 +551,7 @@ Classes/Pagination.php';
 				4=>'Área Educativa',
 				5=>'Programa de Voluntariado',
 				6=>'Monitoreo y Evaluación',
-				7=>'Soporte técnico')))
+				7=>'Soporte Técnico')))
 		->add('DiaInicio','text')
 		->add('DiaFinal','text')
 		->add('trabajoLunes', 'checkbox',array('required' => false))
