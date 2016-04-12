@@ -52,6 +52,8 @@ function switchLunes() {
 		document.getElementById("lunes").style.opacity = 0;
 	}else{
 		document.getElementById("lunes").style.opacity = 100;
+		$('#nuevoform_fromLunes').timepicker('setTime', '8:00 AM');
+		$('#nuevoform_toLunes').timepicker('setTime', '5:00 PM');
 
 	}
 }

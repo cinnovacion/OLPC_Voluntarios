@@ -126,7 +126,7 @@ function getMondays(year, month_number) {
 			url: '../../ajax/getListaTrabaja',
 			success: function(data){
 				var json = JSON.parse(data);
-				console.log(json);
+				//console.log(json);
 				
 				
 				

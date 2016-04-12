@@ -15,6 +15,8 @@ class disponibilidadRepository extends \Knp\Repository {
 	public function getDisponibilidad($id){
 		return $this->db->fetchAll('SELECT * FROM disponibilidad WHERE Persona_idPersona = ?',array($id));
 	}
+
+	
 }
 
 //EOF

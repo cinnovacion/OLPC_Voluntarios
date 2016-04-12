@@ -17,7 +17,7 @@
 {% elseif formulario == 'edit' %}
 {{ editpath }}
 {% endif %}
-" method="post" {{ form_enctype(nuevoform)}} novalidate="novalidate" onsubmit="return false;">
+" method="post" {{ form_enctype(nuevoform)}} novalidate="novalidate">
 {{ form_errors(nuevoform) }}
 <div class="form-group row">
 	{{ form_label(nuevoform.Nombre, 'Nombre completo', { 'label_attr': {'class': 'col-sm-2 form-control-label'} }) }}
@@ -201,7 +201,6 @@
 							<div class="input-group bootstrap-timepicker timepicker">
 								{{ form_widget(nuevoform.toViernes,{'attr':{'class':'form-control input-small','id':'toViernes'}})}}
 							</div>
-
 						</div>
 					</td>
 				</tr>

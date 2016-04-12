@@ -129,6 +129,8 @@ class trabajarRepository extends \Knp\Repository {
 	}
 
 	
+
+	
 	
 }
 

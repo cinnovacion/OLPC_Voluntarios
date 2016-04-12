@@ -96,10 +96,6 @@ input[type="checkbox"]{
 	margin-top: 1em;
 }
 
-.edit{
-	float: right;
-	margin-right: 10%;
-}
 
 .buttonright{
 	float: right;
@@ -165,10 +161,6 @@ input[type="checkbox"]{
 	margin-top: 1em;
 }
 
-.edit{
-	float: right;
-	margin-right: 10%;
-}
 
 
 .btnreturn{
@@ -402,7 +394,6 @@ input[type="checkbox"]{
 
 .edit{
 	float: right;
-	margin-right: 10%;
 }
 
 .buttonright{
@@ -482,10 +473,7 @@ input[type="checkbox"]{
 	margin-top: 1em;
 }
 
-.edit{
-	float: right;
-	margin-right: 10%;
-}
+	
 
 
 .btnreturn{

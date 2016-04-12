@@ -14,6 +14,7 @@ var monthNames = [
 ];
 
 var areas=[
+'CEDESL',
 'Comunicación', 
 'Mercadeo',
 'Área Educativa',
@@ -224,7 +225,7 @@ function getMondays(year, month_number) {
 			url: '../ajax/getListaSemana',
 			success: function(data){
 				var json = JSON.parse(data);
-				console.log(json);
+				//console.log(json);
 				var maxVolunteers = Math.max(json['volunteers']['1'].length,json['volunteers']['2'].length,json['volunteers']['3'].length,json['volunteers']['4'].length,json['volunteers']['5'].length);
 
 				for (var i = 0; i < maxVolunteers; i++) {

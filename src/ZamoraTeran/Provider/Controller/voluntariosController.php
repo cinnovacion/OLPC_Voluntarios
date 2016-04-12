@@ -36,6 +36,8 @@ class voluntariosController implements ControllerProviderInterface {
 		->method('GET|POST')
 		->bind('voluntarios.editVoluntario');
 
+		
+
 		$controllers
 		->get('/neuvo',array($this,'newVoluntario'))
 		->method('GET|POST')
@@ -52,6 +54,11 @@ class voluntariosController implements ControllerProviderInterface {
 		->get('/deleteHoras/{id}',array($this,'deleteHoras'))
 		->assert('id', '\d+')
 		->bind('voluntarios.deleteHoras');
+
+		$controllers
+		->get('/{id}/borrar', array($this, 'deleteVoluntario'))
+		->assert('id', '\d+')
+		->bind('voluntarios.deleteVoluntario');
 
 		return $controllers;
 
@@ -88,19 +95,20 @@ class voluntariosController implements ControllerProviderInterface {
 
 		if($timeform->isValid()){
 			$data = $timeform->getData();
-
+			var_dump($data);
 			$trabaja['horaInicio'] = $data['HoraInicio'];
-			$trabaja['horaFinal'] = $data['HoraFinal'];
+			if($data['HoraFinal'] != NULL){
+				$trabaja['horaFinal'] = $data['HoraFinal'];
 
-			$trabaja['tiempo'] = round((
-				strtotime($trabaja['horaFinal'])-
-				strtotime($trabaja['horaInicio'])
-				)/(3600), 2);
-
+				$trabaja['tiempo'] = round((
+					strtotime($trabaja['horaFinal'])-
+					strtotime($trabaja['horaInicio'])
+					)/(3600), 2);
+			}
 			$app['db.trabajar']->update($trabaja, array('idTrabajar' => $trabaja['idTrabajar'] ));
 			
-			return $app->redirect($app['url_generator']->generate('voluntarios.detail',array('id' => $trabaja['Persona_idPersona'])));
-			die();
+			//return $app->redirect($app['url_generator']->generate('voluntarios.detail',array('id' => $trabaja['Persona_idPersona'])));
+			//die();
 		}
 
 
@@ -136,6 +144,22 @@ class voluntariosController implements ControllerProviderInterface {
 	 * @param Application $app An Application instance
 	 * @return string A blob of HTML
 	 */
+	public function deleteVoluntario(Application $app,$id) {
+		
+		$app['db.trabajar']->delete(array('Persona_idPersona' => $id));
+		$app['db.disponibilidad']->delete(array('Persona_idPersona' => $id));
+		$app['db.persona']->delete(array('idPersona' => $id));
+
+		return $app->redirect($app['url_generator']->generate('voluntarios.overview'));
+		die();
+
+	}
+
+	/**
+	 * Volunteer Overview
+	 * @param Application $app An Application instance
+	 * @return string A blob of HTML
+	 */
 	public function voluntarios(Application $app) {
 		//checking if the user is loged in
 		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
@@ -147,7 +171,7 @@ class voluntariosController implements ControllerProviderInterface {
 		}
 
 		//pagination
-		require_once '/var/www/html/src/Classes/Pagination.php';
+		require_once '/../../../Classes/Pagination.php';
 		$numItemsPerPage = 15;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
 
@@ -204,7 +228,7 @@ class voluntariosController implements ControllerProviderInterface {
 			die();
 
 		}
-		require_once '/var/www/html/src/Classes/Pagination.php';
+		require_once '/../../../Classes/Pagination.php';
 		$numItems = $app['db.trabajar']->countById($id)['count'];
 		$numItemsPerPage = 10;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
@@ -463,7 +487,7 @@ class voluntariosController implements ControllerProviderInterface {
 				$app['db.disponibilidad']->insert($dia);
 			}
 
-			if($data["HorasAccumuladas"] != 0){
+			if($data["HorasAccumuladas"] != 0 && $data['HorasAccumuladas'] != NULL){
 				$trabaja = array(
 					'Persona_idPersona' => $id,
 					'tiempo' => $data["HorasAccumuladas"],
@@ -643,13 +667,18 @@ class voluntariosController implements ControllerProviderInterface {
 				$app['db.disponibilidad']->insert($dia);
 			}
 
-			if($data['HorasAccumulados'] != 0 && $data['HorasAccumulados'] != NULL){
+			if($data['HorasAccumuladas'] != 0 && $data['HorasAccumuladas'] != NULL){
 				$trabajar =  array(
 					'Persona_idPersona' => $id,
-					'tiempo' => $data['HorasAccumulados']
+					'tiempo' => $data['HorasAccumuladas'],
+					'horaInicio' => NULL,
+					'horaFinal' => NULL,
+					'dia' => NULL
 					);
 				$app['db.trabajar']->insert($trabajar);
 			}
+
+			
 			
 			if($data['HorasAccumuladas'] != 0){
 				$trabaja = array(
