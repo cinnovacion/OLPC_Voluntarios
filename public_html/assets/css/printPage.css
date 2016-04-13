@@ -1,31 +1,27 @@
-@page {
-  size: A4 portrait;
-}
-
-.logo{
-	width: 600px;
-	margin: auto;
-	margin-left: 0;
-	display: block;
-}
-
 h2{
-	margin: auto;
+	float: left;
+	margin:auto;
+	width: 100%;
 	text-align: center;
+	font-family: "Times New Roman"; 
+	font-size: 22px;
 }
 
 p{
 	margin: auto;
 	margin-top: 15px;
 	margin-bottom: 5px;
-	max-width: 600px
+	max-width: 600px;
+	font-family: "Times New Roman"; 
+	font-size: 14px;
 }
 
 ul{
 	max-width: 600px;
 	margin: auto;
 	margin-top: 15px;
-	margin-bottom: 15px;
+	margin-bottom: 15px;font-family: "Times New Roman"; 
+	font-size: 14px;
 }
 
 .greeting{
@@ -39,28 +35,10 @@ ul{
 	margin-bottom: 35px;
 }
 
-.footer{
-	font-size: 9px;	
-	border-bottom: 4px solid gray;
-	border-top:4px solid gray;
+#toPrint{
+	width: auto;
 }
 
-.footerPrint{
-	font-size: 9px;	
-	border-bottom: 4px solid gray;
-	border-top:4px solid gray;
-	position: ;
-   bottom:0;
-}
-
-
-.quote{
-	text-align: center;
-    width: 600px;
-    font-size: 16px;
-    /*
-    margin-left: 425px;*/
-    padding-left: 400px;
-    margin-right: 10px;
-    color: gray;
+#toRemove{
+	margin-bottom: 50px;	
 }

@@ -14,28 +14,12 @@ var monthNames = [
 ];
 var counter = 1;
 function printPage() {
-//document.getElementById("container").style.margin = 0;
 document.getElementById("toRemove").style.opacity = 0;
 document.getElementById("toRemove").style.height = 0;
-document.getElementById("toRemove1").style.opacity = 0;
-document.getElementById("toRemove1").style.height = 0;	
-document.getElementById("toRemove2").style.opacity = 0;
-document.getElementById("toRemove2").style.height = 0;	
-/**document.getElementById("down").style.position = "absolute";
-document.getElementById("down").style.bottom = "0";
-document.getElementById("down").style.width="720px";
-document.getElementById("footer").style.width="720px";**/	
 window.print();
-setTimeout(100)
-/**document.getElementById("down").style.position = "relative";
-document.getElementById("down").style.margin = "auto";
-document.getElementById("container").style.margin = "15px";**/
+setTimeout(100);
 document.getElementById("toRemove").style.opacity = 100;
 document.getElementById("toRemove").style.height = "100%";
-document.getElementById("toRemove1").style.opacity = 100;
-document.getElementById("toRemove1").style.height = "100%";	
-document.getElementById("toRemove2").style.opacity = 100;
-document.getElementById("toRemove2").style.height = "100%";	
 }
 
 function savePage() {

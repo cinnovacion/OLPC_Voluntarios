@@ -293,7 +293,9 @@ class voluntariosController implements ControllerProviderInterface {
 			'data' => $persona['Telefono']
 			))
 		->add('CorreoElectronico', 'email', array(
-			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5))),
+			'constraints' => array(new Assert\NotBlank(),
+				new Assert\Email(array('message' => 'La correo electronico no es correcto.')), 
+				new Assert\Length(array('min' => 5))),
 			'data' => $persona['CorreoElectronico']
 			))
 		->add('InstitucionAcademica', 'text', array(
@@ -547,8 +549,12 @@ class voluntariosController implements ControllerProviderInterface {
 			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5)))
 			))
 		->add('CorreoElectronico', 'email', array(
-			'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5)))
+			'constraints' => array(
+				new Assert\NotBlank(),
+				new Assert\Email(array('message' => 'La correo electronico no es correcto.')), 
+				new Assert\Length(array('min' => 5)))
 			))
+		
 		->add('InstitucionAcademica', 'text', array(
 			'constraints' => array(new Assert\NotBlank())
 			))

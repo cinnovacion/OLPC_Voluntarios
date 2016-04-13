@@ -1,9 +1,9 @@
 {% extends 'layout.twig' %}
 
-{% set pageTitle = 'Imprimir formulario' %}
+{% set pageTitle = 'Imprimir constancia' %}
 {% block pageContent %}
 <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/printPage.css"/>
-<div id="toRemove">
+<div id="toRemove" class="col-md-12">
 	<a class="btn btn-info buttonright"  id="toRemove1" role="button" onclick="savePage()"> <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Descargar</a>
 	<a class="btn btn-info buttonleft"  id="toRemove2" role="button" onclick="printPage()"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</a>
 	<a class="btn btn-info buttonleft"  id="toRemove3" role="button" onclick="addWork()"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Añadir actividades</a>
@@ -14,7 +14,7 @@
 </div>
 <p class="hidden" id="nombre">{{voluntario.Nombre}}</p>
 <div id="toPrint">
-	<img src="{{ app.request.baseUrl }}/assets/img/Fundacion-Zamora-Teran.jpg" class="logo">
+	
 	<h2>CONSTANCIA</h2>
 	{%  if voluntario.Area == 1 %}
 	<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como 
@@ -25,7 +25,7 @@
 		voluntario
 		{% endif %} 
 
-		en el Centro de Experimentación y Desarrollo de Software Libre de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde el 
+		en el Centro de Experimentación y Desarrollo de Software Libre de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round|round}} horas laborales desde el 
 
 		{% if trabajaDe != null %}
 		{{ trabajaDe|date('d')}} de {{ months[trabajaDe|date("m")] }} de {{trabajaDe|date('Y')}} 
@@ -50,7 +50,7 @@
 			voluntario
 			{% endif %} 
 
-			en el área de Comunicación de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde el 
+			en el área de Comunicación de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
 
 			{% if trabajaDe != null %}
 			{{ trabajaDe|date('d')}} de {{ months[trabajaDe|date("m")] }} de {{trabajaDe|date('Y')}} 
@@ -68,7 +68,7 @@
 				</ul>
 			</p>
 			{% elseif voluntario.Area == 3 %}
-			<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Mercadeo de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde el 
+			<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Mercadeo de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
 
 
 				{% if trabajaDe != null %}
@@ -88,7 +88,7 @@
 					</ul>
 				</p>
 				{% elseif voluntario.Area == 4 %}
-				<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Área Educativa de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde el 
+				<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Área Educativa de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
 
 
 					{% if trabajaDe != null %}
@@ -107,7 +107,7 @@
 						</ul>
 					</p>
 					{% elseif voluntario.Area == 5 %}
-					<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Programa de Voluntariado de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde el 
+					<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Programa de Voluntariado de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
 
 
 						{% if trabajaDe != null %}
@@ -128,7 +128,7 @@
 							</ul>
 						</p>
 						{% elseif voluntario.Area == 6 %}
-						<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Monitoreo y Evaluación de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde el 
+						<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Monitoreo y Evaluación de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
 
 
 							{% if trabajaDe != null %}
@@ -149,7 +149,7 @@
 								</ul>
 							</p>
 							{% elseif voluntario.Area == 7 %}
-							<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de soporte técnico de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total}} horas laborales desde el 
+							<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de soporte técnico de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
 
 
 								{% if trabajaDe != null %}
@@ -179,10 +179,7 @@
 								<p class="greeting"><b>Coordinadora</b></p>
 								<p class="greeting"><b>Programa de Voluntariado</b></p>
 
-								<div id="down">	
-									<p class="quote"><i><b>"Uniendo Esfuerzos Construyendo el Futuro"</b></i></p>
-									<p class="footer" id="footer"><b>Centro Financiero LAFISE, KM. 5.5 Carretera a Masaya. Tel.:(505) 2270-4786 &#9679; (505) 2278-2777 &#9679; www.fundacionzt.org &#9679; info@fundacionzt.org</b></p>
-								</div>
+								
 
 							</div>
 							<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/jquery.js"></script>
