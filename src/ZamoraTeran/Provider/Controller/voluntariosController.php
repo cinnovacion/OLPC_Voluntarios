@@ -7,6 +7,8 @@ use Silex\ControllerProviderInterface;
 use Silex\ControllerCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
+require_once dirname(__FILE__).'/../../../Classes/Pagination.php';
+
 class voluntariosController implements ControllerProviderInterface {
 
 	/**
@@ -36,8 +38,6 @@ class voluntariosController implements ControllerProviderInterface {
 		->method('GET|POST')
 		->bind('voluntarios.editVoluntario');
 
-		
-
 		$controllers
 		->get('/neuvo',array($this,'newVoluntario'))
 		->method('GET|POST')
@@ -49,6 +49,11 @@ class voluntariosController implements ControllerProviderInterface {
 		->method('GET|POST')
 		->bind('voluntarios.editTime');
 
+		$controllers
+		->get('/{id}/anadirHoras',array($this,'addHours'))
+		->assert('id', '\d+')
+		->method('GET|POST')
+		->bind('voluntarios.addHours');
 
 		$controllers
 		->get('/deleteHoras/{id}',array($this,'deleteHoras'))
@@ -111,19 +116,35 @@ class voluntariosController implements ControllerProviderInterface {
 			//die();
 		}
 
+	}
+		/**
+	 * Volunteer Overview
+	 * @param Application $app An Application instance
+	 * @return string A blob of HTML
+	 */
+		public function addHours(Application $app,$id) {
+		//checking if the user is loged in
+			if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
+				return $app->redirect($app['url_generator']->generate('login'));
+				die();
+			}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+				return $app->redirect($app['url_generator']->generate('logout'));
+				die();
+			}
 
 		//data to display in html
-		$data = array(
-			'trabaja' => $trabaja,
-			'page' => 'voluntarios',
-			'session' => $app['session']->get('user'),
-			'timeform' => $timeform->createView(),
-			'detailpath' => $app['url_generator']->generate('voluntarios.detail',array('id' => $trabaja['Persona_idPersona'])),
-			);
+			$data = array(
+				//'trabaja' => $trabaja,
+				'idPersona' => $id,
+				'page' => 'voluntarios',
+				'session' => $app['session']->get('user'),
+				
+				'detailpath' => $app['url_generator']->generate('voluntarios.detail',array('id' => $id)),
+				);
 		// Inject data into the template which will show 'm all
-		return $app['twig']->render('voluntarios/editTime.twig',$data);
+			return $app['twig']->render('voluntarios/addHours.twig',$data);
 
-	}
+		}
 
 	/**
 	 * Volunteer Overview
@@ -171,7 +192,6 @@ class voluntariosController implements ControllerProviderInterface {
 		}
 
 		//pagination
-		require_once '/../../../Classes/Pagination.php';
 		$numItemsPerPage = 15;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
 
@@ -228,7 +248,6 @@ class voluntariosController implements ControllerProviderInterface {
 			die();
 
 		}
-		require_once '/../../../Classes/Pagination.php';
 		$numItems = $app['db.trabajar']->countById($id)['count'];
 		$numItemsPerPage = 10;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;

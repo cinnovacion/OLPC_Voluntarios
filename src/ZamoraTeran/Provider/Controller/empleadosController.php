@@ -7,6 +7,7 @@ use Silex\ControllerProviderInterface;
 use Silex\ControllerCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
+require_once dirname(__FILE__).'/../../../Classes/Pagination.php';
 class empleadosController implements ControllerProviderInterface {
 
 	/**
@@ -61,7 +62,6 @@ class empleadosController implements ControllerProviderInterface {
 		}
 
 		//pagination
-		require_once '/../../../Classes/Pagination.php';
 		$numItemsPerPage = 15;
 		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
 		

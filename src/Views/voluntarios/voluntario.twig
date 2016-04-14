@@ -118,7 +118,7 @@
 
 
 <div class="col-md-12">
-
+<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}/anadirHoras" class="btn btn-info" role="button" style="margin-left: 16.66666667%;"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 	<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}/borrar" class="btn btn-danger edit pull-right"  style="
 	margin-right: 10%;" onclick="return confirm('Estás seguro?');" role="button"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
 	<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}/edit" class="btn btn-info edit pull-right" role="button" style="margin-right: 15px;"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
@@ -127,6 +127,7 @@
 <div class="workingTable col-md-12">
 	<div class="col-md-2"></div>
 	<div class="col-md-8">
+	
 		<table class="table table-hover">
 			<thead>
 				<tr>

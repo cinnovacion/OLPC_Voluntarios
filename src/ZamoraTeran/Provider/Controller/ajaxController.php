@@ -45,6 +45,11 @@ class ajaxController implements ControllerProviderInterface {
 		->method('GET|POST')
 		->bind('ajax.getListaTrabaja');
 
+		$controllers
+		->get('/insertHours',array($this,'insertHours'))
+		->method('GET|POST')
+		->bind('ajax.insertHours');
+
 		return $controllers;
 
 	}
@@ -105,6 +110,34 @@ class ajaxController implements ControllerProviderInterface {
 
 				echo json_encode($days);
 			}
+			
+		}
+		// Inject data into the template which will show 'm all
+		return $app['twig']->render('Ajax/dump.twig');
+	}
+
+	public function insertHours(Application $app) {
+		if(isset($_POST['action'])){
+			$search = json_decode($_POST['action'], true);
+			
+			$trabaja = array(
+				'Persona_idPersona' => $search['id'],
+				'horaInicio' => $search['entrada'],
+				'horaFinal' => $search['salida'],
+				'dia' => implode('/', array_reverse(explode('/', $search['dia']))),
+				
+				'tiempo' => null
+				);
+
+			//calculate the working time
+			$trabaja['tiempo'] = round((
+				strtotime($trabaja['horaFinal'])-
+				strtotime($trabaja['horaInicio'])
+				)/(3600), 2);
+
+			$app['db.trabajar']->insert($trabaja);
+			echo json_encode($search);
+			
 			
 		}
 		// Inject data into the template which will show 'm all
