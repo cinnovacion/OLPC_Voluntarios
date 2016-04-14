@@ -1,7 +1,6 @@
 <IfModule mod_rewrite.c>
     Options -MultiViews
     RewriteEngine On
-	RewriteBase /OLPC_Voluntarios/public_html
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^ index.php [L]
