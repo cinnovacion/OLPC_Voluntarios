@@ -53,7 +53,7 @@ class empleadosController implements ControllerProviderInterface {
 	 */
 	public function overview(Application $app) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
+		if($app['session']->get('user') == null){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
 		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
