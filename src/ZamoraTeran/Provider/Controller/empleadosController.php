@@ -28,7 +28,7 @@ class empleadosController implements ControllerProviderInterface {
 		->bind('empleados.overview');
 
 		$controllers
-		->get('/{id}/delete', array($this, 'delete'))
+		->get('/{id}/borrar', array($this, 'delete'))
 		->assert('id', '\d+')
 		->bind('empleados.delete');
 

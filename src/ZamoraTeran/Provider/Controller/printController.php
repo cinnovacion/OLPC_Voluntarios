@@ -20,12 +20,12 @@ class printController implements ControllerProviderInterface {
 
 		// Bind sub-routes
 		$controllers
-		->get('/{id}/page', array($this, 'page'))
+		->get('/{id}/pagina', array($this, 'page'))
 		->assert('id', '\d+')
-		->bind('print.page');
+		->bind('print.pagina');
 
 		$controllers
-		->get('/{id}/card', array($this, 'card'))
+		->get('/{id}/carnet', array($this, 'card'))
 		->assert('id', '\d+')
 		->bind('print.card');
 

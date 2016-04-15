@@ -5,15 +5,16 @@
 
 <div class="col-md-12" style="height: 40px;">
 	<a href="{{path('voluntarios.overview')}}" class="btn btn-info" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
-	<a href="{{ app.request.baseUrl}}/print/{{voluntario.idPersona}}/card" class="btn btn-info print" role="button"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir carnet</a>
+	<a href="{{ path('print.card', {'id': voluntario.idPersona}) }}" class="btn btn-info print" role="button"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir carnet</a>
+
 </div>
 <div class="col-md-12">
-	<a href="{{ app.request.baseUrl}}/print/{{voluntario.idPersona}}/page" class="btn btn-info print" role="button"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir constancia</a>
+	<a href="{{ path('print.pagina', {'id': voluntario.idPersona}) }}" class="btn btn-info print" role="button"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir constancia</a>
 </div>
 <div class="col-md-12">
-	<a href="{{ app.request.baseUrl}}/print/{{voluntario.idPersona}}/horas" class="btn btn-info print" role="button" style="
-    margin-top: 8px;
-"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir horas</a>
+	<a href="{{ path('print.horas', {'id': voluntario.idPersona}) }}" class="btn btn-info print" role="button" style="
+	margin-top: 8px;
+	"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir horas</a>
 </div>
 
 <div class="col-md-12">
@@ -46,64 +47,36 @@
 		<p><b>Institucion academica:</b> {{voluntario. InstitucionAcademica}}</p>
 		<p><b>Carrera o curso:</b> {{voluntario.CarreraCurso}}</p>
 		<p><b>Nivel:</b> 
-		{% if voluntario.Nivel == 1 %}
+			{% if voluntario.Nivel == 1 %}
 			1er.año
-		{% elseif voluntario.Nivel ==  2 %}
-		2do.año
-		{% elseif voluntario.Nivel ==  3 %}
-		3er.año
-		{% elseif voluntario.Nivel ==  4 %}
-		4to.año
-		{% elseif voluntario.Nivel ==  5 %}
-		5to.año
-		{% elseif voluntario.Nivel ==  99 %}
-		Egresado
-		{% endif %}
-	</div>
-	
-</div>
-{% if voluntario.Observaciones == null %}
-<div class="col-md-12">
-	<p class="frameWide"><b>Horas acumuladas:</b> {% if trabajaPara.Total == 0 %}0{% else %}{{trabajaPara.Total}}{% endif %} horas</p>
-	<p class="frameWide"><b>Desde</b> {{voluntario.DiaInicio}} {% if lastInput %}<b> Hasta </b>{{lastInput.dia|date("d/m/Y")}}{% endif %}</p>
-	{% if disponibilidad != null %}
-	<div class="frame trabajaadeWide">
-		<div class="col-md-3">
-			<b>Horario:</b>
+			{% elseif voluntario.Nivel ==  2 %}
+			2do.año
+			{% elseif voluntario.Nivel ==  3 %}
+			3er.año
+			{% elseif voluntario.Nivel ==  4 %}
+			4to.año
+			{% elseif voluntario.Nivel ==  5 %}
+			5to.año
+			{% elseif voluntario.Nivel ==  99 %}
+			Egresado
+			{% endif %}
 		</div>
-		<div class="col-md-9">
-			<ul style='padding-left: 10px'>
-				{% for disp in disponibilidad %}
-				<li>		
-					{{ disp['dia']|capitalize}} desde 
-					{{ disp['horaInicio'] }} hasta
-					{{ disp['horaFinal'] }}
-				</li>
-				{% endfor %}
-			</ul>
-		</div>
-	</div>
 
-	{% endif %}
-</div>
-{% else %}
-<div class="col-md-12">
-	<div class="col-md-6 column1">
-		<p><b>Observaciones: </b>{{ voluntario.Observaciones }}</p>
 	</div>
-	<div class="col-md-6 column2">
-		<p class="frame"><b>Horas acumuladas:</b> {% if trabajaPara.Total == 0 %}0{% else %}{{trabajaPara.Total}}{% endif %} horas</p>
-		<p class="frame"><b>Desde</b> {{voluntario.DiaInicio}} {% if lastInput %}<b> Hasta </b>{{lastInput.dia|date("d/m/Y")}}{% endif %}</p>
+	{% if voluntario.Observaciones == null %}
+	<div class="col-md-12">
+		<p class="frameWide"><b>Horas acumuladas:</b> {% if trabajaPara.Total == 0 %}0{% else %}{{trabajaPara.Total}}{% endif %} horas</p>
+		<p class="frameWide"><b>Desde</b> {{voluntario.DiaInicio}} {% if lastInput %}<b> Hasta </b>{{lastInput.dia|date("d/m/Y")}}{% endif %}</p>
 		{% if disponibilidad != null %}
-		<div class="col-md-12 trabajaade">
-			<div class="col-md-3" style="padding-left: 0">
+		<div class="frame trabajaadeWide">
+			<div class="col-md-3">
 				<b>Horario:</b>
 			</div>
-			<div class="col-md-9" style="padding-left: 0">
-				<ul style="padding-left: 10px;">
+			<div class="col-md-9">
+				<ul style='padding-left: 10px'>
 					{% for disp in disponibilidad %}
 					<li>		
-						{{ disp['dia']|capitalize }} desde 
+						{{ disp['dia']|capitalize}} desde 
 						{{ disp['horaInicio'] }} hasta
 						{{ disp['horaFinal'] }}
 					</li>
@@ -111,23 +84,58 @@
 				</ul>
 			</div>
 		</div>
+
 		{% endif %}
 	</div>
-</div>
-{% endif %}
+	{% else %}
+	<div class="col-md-12">
+		<div class="col-md-6 column1">
+			<p><b>Observaciones: </b>{{ voluntario.Observaciones }}</p>
+		</div>
+		<div class="col-md-6 column2">
+			<p class="frame"><b>Horas acumuladas:</b> {% if trabajaPara.Total == 0 %}0{% else %}{{trabajaPara.Total}}{% endif %} horas</p>
+			<p class="frame"><b>Desde</b> {{voluntario.DiaInicio}} {% if lastInput %}<b> Hasta </b>{{lastInput.dia|date("d/m/Y")}}{% endif %}</p>
+			{% if disponibilidad != null %}
+			<div class="col-md-12 trabajaade">
+				<div class="col-md-3" style="padding-left: 0">
+					<b>Horario:</b>
+				</div>
+				<div class="col-md-9" style="padding-left: 0">
+					<ul style="padding-left: 10px;">
+						{% for disp in disponibilidad %}
+						<li>		
+							{{ disp['dia']|capitalize }} desde 
+							{{ disp['horaInicio'] }} hasta
+							{{ disp['horaFinal'] }}
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	{% endif %}
 
 
-<div class="col-md-12">
-<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}/anadirHoras" class="btn btn-info" role="button" style="margin-left: 16.66666667%;"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-	<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}/borrar" class="btn btn-danger edit pull-right"  style="
-	margin-right: 10%;" onclick="return confirm('Estás seguro?');" role="button"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-	<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}/edit" class="btn btn-info edit pull-right" role="button" style="margin-right: 15px;"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+	<div class="col-md-12">
+		<a href="{{ path('voluntarios.addHours', {'id': voluntario.idPersona}) }}" class="btn btn-info" role="button" style="margin-left: 16.66666667%;"> 
+
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		</a>
+		<a href="{{ path('voluntarios.deleteVoluntario', {'id': voluntario.idPersona}) }}" class="btn btn-danger edit pull-right"  style="
+		margin-right: 10%;" onclick="return confirm('Estás seguro?');" role="button"> 
+		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		</a>
+		<a href="{{ path('voluntarios.editVoluntario', {'id': voluntario.idPersona}) }}" class="btn btn-info edit pull-right" role="button" style="margin-right: 15px;"> 
+			<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+		</a>
 
 </div>
 <div class="workingTable col-md-12">
 	<div class="col-md-2"></div>
 	<div class="col-md-8">
-	
+
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -146,10 +154,10 @@
 					<td>{% if ahoras.horaFinal != null %}{{ahoras.horaFinal}}{% else %}/{% endif %}</td>
 					<td>{% if ahoras.tiempo != null %}{{ahoras.tiempo}} horas{% else %}/{% endif %}</td>
 					<td>
-					<a href="{{ app.request.baseUrl}}/voluntarios/editTime/{{ahoras.idTrabajar}}">
-						<button type="button" class="btn btn-info btn-number">
-							<span class="glyphicon glyphicon-cog"></span>
-						</button>
+						<a href="{{ path('voluntarios.editTime', {'id': ahoras.idTrabajar}) }}">
+							<button type="button" class="btn btn-info btn-number">
+								<span class="glyphicon glyphicon-cog"></span>
+							</button>
 						</a>
 					</td>
 				</tr>

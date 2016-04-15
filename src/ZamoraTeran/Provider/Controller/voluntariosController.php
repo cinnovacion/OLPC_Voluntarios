@@ -33,7 +33,7 @@ class voluntariosController implements ControllerProviderInterface {
 		->bind('voluntarios.detail');
 
 		$controllers
-		->get('/{id}/edit', array($this, 'edit'))
+		->get('/{id}/editar', array($this, 'edit'))
 		->assert('id', '\d+')
 		->method('GET|POST')
 		->bind('voluntarios.editVoluntario');
@@ -44,7 +44,7 @@ class voluntariosController implements ControllerProviderInterface {
 		->bind('voluntarios.nuevoVoluntario');
 
 		$controllers
-		->get('/editTime/{id}',array($this,'editTime'))
+		->get('/editarHoras/{id}',array($this,'editTime'))
 		->assert('id', '\d+')
 		->method('GET|POST')
 		->bind('voluntarios.editTime');
@@ -56,7 +56,7 @@ class voluntariosController implements ControllerProviderInterface {
 		->bind('voluntarios.addHours');
 
 		$controllers
-		->get('/deleteHoras/{id}',array($this,'deleteHoras'))
+		->get('/borrarHoras/{id}',array($this,'deleteHoras'))
 		->assert('id', '\d+')
 		->bind('voluntarios.deleteHoras');
 
@@ -85,8 +85,6 @@ class voluntariosController implements ControllerProviderInterface {
 		}
 
 		$trabaja = $app['db.trabajar']->getById($id);
-		
-		
 
 		$timeform = $app['form.factory']->createNamed('timeform', 'form')
 		->add('HoraInicio', 'text',array(
@@ -112,9 +110,21 @@ class voluntariosController implements ControllerProviderInterface {
 			}
 			$app['db.trabajar']->update($trabaja, array('idTrabajar' => $trabaja['idTrabajar'] ));
 			
-			//return $app->redirect($app['url_generator']->generate('voluntarios.detail',array('id' => $trabaja['Persona_idPersona'])));
-			//die();
+			return $app->redirect($app['url_generator']->generate('voluntarios.detail',array('id' => $trabaja['Persona_idPersona'])));
+			die();
 		}
+
+		//data to display in html
+			$data = array(
+				'trabaja' => $trabaja,
+				'page' => 'voluntarios',
+				'session' => $app['session']->get('user'),
+				'timeform' => $timeform->createView(),
+				'detailpath' => $app['url_generator']->generate('voluntarios.detail',array('id' => $trabaja['Persona_idPersona'])),
+				);
+		// Inject data into the template which will show 'm all
+			return $app['twig']->render('voluntarios/editTime.twig',$data);
+
 
 	}
 		/**
