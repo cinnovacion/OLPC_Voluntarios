@@ -9,7 +9,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendo
 $app = new Silex\Application();
 
 // App Configuration
-$app['debug'] = true;
+$app['debug'] = false;
 
 
 // Use Twig — @note: Be sure to install Twig via Composer first!

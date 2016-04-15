@@ -23,7 +23,7 @@
 			<th>Nombre</th>
 			<th>Correo electrónico</th>
 			<th>Teléfono</th>
-			<th>horas acumuladas</th>
+			<th>Horas acumuladas</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -40,7 +40,7 @@
 				{{ ahora.tiempo|round }} horas
 				{% endif %}
 				{% endfor %} </td>
-				<td><a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}" class="btn btn-info" role="button">Más</a></td>
+				<td><a href="{{ path('voluntarios.detail', {'id': voluntario.idPersona}) }}" class="btn btn-info" role="button">Más</a></td>
 			</tr>
 			{% endfor %}
 
