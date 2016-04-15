@@ -6,6 +6,7 @@ use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Silex\ControllerCollection;
 
+require_once dirname(__FILE__).'/../../../Classes/Encrypt.php';
 class authController implements ControllerProviderInterface {
 
 	/**
@@ -46,7 +47,7 @@ class authController implements ControllerProviderInterface {
 	}	
 
 		//include pagination
-		include('/../../../Classes/Encrypt.php');
+		
 		$encrypt = new \Encrypt();
 
 		//make a new login form
