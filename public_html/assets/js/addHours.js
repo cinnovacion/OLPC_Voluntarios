@@ -35,7 +35,7 @@
 			url: '../../ajax/insertHours',
 			success: function(data){
 				var json = JSON.parse(data);
-				console.log(json);
+				
 				$('#fecha').remove();
 				$('#entrada').remove();
 				$('#salida').remove();
@@ -53,8 +53,9 @@
 			// Create an empty <tr> element and add it to the 1st position of the table:
 			var row = table.insertRow(0);
 
+
 			// Add some text to the new cells:
-			row.insertCell(0).innerHTML = '<input class="form-control" style="margin-left: 0;" id="fecha">';
+			row.insertCell(0).innerHTML = '<input class="form-control" style="margin-left: 0;" id="fecha" value="' + d + '">';
 			row.insertCell(1).innerHTML = '<input class="form-control" style="margin-left: 0;" id="entrada">';
 			row.insertCell(2).innerHTML = '<input class="form-control" style="margin-left: 0;" id="salida">';
 
