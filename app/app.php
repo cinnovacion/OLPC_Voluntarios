@@ -1,7 +1,7 @@
 <?php
 
 // Bootstrap
-require __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap.php';
+require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 // Use Request from Symfony Namespace
 use Symfony\Component\HttpFoundation\Request;
