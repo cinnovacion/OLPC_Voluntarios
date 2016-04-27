@@ -2,20 +2,21 @@
 
 {% set pageTitle = 'Imprimir la carnet' %}
 {% block pageContent %}
+
 <div id="toRemove" >
 	<a class="btn btn-info buttonright" role="button" onclick="printPage()"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</a>
 	<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}" class="btn btn-info buttonleft " role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
 </div>
 <div class="container">
-	<div class="col-md-12" style="margin-top: 35px;">
-		<p class="frame"><img id="barcode"></p>
+	
+	<img src="{{ app.request.baseUrl }}/assets/img/carnetlogo.jpg" style="width:40px; margin-top: 20px; margin-left: 20px; position: absolute">
+	<p style="margin-left: 65px; max-width: 200px; text-align: center;">{{voluntario.Nombre}}</p>	
+	<p style="margin-left: 65px;  max-width: 200px; text-align: center;">Voluntario</p>	
+	<p style="margin-left: 65px;  max-width: 200px; text-align: center;">Fundación Zamora Terán</p>	
+	<div class="col-md-12" >
+		<p ><img id="barcode"></p>
 		
 	</div>
-	<div class="col-md-12 lineAbove" ></div>
-	<p class="frame">{{voluntario.Nombre}}</p>	
-	<p class="frame">{{voluntario.Telefono}}</p>	
-	<p class="frame">{{voluntario.NoDeCedula}}</p>	
-	<p class="frame">{{voluntario.CorreoElectronico}}</p>	
 
 </div>
 
