@@ -46,13 +46,16 @@ class authController implements ControllerProviderInterface {
 			die();
 		}	
 
-		
 		$encrypt = new \Encrypt();
 
 		//make a new login form
 		$loginform = $app['form.factory']->createNamed('loginform', 'form')
-		->add('Nombre', 'text', array('required' => true))
-		->add('contrasena', 'password', array('required' => true));
+		->add('Nombre', 'text', array(
+			'attr' => array('placeholder' => 'Nombre'),
+			'required' => true))
+		->add('contrasena', 'password', array(
+			'attr' => array('placeholder' => 'Contraseña'),
+			'required' => true));
 
 		//check if form is submitted
 		$loginform->handleRequest($app['request']);
