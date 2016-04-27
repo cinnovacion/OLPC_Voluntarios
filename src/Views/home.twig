@@ -6,10 +6,10 @@
 	<form action="{{ path('login') }}" class="form-signin" method="post" {{ form_enctype(loginform)}}>
 
 		{{ form_errors(loginform) }}
-		
+		<label for="loginform_Nombre">Nombre</label>
 		{{ form_widget(loginform.Nombre,{'attr':{'class': 'form-control','id':'nombre','autocomplete':'off'}}) }}
 		{{ form_errors(loginform.Nombre) }}
-		
+		<label for="loginform_contrasena">Contraseña</label>
 		{{ form_widget(loginform.contrasena,{'attr':{'class': 'form-control','id':'inputPassword'}}) }}
 		{{ form_errors(loginform.contrasena) }}
 		<button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-left: 10px;">Iniciar sesión</button>
