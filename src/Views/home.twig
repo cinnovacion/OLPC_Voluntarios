@@ -13,9 +13,7 @@
 		{{ form_label(loginform.contrasena, 'contrasena', { 'label_attr': {'class': 'sr-only'} }) }}
 		{{ form_widget(loginform.contrasena,{'attr':{'class': 'form-control','id':'inputPassword','placeholder':'contrasena'}}) }}
 		{{ form_errors(loginform.contrasena) }}
-		<button class="btn btn-lg btn-primary btn-block" type="submit" style="
-    margin-left: 10px;
-">Iniciar sesión</button>
+		<button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-left: 10px;">Iniciar sesión</button>
 
 	{{ form_widget(loginform._token)}}
 	</form>

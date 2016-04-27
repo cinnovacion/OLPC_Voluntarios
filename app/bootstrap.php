@@ -26,7 +26,7 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
         'dbname' => 'voluntarios',
         'user' => 'root',
         'password' => '',
-        'charset' => 'utf8mb4'
+        'charset' => 'utf8'
     )
 ));
 
