@@ -140,7 +140,7 @@ class empleadosController implements ControllerProviderInterface {
 				include('/var/www/html/src/Classes/Encrypt.php');
 				$encrypt = new \Encrypt();
 				$encrypted = $encrypt->encryptPassword($data['newpassword']);
-				$admin = array('Nombre' => $data['Nombre'],'contraseña' => $encrypted['salt'].$encrypted['password'] );
+				$admin = array('Nombre' => $data['Nombre'],'contrasena' => $encrypted['salt'].$encrypted['password'] );
 				$app['db.admins']->update($admin, array('idAdmins' => $id));
 				return $app->redirect($app['url_generator']->generate('empleados.overview'));
 			}
@@ -203,7 +203,7 @@ class empleadosController implements ControllerProviderInterface {
 
 				$app['db.admins']->insert(array(
 					'Nombre'       => $data['Nombre'],
-					'contraseña' => $encrypted['salt'].$encrypted['password']));
+					'contrasena' => $encrypted['salt'].$encrypted['password']));
 				return $app->redirect($app['url_generator']->generate('empleados.overview'));
 			}
 		}

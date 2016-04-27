@@ -44,9 +44,8 @@ class authController implements ControllerProviderInterface {
 		if($app['session']->get('user') != null /**|| !(empty($app['session']->get('user')))**/){
 			return $app->redirect($app['url_generator']->generate('voluntarios.overview'));
 			die();
-	}	
+		}	
 
-		//include pagination
 		
 		$encrypt = new \Encrypt();
 
@@ -71,7 +70,7 @@ class authController implements ControllerProviderInterface {
 				$loginform->get('Nombre')->addError(new \Symfony\Component\Form\FormError('El nombre no existe'));
 			}else{
 				if(hash_equals($data['Nombre'], $admin['Nombre'])){
-					if($encrypt->controlPassword($data['contrasena'], $admin['contraseña'])){
+					if($encrypt->controlPassword($data['contrasena'], $admin['contrasena'])){
 						session_set_cookie_params(0);	
 						session_start();
 
