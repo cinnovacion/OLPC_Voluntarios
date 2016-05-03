@@ -79,7 +79,7 @@ class voluntariosController implements ControllerProviderInterface {
 		if($app['session']->get('user') == null ){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+		}elseif ($app['session']->get('user') == 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 		}
@@ -136,7 +136,7 @@ class voluntariosController implements ControllerProviderInterface {
 			if($app['session']->get('user') == null ){
 				return $app->redirect($app['url_generator']->generate('login'));
 				die();
-			}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+			}elseif ($app['session']->get('user') == 0) {
 				return $app->redirect($app['url_generator']->generate('logout'));
 				die();
 			}
