@@ -117,7 +117,6 @@ class voluntariosController implements ControllerProviderInterface {
 			$data = array(
 				'trabaja' => $trabaja,
 				'page' => 'voluntarios',
-				'session' => $app['session']->get('user'),
 				'timeform' => $timeform->createView(),
 				'detailpath' => $app['url_generator']->generate('voluntarios.detail',array('id' => $trabaja['Persona_idPersona'])),
 				);
@@ -143,11 +142,8 @@ class voluntariosController implements ControllerProviderInterface {
 
 		//data to display in html
 			$data = array(
-				//'trabaja' => $trabaja,
 				'idPersona' => $id,
 				'page' => 'voluntarios',
-				'session' => $app['session']->get('user'),
-				
 				'detailpath' => $app['url_generator']->generate('voluntarios.detail',array('id' => $id)),
 				);
 		// Inject data into the template which will show 'm all
@@ -163,7 +159,6 @@ class voluntariosController implements ControllerProviderInterface {
 	public function deleteHoras(Application $app,$id) {
 		$trabaja = $app['db.trabajar']->getById($id);
 		$app['db.trabajar']->delete(array('idTrabajar' => $id));
-
 		return $app->redirect($app['url_generator']->generate('voluntarios.detail',array('id' => $trabaja['Persona_idPersona'])));
 		die();
 
@@ -234,7 +229,6 @@ class voluntariosController implements ControllerProviderInterface {
 			'numPages' => $numPages,
 			'baseUrl' => $app['url_generator']->generate('voluntarios.overview'),
 			'numItems' => $numItems,
-			'session' => $app['session']->get('user')
 			);
 		// Inject data into the template which will show 'm all
 		return $app['twig']->render('voluntarios/voluntarios.twig',$data);
@@ -274,7 +268,6 @@ class voluntariosController implements ControllerProviderInterface {
 			'numPages' => $numPages,
 			'baseUrl' => $app['url_generator']->generate('voluntarios.detail',array('id' => $id)),
 			'numItems' => $numItems,
-			'session' => $app['session']->get('user')
 			);
 		// build and return the html
 		return $app['twig']->render('voluntarios/voluntario.twig',$data);
@@ -537,7 +530,6 @@ class voluntariosController implements ControllerProviderInterface {
 			'editpath' => $app['url_generator']->generate('voluntarios.editVoluntario',array('id' => $id)),
 			'detailpath' => $app['url_generator']->generate('voluntarios.detail',array('id' => $id)),
 			'nuevoform' => $nuevoform->createView(),
-			'session' => $app['session']->get('user')
 			);
 			// Build and return the HTML
 		return $app['twig']->render('voluntarios/formulario.twig',$data);
@@ -728,8 +720,7 @@ class voluntariosController implements ControllerProviderInterface {
 		$data = array(
 			'page' => 'voluntarios',
 			'formulario' => 'new',
-			'nuevoform' => $nuevoform->createView(),
-			'session' => $app['session']->get('user')
+			'nuevoform' => $nuevoform->createView()
 			);
 			// Build and return the HTML
 		return $app['twig']->render('voluntarios/formulario.twig',$data);

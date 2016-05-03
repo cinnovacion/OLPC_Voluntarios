@@ -151,7 +151,7 @@ class printController implements ControllerProviderInterface {
 			'currentMonth' => date('m'),
 			'weekStart' =>date('d/m/Y', strtotime('-'.(date('w')-1).' days')),
 			'weekEnd' => date('d/m/Y', strtotime('+'.(5-date('w')).' days')),
-			'session' => $app['session']->get('user')
+			 
 			);
 		// Build and return the HTML
 		return $app['twig']->render('voluntarios/printListaSemana.twig',$data);

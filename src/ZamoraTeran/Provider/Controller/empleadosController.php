@@ -88,7 +88,6 @@ class empleadosController implements ControllerProviderInterface {
 		$data = array(
 			'empleados' => $empleados,
 			'page' => 'empleados',
-			'session' => $app['session']->get('user'),
 			'busquedaform' => $busquedaform->createView(),
 			'pagination' => $pagination,
 			'curPage' => $curpage,
@@ -149,8 +148,7 @@ class empleadosController implements ControllerProviderInterface {
 			'contrasenaform' => $contrasenaform->createView(),
 			'empleado' => $empleado,
 			'page' => 'empleados',
-			'todo' => 'edit',
-			'session' => $app['session']->get('user')
+			'todo' => 'edit'
 			);
 		// Inject data into the template which will show 'm all
 		return $app['twig']->render('empleados/formulario.twig',$data);
@@ -210,8 +208,7 @@ class empleadosController implements ControllerProviderInterface {
 		$data = array(
 			'contrasenaform' => $contrasenaform->createView(),
 			'page' => 'empleados',
-			'todo' => 'nuevo',
-			'session' => $app['session']->get('user')
+			'todo' => 'nuevo'
 			);
 		// Inject data into the template which will show 'm all
 		return $app['twig']->render('empleados/formulario.twig',$data);
