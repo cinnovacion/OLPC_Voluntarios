@@ -38,12 +38,9 @@ class logController implements ControllerProviderInterface {
 		if($app['session']->get('user') == null){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user')['nombre'] != 'logger') {
+		}elseif ($app['session']->get('user') == 0) {
 			$app['session']->remove('user');
-			$app['session']->set('user', array(
-				'id' => 0,
-				'nombre' => 'logger'
-				));
+			$app['session']->set('user',0);
 		}
 
 		$logform = $app['form.factory']->createNamed('loginform', 'form')

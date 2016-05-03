@@ -76,7 +76,7 @@ class voluntariosController implements ControllerProviderInterface {
 	 */
 	public function editTime(Application $app,$id) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
+		if($app['session']->get('user') == null ){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
 		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
@@ -98,7 +98,6 @@ class voluntariosController implements ControllerProviderInterface {
 
 		if($timeform->isValid()){
 			$data = $timeform->getData();
-			var_dump($data);
 			$trabaja['horaInicio'] = $data['HoraInicio'];
 			if($data['HoraFinal'] != NULL){
 				$trabaja['horaFinal'] = $data['HoraFinal'];
@@ -134,7 +133,7 @@ class voluntariosController implements ControllerProviderInterface {
 	 */
 		public function addHours(Application $app,$id) {
 		//checking if the user is loged in
-			if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
+			if($app['session']->get('user') == null ){
 				return $app->redirect($app['url_generator']->generate('login'));
 				die();
 			}elseif ($app['session']->get('user')['nombre'] == 'logger') {
@@ -193,10 +192,10 @@ class voluntariosController implements ControllerProviderInterface {
 	 */
 	public function voluntarios(Application $app) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
+		if($app['session']->get('user') == null ){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+		}elseif ($app['session']->get('user') == 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 		}
@@ -250,10 +249,10 @@ class voluntariosController implements ControllerProviderInterface {
 	 */
 	public function detail(Application $app, $id) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
+		if($app['session']->get('user') == null ){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+		}elseif ($app['session']->get('user') == 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 
@@ -289,10 +288,10 @@ class voluntariosController implements ControllerProviderInterface {
 	 */
 	public function edit(Application $app, $id) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
+		if($app['session']->get('user') == null ){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+		}elseif ($app['session']->get('user') == 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 
@@ -552,10 +551,10 @@ class voluntariosController implements ControllerProviderInterface {
 	 */
 	public function newVoluntario(Application $app) {
 		//checking if the user is loged in	
-		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
+		if($app['session']->get('user') == null ){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+		}elseif ($app['session']->get('user') == 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 

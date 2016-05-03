@@ -51,10 +51,10 @@ class printController implements ControllerProviderInterface {
 	 */
 	public function card(Application $app, $id) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null/** || empty($app['session']->get('user'))**/){
+		if($app['session']->get('user') == null){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+		}elseif ($app['session']->get('user') == 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 		}
@@ -75,10 +75,10 @@ class printController implements ControllerProviderInterface {
 	 */
 	public function horas(Application $app, $id) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null/** || empty($app['session']->get('user'))**/){
+		if($app['session']->get('user') == null){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+		}elseif ($app['session']->get('user') == 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 		}
@@ -101,10 +101,10 @@ class printController implements ControllerProviderInterface {
 	 */
 	public function page(Application $app, $id) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
+		if($app['session']->get('user') == null ){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+		}elseif ($app['session']->get('user') == 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 		}
@@ -129,10 +129,10 @@ class printController implements ControllerProviderInterface {
 	 */
 	public function listaSemana(Application $app) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null/** || empty($app['session']->get('user'))**/){
+		if($app['session']->get('user') == null){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+		}elseif ($app['session']->get('user') == 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 		}
@@ -152,13 +152,6 @@ class printController implements ControllerProviderInterface {
 			'weekStart' =>date('d/m/Y', strtotime('-'.(date('w')-1).' days')),
 			'weekEnd' => date('d/m/Y', strtotime('+'.(5-date('w')).' days')),
 			'session' => $app['session']->get('user')
-			/**'workdays' => array(
-				'1' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('-'.(date('w')-1).' days'))),
-				'2' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(2-date('w')).' days'))),
-				'3' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(3-date('w')).' days'))),
-				'4' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(4-date('w')).' days'))),
-				'5' => $app['db.trabajar']->findVolunteersOnDate(date('Y-m-d', strtotime('+'.(5-date('w')).' days')))
-				)**/
 			);
 		// Build and return the HTML
 		return $app['twig']->render('voluntarios/printListaSemana.twig',$data);

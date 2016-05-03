@@ -56,7 +56,7 @@ class empleadosController implements ControllerProviderInterface {
 		if($app['session']->get('user') == null){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+		}elseif ($app['session']->get('user') == 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 		}
@@ -108,10 +108,10 @@ class empleadosController implements ControllerProviderInterface {
 	 */
 	public function details(Application $app,$id) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
+		if($app['session']->get('user') == null ){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+		}elseif ($app['session']->get('user')== 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 		}
@@ -164,10 +164,10 @@ class empleadosController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function delete(Application $app,$id) {
-		if($app['session']->get('user') == null /**|| empty($app['session']->get('user'))**/){
+		if($app['session']->get('user') == null ){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user')['nombre'] == 'logger') {
+		}elseif ($app['session']->get('user') == 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 		}

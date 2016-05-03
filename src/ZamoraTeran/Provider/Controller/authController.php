@@ -41,11 +41,10 @@ class authController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function login(Application $app) {
-		if($app['session']->get('user') != null /**|| !(empty($app['session']->get('user')))**/){
+		if($app['session']->get('user') != null){
 			return $app->redirect($app['url_generator']->generate('voluntarios.overview'));
 			die();
-		}	
-
+		}
 		
 		$encrypt = new \Encrypt();
 
@@ -74,10 +73,7 @@ class authController implements ControllerProviderInterface {
 						session_set_cookie_params(0);	
 						session_start();
 
-						$app['session']->set('user', array(
-							'id' => $admin['idAdmins'],
-							'nombre' => $admin['Nombre']
-							));
+						$app['session']->set('user',$admin['idAdmins']);
 						return $app->redirect($app['url_generator']->generate('voluntarios.overview'));
 					}else{
 						$loginform->get('contrasena')->addError(new \Symfony\Component\Form\FormError('La contraseña no es correcta'));
