@@ -134,7 +134,7 @@ class empleadosController implements ControllerProviderInterface {
 				$app['db.admins']->update($admin, array('idAdmins' => $id));
 				return $app->redirect($app['url_generator']->generate('empleados.overview'));
 			}elseif($data['repeatpassword'] != $data['newpassword']){
-				$loginform->get('repeatpassword')->addError(new \Symfony\Component\Form\FormError('El contrasena no es correcto'));
+				$contrasenaform->get('repeatpassword')->addError(new \Symfony\Component\Form\FormError('El contrasena no es correcto'));
 			}else{
 				include('/var/www/html/src/Classes/Encrypt.php');
 				$encrypt = new \Encrypt();
