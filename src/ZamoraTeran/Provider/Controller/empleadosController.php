@@ -8,7 +8,7 @@ use Silex\ControllerCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 require_once dirname(__FILE__).'/../../../Classes/Pagination.php';
-require_once dirname(__FILE__).'/../../../Classes/Encrypt.php');
+require_once dirname(__FILE__).'/../../../Classes/Encrypt.php';
 class empleadosController implements ControllerProviderInterface {
 
 	/**
