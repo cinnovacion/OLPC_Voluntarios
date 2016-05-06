@@ -705,14 +705,6 @@ class voluntariosController implements ControllerProviderInterface {
 			}
 
 			
-			
-			if($data['HorasAccumuladas'] != 0){
-				$trabaja = array(
-					'Persona_idPersona' => $id,
-					'tiempo' => $data['HorasAccumuladas']
-					);
-				$app['db.trabajar']->insert($dia);
-			}
 
 			return $app->redirect($app['url_generator']->generate('voluntarios.detail',array('id' => $id)));
 			die();

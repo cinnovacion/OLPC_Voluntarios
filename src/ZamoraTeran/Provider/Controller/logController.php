@@ -93,6 +93,6 @@ class logController implements ControllerProviderInterface {
 			);
 
 		// Inject data into the template which will show 'm all
-		return $app['twig']->render('Log/log.twig',$data);
+		return $app['twig']->render('log/log.twig',$data);
 	}
 }
