@@ -8,6 +8,7 @@ use Silex\ControllerCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 require_once dirname(__FILE__).'/../../../Classes/Pagination.php';
+require_once dirname(__FILE__).'/../../../Classes/Encrypt.php');
 class empleadosController implements ControllerProviderInterface {
 
 	/**
@@ -136,7 +137,6 @@ class empleadosController implements ControllerProviderInterface {
 			}elseif($data['repeatpassword'] != $data['newpassword']){
 				$contrasenaform->get('repeatpassword')->addError(new \Symfony\Component\Form\FormError('El contrasena no es correcto'));
 			}else{
-				include('/var/www/html/src/Classes/Encrypt.php');
 				$encrypt = new \Encrypt();
 				$encrypted = $encrypt->encryptPassword($data['newpassword']);
 				$admin = array('Nombre' => $data['Nombre'],'contrasena' => $encrypted['salt'].$encrypted['password'] );
@@ -195,7 +195,6 @@ class empleadosController implements ControllerProviderInterface {
 		if($contrasenaform->isValid()){
 			$data = $contrasenaform->getData();
 			if($data['newpassword'] == $data['repeatpassword']){
-				include('/var/www/html/src/Classes/Encrypt.php');
 				$encrypt = new \Encrypt();
 				$encrypted = $encrypt->encryptPassword($data['newpassword']);
 
