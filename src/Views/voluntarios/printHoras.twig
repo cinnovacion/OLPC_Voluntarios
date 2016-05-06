@@ -71,22 +71,30 @@
 		<p><b>No. De Cédula:</b> {{voluntario.NoDeCedula}}</p>
 		<p><b>Área: </b>
 			{%  if voluntario.Area == 1 %}
-			Comunicación
+			CEDESL
 			{% elseif voluntario.Area == 2 %}
-			Mercadeo
+			Comunicación
 			{% elseif voluntario.Area == 3 %}
-			Área Educativa
+			Mercadeo
 			{% elseif voluntario.Area == 4 %}
+			Área Educativa
+			{% elseif voluntario.Area == 5 %}	
 			Programa de Voluntariado
-			{% elseif voluntario.Area == 5 %}
-			Monitoreo y Evaluación
 			{% elseif voluntario.Area == 6 %}
+			Monitoreo y Evaluación
+			{% elseif voluntario.Area == 7 %}
 			Soporte técnico
 			{% endif %}
 		</p>
 		<p><b>Institucion academica:</b> {{voluntario. InstitucionAcademica}}</p>
 	</div>
-
+1 => 'CEDESL',
+				2 => 'Comunicación', 
+				3 => 'Mercadeo',
+				4=>'Área Educativa',
+				5=>'Programa de Voluntariado',
+				6=>'Monitoreo y Evaluación',
+				7=>'Soporte Técnico')))
 	
 
 	<div class="divToBeFilled">
