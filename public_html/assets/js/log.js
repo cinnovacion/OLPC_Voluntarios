@@ -115,13 +115,13 @@ function postForm() {
 			if(typeof json['horaFinal'] === 'undefined'){
 				hideYesNo();
 				document.getElementById('line1').innerHTML = 'Fecha: ' + day + ' de ' + monthNames[monthIndex] + ' ' + year;
-				document.getElementById('line2').innerHTML = 'Hora de entrada: ' + new Date().toLocaleTimeString('en-US');
+				document.getElementById('line2').innerHTML = 'Hora de entrada: ' + new Date(json['horaInicio']).toLocaleTimeString('en-US');
 				document.getElementById('line3').innerHTML = '';
 				showOk();
 			}else{
 				hideYesNo();
 				document.getElementById('line1').innerHTML = 'Fecha: ' + day + ' de ' + monthNames[monthIndex] + ' ' + year;
-				document.getElementById('line2').innerHTML = 'Hora de salida: ' + new Date().toLocaleTimeString('en-US');
+				document.getElementById('line2').innerHTML = 'Hora de salida: ' + new Date(json['horaFinal']).toLocaleTimeString('en-US');
 				document.getElementById('line3').innerHTML = 'Horas accumuladas: ' + json['tiempo'] + ' horas';
 				showOk();
 			}

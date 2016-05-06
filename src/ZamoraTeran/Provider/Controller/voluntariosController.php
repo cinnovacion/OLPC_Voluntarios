@@ -598,10 +598,10 @@ class voluntariosController implements ControllerProviderInterface {
 				1 => 'CEDESL',
 				2 => 'Comunicación', 
 				3 => 'Mercadeo',
-				4=>'Área Educativa',
-				5=>'Programa de Voluntariado',
-				6=>'Monitoreo y Evaluación',
-				7=>'Soporte Técnico')))
+				4 => 'Área Educativa',
+				5 => 'Programa de Voluntariado',
+				6 => 'Monitoreo y Evaluación',
+				7 => 'Soporte Técnico')))
 		->add('DiaInicio','text')
 		->add('DiaFinal','text')
 		->add('trabajoLunes', 'checkbox',array('required' => false))
