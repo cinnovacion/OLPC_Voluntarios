@@ -65,7 +65,7 @@
 	</div>
 	{% if voluntario.Observaciones == null %}
 	<div class="col-md-12">
-		<p class="frameWide"><b>Horas acumuladas:</b> {% if trabajaPara.Total == 0 %}0{% else %}{{trabajaPara.Total}}{% endif %} horas</p>
+		<p class="frameWide"><b>Horas acumuladas:</b> {% if trabajaPara.Total == 0 %}0{% else %}{{trabajaPara.Total | round(1, 'floor')}}{% endif %} horas</p>
 		<p class="frameWide"><b>Desde</b> {{voluntario.DiaInicio}} {% if lastInput %}<b> Hasta </b>{{lastInput.dia|date("d/m/Y")}}{% endif %}</p>
 		{% if disponibilidad != null %}
 		<div class="frame trabajaadeWide">
@@ -93,7 +93,7 @@
 			<p><b>Observaciones: </b>{{ voluntario.Observaciones }}</p>
 		</div>
 		<div class="col-md-6 column2">
-			<p class="frame"><b>Horas acumuladas:</b> {% if trabajaPara.Total == 0 %}0{% else %}{{trabajaPara.Total}}{% endif %} horas</p>
+			<p class="frame"><b>Horas acumuladas:</b> {% if trabajaPara.Total == 0 %}0{% else %}{{trabajaPara.Total | round(1, 'floor')}}{% endif %} horas</p>
 			<p class="frame"><b>Desde</b> {{voluntario.DiaInicio}} {% if lastInput %}<b> Hasta </b>{{lastInput.dia|date("d/m/Y")}}{% endif %}</p>
 			{% if disponibilidad != null %}
 			<div class="col-md-12 trabajaade">

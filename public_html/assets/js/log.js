@@ -122,7 +122,7 @@ function postForm() {
 				hideYesNo();
 				document.getElementById('line1').innerHTML = 'Fecha: ' + day + ' de ' + monthNames[monthIndex] + ' ' + year;
 				document.getElementById('line2').innerHTML = 'Hora de salida: ' + new Date(json['horaFinal']).toLocaleTimeString('en-US');
-				document.getElementById('line3').innerHTML = 'Horas accumuladas: ' + json['tiempo'] + ' horas';
+				document.getElementById('line3').innerHTML = 'Horas acumuladas: ' + json['tiempo'] + ' horas';
 				showOk();
 			}
 		},

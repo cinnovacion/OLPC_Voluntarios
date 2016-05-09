@@ -38,7 +38,7 @@ class logController implements ControllerProviderInterface {
 		if($app['session']->get('user') == null){
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user') == 0) {
+		}elseif ($app['session']->get('user')) {
 			$app['session']->remove('user');
 			$app['session']->set('user',0);
 		}
