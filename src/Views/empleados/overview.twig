@@ -36,8 +36,8 @@
 				</a>
 			</td>
 			<td>
-				<a href="javascript:void(0)" onclick="areYouSure({{empleado.idAdmins}})" class="btn btn-info" role="button" type="button">
-					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Borrar
+				<a href="{{path('empleados.delete',{'id': empleado.idAdmins })}}" class="btn btn-info" role="button" type="button">
+					<span class="glyphicon glyphicon-remove"  onclick="return confirm('Estás seguro?');" aria-hidden="true"></span> Borrar
 				</a>
 
 			</td>
@@ -46,36 +46,6 @@
 
 	</tbody>
 </table>
-<div id="myNav" class="overlay">
-	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-	<div class="overlay-content">
-
-		<p>Estás seguro?</p>
-		<a href="javascript:void(0)" id='si' onclick="deleteAdmin()">Sí</a>
-		<a href="javascript:void(0)" id='no' onclick="closeNav()">No</a>		
-
-	</div>
-</div>
 {% include 'Pagination/Pagination.twig' %}
-<script type="text/javascript">
-	var idAdmins;
 
-	function areYouSure(id){
-		idAdmins = id;
-		openNav();
-	}
-
-	function openNav() {
-		document.getElementById("myNav").style.width = "100%";
-	}
-
-	function closeNav() {
-		overlay = false;
-		document.getElementById("myNav").style.width = "0%";
-	}
-
-	function deleteAdmin(){
-		window.location.href = "../empleados/" + idAdmins + "/borrar";
-	}
-</script>
 {% endblock %}
