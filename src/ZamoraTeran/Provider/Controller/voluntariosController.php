@@ -39,7 +39,7 @@ class voluntariosController implements ControllerProviderInterface {
 		->bind('voluntarios.editVoluntario');
 
 		$controllers
-		->get('/neuvo',array($this,'newVoluntario'))
+		->get('/nuevo',array($this,'newVoluntario'))
 		->method('GET|POST')
 		->bind('voluntarios.nuevoVoluntario');
 
