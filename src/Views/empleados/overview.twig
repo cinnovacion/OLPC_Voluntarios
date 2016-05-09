@@ -36,9 +36,11 @@
 				</a>
 			</td>
 			<td>
-				<a href="{{path('empleados.delete',{'id': empleado.idAdmins })}}" class="btn btn-info" role="button" type="button">
-					<span class="glyphicon glyphicon-remove"  onclick="return confirm('Estás seguro?');" aria-hidden="true"></span> Borrar
+				<a href="{{path('empleados.delete',{'id': empleado.idAdmins })}}" class="btn btn-info" role="button" type="button" onclick="return confirm('Estás seguro?');">
+					<span class="glyphicon glyphicon-remove"   aria-hidden="true"></span> Borrar
 				</a>
+
+
 
 			</td>
 		</tr>
