@@ -16,7 +16,7 @@
 			<h1><a href="{{ path('login') }}"><img src="{{ app.request.baseUrl }}/assets/img/logo.png" alt=""></a></h1>
 
 			<nav>
-			{% if page is defined %}
+				{% if page is defined %}
 				{% if page == 'home' %}
 				<a href="{{ path('voluntarios.overview') }}">Voluntarios</a>
 				<a href="{{ path('empleados.overview') }}">Personal</a>
@@ -30,21 +30,19 @@
 				<a href="{{ path('empleados.overview') }}" class="selected">Personal</a>
 				<a href="{{ path('logger.log') }}">Log</a>
 
-				{% endif %}
 				{% else %}
 				<a href="{{ path('voluntarios.overview') }}">Voluntarios</a>
 				<a href="{{ path('empleados.overview') }}">Personal</a>
 				<a href="{{ path('logger.log') }}">Log</a>
 				{% endif %}
+				{% endif %}
 			</nav>
-			{% if session is defined %}
-			{% if session != null %}
+			{% if page != 'Iniciar Session' %}
 			
 			<div class="loginNavigation">
 				<a href="{{ path('logout') }}" class="btn btn-primary-outline">Cerrar sesión</a>
 				
 			</div>
-			{% endif %}
 			{% endif %}
 		</div>
 	</header>

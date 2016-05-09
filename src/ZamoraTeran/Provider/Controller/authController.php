@@ -45,7 +45,7 @@ class authController implements ControllerProviderInterface {
 			return $app->redirect($app['url_generator']->generate('voluntarios.overview'));
 			die();
 		}
-		
+
 		$encrypt = new \Encrypt();
 
 		//make a new login form
@@ -86,7 +86,7 @@ class authController implements ControllerProviderInterface {
 
 		$data = array(
 			'loginform' => $loginform->createView(),
-			'page' => 'home'
+			'page' => 'Iniciar Session'
 			);
 
 		// Inject data into the template which will show 'm all
