@@ -121,7 +121,7 @@ class trabajarRepository extends \Knp\Repository {
 	}
 
 	public function getWorkInDay($voluntarioId,$date){
-		return $this->db->fetchAll('
+		return $this->db->fetchAssoc('
 			SELECT dia,horaInicio,horaFinal,tiempo FROM trabajar 
 			WHERE Persona_idPersona = ?
 			AND dia = ?

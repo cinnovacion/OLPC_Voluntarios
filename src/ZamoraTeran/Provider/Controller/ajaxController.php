@@ -125,9 +125,17 @@ class ajaxController implements ControllerProviderInterface {
 				'horaInicio' => $search['entrada'],
 				'horaFinal' => $search['salida'],
 				'dia' => implode('/', array_reverse(explode('/', $search['dia']))),
-				
 				'tiempo' => null
 				);
+
+			if(substr($search['entrada'], -2) == "PM"){
+				$trabaja['horaInicio'] =  date('h:i:s', strtotime($search['entrada'])+43200);
+
+			}
+
+			if(substr($search['salida'], -2) == "PM"){
+				$trabaja['horaFinal'] = date('h:i:s', strtotime($search['salida'])+43200);
+			}
 
 			//calculate the working time
 			$trabaja['tiempo'] = round((
