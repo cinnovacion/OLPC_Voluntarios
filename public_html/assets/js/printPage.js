@@ -23,7 +23,6 @@ function printPage() {
 }
 
 function savePage() {
-	document.getElementById("footer").style.width="522px";
 	var pdf = new jsPDF('p', 'pt', 'letter')
 
 // source can be HTML-formatted string, or a reference
