@@ -14,12 +14,12 @@ var monthNames = [
 ];
 var counter = 1;
 function printPage() {
-document.getElementById("toRemove").style.opacity = 0;
-document.getElementById("toRemove").style.height = 0;
-window.print();
-setTimeout(100);
-document.getElementById("toRemove").style.opacity = 100;
-document.getElementById("toRemove").style.height = "100%";
+	document.getElementById("toRemove").style.opacity = 0;
+	document.getElementById("toRemove").style.height = 0;
+	window.print();
+	setTimeout(100);
+	document.getElementById("toRemove").style.opacity = 100;
+	document.getElementById("toRemove").style.height = "100%";
 }
 
 function savePage() {
@@ -57,22 +57,30 @@ margins
 }
 
 function addWork(){
-	var newTextBoxDiv = $(document.createElement('div'))
-	.attr("id", 'TextBoxDiv' + counter);
+	
+	
+	if(counter != 1){
+		if(document.getElementById("textbox" + (counter - 1)).value == "") return;
+		addTextdiv(counter-1);
+	} 
+	
+	
+    var newTextBoxDiv = $(document.createElement('div'))
+    .attr("id", 'TextBoxDiv' + counter);
 
-	newTextBoxDiv.after().html(
-		'<button type="button" class="btn btn-info" data-type="plus"  onclick="removediv(' + counter + ')">' +
-		'<span class="glyphicon glyphicon-remove">' +
-		'</span></button>' + 
-		'<label style="width:75px;margin-left:15px">Actividad:</label>' +
-		'<input type="text" class="form-control" name="textbox" id="textbox' + counter + '" value="" style="width:600px;display:initial;margin-right:15px;" > ' + 
-		'<button type="button" class="btn btn-info" data-type="plus" onclick="addTextdiv(' + counter + ')">' + 
-		'<span class="glyphicon glyphicon-plus">' + 
-		'</span></button>'
-		);
+    newTextBoxDiv.after().html(
+    	'<button type="button" class="btn btn-info" data-type="plus"  onclick="removediv(' + counter + ')">' +
+    	'<span class="glyphicon glyphicon-remove">' +
+    	'</span></button>' + 
+    	'<label style="width:75px;margin-left:15px">Actividad:</label>' +
+    	'<input type="text" class="form-control" name="textbox" id="textbox' + counter + '" value="" style="width:600px;display:initial;margin-right:15px;" > ' + 
+    	'<button name="plusbutton" type="button" class="btn btn-info" data-type="plus" onclick="addTextdiv(' + counter + ')">' + 
+    	'<span class="glyphicon glyphicon-plus">' + 
+    	'</span></button>'
+    	);
 
-	newTextBoxDiv.appendTo("#addwork");
-	counter++;
+    newTextBoxDiv.appendTo("#addwork");
+    counter++;
 }
 
 function removediv(removeMe){
@@ -81,13 +89,14 @@ function removediv(removeMe){
 }
 
 function addTextdiv(number){
+	if(document.getElementById("textbox" + number).value == "") return;
 	if(document.getElementById("element" + counter) == null){
 		var ul = document.getElementById("worklist");
 		var li = document.createElement("li");
 		li.appendChild(document.createTextNode($("#textbox" + number).val()));
-li.setAttribute("id", "element" + counter); // added line
-ul.appendChild(li);
-}else{
-	document.getElementById("element" + (number+1)).innerHTML = $("#textbox" + number).val();
-}
+		li.setAttribute("id", "element" + counter); // added line
+		ul.appendChild(li);
+	}else{
+		document.getElementById("element" + (number+1)).innerHTML = $("#textbox" + number).val();
+	}
 }	
