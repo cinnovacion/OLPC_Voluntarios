@@ -123,13 +123,18 @@
 
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 		</a>
-		<a href="{{ path('voluntarios.deleteVoluntario', {'id': voluntario.idPersona}) }}" class="btn btn-danger edit pull-right"  style="
-		margin-right: 10%;" onclick="return confirm('Estás seguro?');" role="button"> 
+
+
+		<a href="javascript:void(0)" onclick="areYouSure({{voluntario.idPersona}})"class="btn btn-danger edit pull-right"  style="
+		margin-right: 10%;"  role="button"> 
 		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-		</a>
-		<a href="{{ path('voluntarios.editVoluntario', {'id': voluntario.idPersona}) }}" class="btn btn-info edit pull-right" role="button" style="margin-right: 15px;"> 
-			<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-		</a>
+	</a>
+
+
+
+	<a href="{{ path('voluntarios.editVoluntario', {'id': voluntario.idPersona}) }}" class="btn btn-info edit pull-right" role="button" style="margin-right: 15px;"> 
+		<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+	</a>
 
 </div>
 <div class="workingTable col-md-12">
@@ -168,7 +173,38 @@
 	<div class="col-md-2">
 	</div>
 </div>
+<div id="myNav" class="overlay">
+	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+	<div class="overlay-content">
+
+		<p>Estás seguro?</p>
+		<a href="javascript:void(0)" id='si' onclick="deleteAdmin()">Sí</a>
+		<a href="javascript:void(0)" id='no' onclick="closeNav()">No</a>		
+
+	</div>
+</div>
 {% include 'Pagination/Pagination.twig' %}
 
+<script type="text/javascript">
+	var idAdmins;
 
+	function areYouSure(id){
+		idAdmins = id;
+		openNav();
+	}
+
+	function openNav() {
+		document.getElementById("myNav").style.width = "100%";
+	}
+
+	function closeNav() {
+		overlay = false;
+		document.getElementById("myNav").style.width = "0%";
+	}
+
+	function deleteAdmin(){
+		window.location.href = "../" + idAdmins + "/borrar";
+
+	}
+</script>
 {% endblock %}
