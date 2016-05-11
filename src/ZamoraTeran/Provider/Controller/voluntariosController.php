@@ -344,7 +344,7 @@ class voluntariosController implements ControllerProviderInterface {
 			'data' => $persona['Nivel']))
 		->add('Area', 'choice', array(
 			'choices' => array(
-				1 => 'CEDESL',
+				1 => 'CEDSL',
 				2 => 'Comunicación', 
 				3 => 'Mercadeo',
 				4=>'Área Educativa',
@@ -601,7 +601,7 @@ class voluntariosController implements ControllerProviderInterface {
 			'constraints' => array(new Assert\NotBlank()),
 			'empty_value' => 'Elige una opción',
 			'choices' => array(
-				1 => 'CEDESL',
+				1 => 'CEDSL',
 				2 => 'Comunicación', 
 				3 => 'Mercadeo',
 				4 => 'Área Educativa',

@@ -25,7 +25,7 @@
 		<p><b>Correo electronico:</b> {{voluntario.CorreoElectronico}}</p>
 		<p><b>Área: </b>
 			{% if voluntario.Area == 1 %}
-			CEDESL
+			CEDSL
 			{%  elseif voluntario.Area == 2 %}
 			Comunicación
 			{% elseif voluntario.Area == 3 %}
@@ -127,13 +127,13 @@
 
 		<a href="javascript:void(0)" onclick="areYouSure({{voluntario.idPersona}})"class="btn btn-danger edit pull-right"  style="
 		margin-right: 10%;"  role="button"> 
-		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar registro
 	</a>
 
 
 
 	<a href="{{ path('voluntarios.editVoluntario', {'id': voluntario.idPersona}) }}" class="btn btn-info edit pull-right" role="button" style="margin-right: 15px;"> 
-		<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Editar Perfil
 	</a>
 
 </div>
