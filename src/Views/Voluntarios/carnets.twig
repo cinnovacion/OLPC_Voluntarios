@@ -1,0 +1,115 @@
+{% extends 'layout.twig' %}
+
+{% set pageTitle = 'Imprimir las carnets' %}
+{% block pageContent %}
+
+<div id="toRemove" class="col-md-12" >
+	<a class="btn btn-info buttonright" role="button" onclick="printPage()"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</a>
+	<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}" class="btn btn-info buttonleft " role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
+</div>
+<div class="col-md-12">
+	<div class="form-inline">
+		<input type="text" class="form-control" id="busqueda" style="margin-right: 7px;">
+
+		<button type="submit" class="btn btn-info" id="searchButton" onclick="searchPeople();">Búsqueda</button>
+	</div>
+</div>
+<div class="col-md-6" id="personasAdd">
+	<ul id="personaList"></ul>
+</div>
+<div class="col-md-6" id="personasAdded">
+	
+</div>
+
+<div class="col-md-12" id="carnets" style="width: 100%">
+
+</div>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/jquery.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/JsBarcode.js"></script>
+<script type="text/javascript">
+	/**JsBarcode("#barcode","001-240695-022R", {
+		format:"CODE39",
+		displayValue:true,
+		width:1
+	});**/
+
+	function searchPeople() {
+		document.getElementById('personasAdd').innerHTML = "";
+		var postData = 
+		{
+			"searchstring" : document.getElementById('busqueda').value
+		}
+		var dataString = JSON.stringify(postData);
+		$.ajax({
+			method: "POST",
+			data: {action:dataString},
+			url: '../ajax/getVoluntarios',
+			success: function(data){
+				var json = JSON.parse(data);
+				for (var key in json) {
+
+
+
+					var newDiv = $(document.createElement('div'))
+					.attr("id", 'TextBoxDiv');
+
+					newDiv.after().html(
+						'<input type="checkbox" value="' + json[key]["idPersona"] + '" style="width: 15px;" id="choosePerson' + 
+						json[key]["idPersona"] + '" onclick="addName(' + json[key]["idPersona"] + ')"/><label for="choosePerson' + 
+						json[key]["idPersona"] + '">' + 
+						json[key]["Nombre"] +  '</label>');
+
+					newDiv.appendTo("#personasAdd");
+
+
+				}
+			},
+			error: function(e){
+				console.log('error: ' + e);
+			}
+		});
+	}
+
+	function addName(id){
+		var postData = 
+		{
+			"id" : id
+		}
+		var dataString = JSON.stringify(postData);
+		$.ajax({
+			method: "POST",
+			data: {action:dataString},
+			url: '../ajax/getVolunteerById',
+			success: function(data){
+				var json = JSON.parse(data);
+
+				var newDiv = $(document.createElement('div'))
+				.attr("id", 'TextBoxDiv' );
+
+				newDiv.after().html(
+					'<p> ' +  json['Nombre'] +' </p>' );
+				newDiv.appendTo("#personasAdded");
+
+
+				var newDiv = $(document.createElement('div'))
+				.attr("id", 'TextBoxDiv' ).attr("class",'col-md-6');
+
+				newDiv.after().html(
+					'<div class="col-md-6" style="border: 1px solid black; width: 380px; margin-bottom: 20px;"><img src="{{ app.request.baseUrl }}/assets/img/carnetlogo.jpg" style="width:40px; margin-top: 20px; margin-left: 20px; position: absolute"><p style="margin-top: 20px; margin-left: 65px; max-width: 200px; text-align: center;">' + json['Nombre']  + '</p><p style="margin-left: 65px;  max-width: 200px; text-align: center;">Voluntario</p><p style="margin-left: 65px;  max-width: 200px; text-align: center;">Fundación Zamora Terán</p><div class="col-md-12" ><p ><img id="barcode' + json['idPersona'] + '" style="display: block;margin-left: auto;margin-right: auto;"></p></div></div>');
+				newDiv.appendTo("#carnets");
+
+
+				JsBarcode("#barcode" + json['idPersona'] , " " + json['NoDeCedula'] +"" , {
+					format:"CODE39",
+					displayValue:true,
+					width:1
+				});
+				
+			},
+			error: function(e){
+				console.log('error: ' + e);
+			}
+		});
+	}
+</script>
+{% endblock %}

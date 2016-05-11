@@ -48,6 +48,10 @@ class personaRepository extends \Knp\Repository {
 		return $this->db->fetchAssoc('SELECT * FROM persona WHERE NoDeCedula = ?',array($cedula));
 	}
 
+	public function getPersonById($id){
+		return $this->db->fetchAssoc('SELECT * FROM persona WHERE idPersona = ?',array($id));
+	}
+
 	public function getIdByName($name){
 		return $this->db->fetchAssoc('SELECT idPersona AS id FROM persona WHERE Nombre = ?',array($name));
 	}

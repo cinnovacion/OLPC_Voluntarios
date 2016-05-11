@@ -26,6 +26,13 @@ class ajaxController implements ControllerProviderInterface {
 		->bind('ajax.getVolunteer');
 
 		$controllers
+		->get('/getVolunteerById', array($this, 'getVolunteerById'))
+		->method('GET|POST')
+		->bind('ajax.getVolunteerById');
+
+		
+
+		$controllers
 		->get('/logVolunteer',array($this,'logVolunteer'))
 		->method('GET|POST')
 		->bind('ajax.logVolunteer');
@@ -49,6 +56,11 @@ class ajaxController implements ControllerProviderInterface {
 		->get('/insertHours',array($this,'insertHours'))
 		->method('GET|POST')
 		->bind('ajax.insertHours');
+
+		$controllers
+		->get('/getVoluntarios',array($this,'getVoluntarios'))
+		->method('GET|POST')
+		->bind('ajax.getVoluntarios');
 
 		return $controllers;
 
@@ -116,6 +128,19 @@ class ajaxController implements ControllerProviderInterface {
 		return $app['twig']->render('Ajax/dump.twig');
 	}
 
+	public function getVoluntarios(Application $app) {
+		if(isset($_POST['action'])){
+			$search = json_decode($_POST['action'], true);
+			
+			echo json_encode($app['db.persona']->findAllByString($search['searchstring'],1,1000000));
+
+			
+			
+		}
+		// Inject data into the template which will show 'm all
+		return $app['twig']->render('Ajax/dump.twig');
+	}
+
 	public function insertHours(Application $app) {
 		if(isset($_POST['action'])){
 			$search = json_decode($_POST['action'], true);
@@ -150,6 +175,14 @@ class ajaxController implements ControllerProviderInterface {
 	public function getVolunteer(Application $app) {
 		if(isset($_POST['action'])){
 			echo json_encode($app['db.persona']->getPersonByCedula(json_decode($_POST['action'], true)['cedula']));
+		}
+		// Inject data into the template which will show 'm all
+		return $app['twig']->render('Ajax/dump.twig');
+	}
+
+	public function getVolunteerById(Application $app) {
+		if(isset($_POST['action'])){
+			echo json_encode($app['db.persona']->getPersonById(json_decode($_POST['action'], true)['id']));
 		}
 		// Inject data into the template which will show 'm all
 		return $app['twig']->render('Ajax/dump.twig');

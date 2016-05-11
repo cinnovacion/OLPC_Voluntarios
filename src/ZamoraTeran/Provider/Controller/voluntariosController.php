@@ -65,10 +65,10 @@ class voluntariosController implements ControllerProviderInterface {
 		->assert('id', '\d+')
 		->bind('voluntarios.deleteVoluntario');
 
-		/**$controllers
+		$controllers
 		->get('/carnets',array($this,'carnets'))
 		->method('GET|POST')
-		->bind('voluntarios.carnets');**/
+		->bind('voluntarios.carnets');
 
 		return $controllers;
 
@@ -722,6 +722,33 @@ class voluntariosController implements ControllerProviderInterface {
 			);
 			// Build and return the HTML
 		return $app['twig']->render('voluntarios/formulario.twig',$data);
+	}
+
+	/**
+	 * Volunteer Overview
+	 * @param Application $app An Application instance
+	 * @return string A blob of HTML
+	 */
+	public function carnets(Application $app) {
+		//checking if the user is loged in
+		if($app['session']->get('user') == null ){
+			return $app->redirect($app['url_generator']->generate('login'));
+			die();
+		}elseif ($app['session']->get('user') == 0) {
+			return $app->redirect($app['url_generator']->generate('logout'));
+			die();
+		}
+
+		
+
+		//data to display in html
+		$data = array(
+			'page' => 'voluntarios',
+			'baseUrl' => $app['url_generator']->generate('voluntarios.overview'),
+			);
+		// Inject data into the template which will show 'm all
+		return $app['twig']->render('voluntarios/carnets.twig',$data);
+
 	}
 
 
