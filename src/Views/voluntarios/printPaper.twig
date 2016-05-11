@@ -17,7 +17,7 @@
 	
 	<h2 style="margin-top: 150px; margin-bottom: 15px;">CONSTANCIA</h2>
 	{%  if voluntario.Area == 1 %}
-	<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como 
+	<p style="margin-top: 50px;">Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como 
 
 		{% if voluntario.Sexo != true %}
 		voluntaria
@@ -42,7 +42,7 @@
 		</p>
 
 		{%  elseif voluntario.Area == 2 %}
-		<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como 
+		<p style="margin-top: 50px;">Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como 
 
 			{% if voluntario.Sexo != true %}
 			voluntaria
@@ -68,7 +68,7 @@
 				</ul>
 			</p>
 			{% elseif voluntario.Area == 3 %}
-			<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Mercadeo de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
+			<p style="margin-top: 50px;">Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Mercadeo de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
 
 
 				{% if trabajaDe != null %}
@@ -88,7 +88,7 @@
 					</ul>
 				</p>
 				{% elseif voluntario.Area == 4 %}
-				<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Área Educativa de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
+				<p style="margin-top: 50px;">Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Área Educativa de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
 
 
 					{% if trabajaDe != null %}
@@ -107,7 +107,7 @@
 						</ul>
 					</p>
 					{% elseif voluntario.Area == 5 %}
-					<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Programa de Voluntariado de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
+					<p style="margin-top: 50px;">Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Programa de Voluntariado de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
 
 
 						{% if trabajaDe != null %}
@@ -128,7 +128,7 @@
 							</ul>
 						</p>
 						{% elseif voluntario.Area == 6 %}
-						<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Monitoreo y Evaluación de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
+						<p style="margin-top: 50px;">Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de Monitoreo y Evaluación de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
 
 
 							{% if trabajaDe != null %}
@@ -149,7 +149,7 @@
 								</ul>
 							</p>
 							{% elseif voluntario.Area == 7 %}
-							<p>Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de soporte técnico de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
+							<p style="margin-top: 50px;">Por este medio hago constar que <b>{{voluntario.Nombre}}</b>, con número de cédula <b>{{voluntario.NoDeCedula}}</b> se ha desempeñado como {% if voluntario.Sexo != true %}voluntaria{% else %}voluntario{% endif %} en el área de soporte técnico de la Fundación Zamora Terán, cumpliendo con un total de {{trabajaPara.Total|round}} horas laborales desde el 
 
 
 								{% if trabajaDe != null %}

@@ -23,6 +23,7 @@ function printPage() {
 }
 
 function savePage() {
+
 	var pdf = new jsPDF('p', 'pt', 'letter')
 
 // source can be HTML-formatted string, or a reference
@@ -56,8 +57,6 @@ margins
 }
 
 function addWork(){
-	
-	
 	if(counter != 1){
 		if(document.getElementById("textbox" + (counter - 1)).value == "") return;
 		addTextdiv(counter-1);
