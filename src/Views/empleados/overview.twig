@@ -21,8 +21,8 @@
 	<thead>
 		<tr>
 			<th>Nombre</th>
-			<th>Cambia</th>
-			<th>Borrar empleado</th>
+			<th>Modificar</th>
+			<th>Borrar</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -32,17 +32,13 @@
 			<td>{{empleado.Nombre}}</td>
 			<td>
 				<a href="{{path('empleados.details',{'id': empleado.idAdmins })}}" class="btn btn-info" role="button">
-					<span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Cambia
+					<span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Modificar
 				</a>
 			</td>
 			<td>
 				<a href="javascript:void(0)" onclick="areYouSure({{empleado.idAdmins}})" class="btn btn-info" role="button" type="button">
-
  				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Borrar
 				</a>
-
-
-
 			</td>
 		</tr>
 		{% endfor %}
