@@ -65,6 +65,11 @@ class voluntariosController implements ControllerProviderInterface {
 		->assert('id', '\d+')
 		->bind('voluntarios.deleteVoluntario');
 
+		/**$controllers
+		->get('/carnets',array($this,'carnets'))
+		->method('GET|POST')
+		->bind('voluntarios.carnets');**/
+
 		return $controllers;
 
 	}
@@ -125,7 +130,8 @@ class voluntariosController implements ControllerProviderInterface {
 
 
 	}
-		/**
+	
+	/**
 	 * Volunteer Overview
 	 * @param Application $app An Application instance
 	 * @return string A blob of HTML

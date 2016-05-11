@@ -23,8 +23,9 @@
 <script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/JsBarcode.js"></script>
 <script type="text/javascript">
 	JsBarcode("#barcode","{{ voluntario.NoDeCedula }}", {
-		format:"CODE128C",
-		displayValue:true
+		format:"CODE39",
+		displayValue:true,
+		width:1
 	});
 	
 	
