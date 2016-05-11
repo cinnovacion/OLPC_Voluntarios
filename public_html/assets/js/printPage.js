@@ -94,6 +94,9 @@ function addTextdiv(number){
 		li.appendChild(document.createTextNode($("#textbox" + number).val()));
 		li.setAttribute("id", "element" + counter); // added line
 		ul.appendChild(li);
+		var margin =document.getElementById('constancia').style.marginTop;
+
+		document.getElementById('constancia').style.marginTop = (margin.substring(0, margin.length - 2) - 24) + "px";
 	}else{
 		document.getElementById("element" + (number+1)).innerHTML = $("#textbox" + number).val();
 	}
