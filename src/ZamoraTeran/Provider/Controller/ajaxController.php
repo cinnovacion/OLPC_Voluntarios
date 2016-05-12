@@ -67,10 +67,10 @@ class ajaxController implements ControllerProviderInterface {
 	//controller for the volunteers who worked in a certain week
 	public function listaSemana(Application $app) {
 		if($app['session']->get('user') == null ){
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}elseif ($app['session']->get('user') == 0) {
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}
 
@@ -110,10 +110,10 @@ class ajaxController implements ControllerProviderInterface {
 
 	public function getListaTrabaja(Application $app) {
 		if($app['session']->get('user') == null ){
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}elseif ($app['session']->get('user') == 0) {
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}
 
@@ -144,10 +144,10 @@ class ajaxController implements ControllerProviderInterface {
 
 	public function getVoluntarios(Application $app) {
 		if($app['session']->get('user') == null ){
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}elseif ($app['session']->get('user') == 0) {
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}
 
@@ -166,10 +166,10 @@ class ajaxController implements ControllerProviderInterface {
 
 	public function insertHours(Application $app) {
 		if($app['session']->get('user') == null ){
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}elseif ($app['session']->get('user') == 0) {
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}
 
@@ -205,10 +205,10 @@ class ajaxController implements ControllerProviderInterface {
 
 	public function getVolunteer(Application $app) {
 		if($app['session']->get('user') == null ){
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}elseif ($app['session']->get('user') == 0) {
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}
 
@@ -221,10 +221,10 @@ class ajaxController implements ControllerProviderInterface {
 
 	public function getVolunteerById(Application $app) {
 		if($app['session']->get('user') == null ){
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}elseif ($app['session']->get('user') == 0) {
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}
 
@@ -238,10 +238,10 @@ class ajaxController implements ControllerProviderInterface {
 
 	public function fillWeeks(Application $app) {
 		if($app['session']->get('user') == null ){
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}elseif ($app['session']->get('user') == 0) {
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}
 
@@ -258,10 +258,10 @@ class ajaxController implements ControllerProviderInterface {
 
 	public function logVolunteer(Application $app) {
 		if($app['session']->get('user') == null ){
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}elseif ($app['session']->get('user') == 0) {
-			echo json_encode();
+			echo json_encode("nope, not happening");
 			die();
 		}
 
