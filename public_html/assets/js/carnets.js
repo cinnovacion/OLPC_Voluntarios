@@ -43,7 +43,6 @@ function searchPeople() {
 
 
 			for (var key in json) {
-
 				var newDiv = $(document.createElement('div'))
 				.attr("id", 'TextBoxDiv');
 				newDiv.after().html(
@@ -83,15 +82,9 @@ function addName(id){
 				'<p style="height: 25px;"> ' +  json['Nombre'] +' <a href="javascript:void(0)" onclick="deleteDiv(' + json['idPersona'] + ')" class="btn btn-danger pull-right"  role="button" > <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></p>' );
 			newDiv.appendTo("#personasAdded");
 
-			if(counter % 3 == 0){
-				var newDiv = $(document.createElement('div'))
-				.attr("id", 'Carnet' +  json['idPersona']).attr("class",'col-md-4 carnets').attr("style",'padding: 0; width:335px;').attr("name",counter);
-			}else{
-				var newDiv = $(document.createElement('div'))
-				.attr("id", 'Carnet' +  json['idPersona']).attr("class",'col-md-4 carnets').attr("style",'padding: 0; width:335px;').attr("name",counter);
-			}
-
-
+			var newDiv = $(document.createElement('div'))
+			.attr("id", 'Carnet' +  json['idPersona']).attr("class",'col-md-4 carnets').attr("style",'padding: 0; width:335px;').attr("name",counter);
+			
 			newDiv.after().html(
 				'<div style="border: 1px solid black; width: 330px; height: 275px;    margin: 5px 5px 20px 0px; padding: 0;"><img src="'+ window.location +'/../../assets/img/carnetlogo.jpg" style="width:40px; margin-top: 40px; margin-left: 20px; position: absolute"><p style="margin-top: 20px; margin-left: 65px; max-width: 200px; text-align: center; height: 40px;">' + json['Nombre']  + '</p><p style="margin-left: 65px;  max-width: 200px; text-align: center;">Voluntario</p><p style="margin-left: 65px;  max-width: 200px; text-align: center;">Fundación Zamora Terán</p><div class="col-md-12" style="padding:0;"><p ><img id="barcode' + counter + '" style="display: block;margin-left: auto;margin-right: auto;"></p></div></div>');
 			newDiv.appendTo("#carnets");
@@ -120,7 +113,7 @@ function deleteDiv(id){
 function printPage() {
 	for (var i = 1; i <= counter; i++) {
 		if(i%3==0) $( "#carnets div:nth-child(" + i + ")").addClass("newPage");
-		
+
 	}
 	window.print();
 

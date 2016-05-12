@@ -154,10 +154,12 @@ class ajaxController implements ControllerProviderInterface {
 		if(isset($_POST['action'])){
 			$search = json_decode($_POST['action'], true);
 			
-			echo json_encode($app['db.persona']->findAllByString($search['searchstring'],1,1000000));
+			$data = $app['db.persona']->findAllByString($search['searchstring'],1,1000000);
 
-		
-			
+			$newdata = array();
+			foreach ($data as $key)array_push($newdata,array('idPersona' => $key['idPersona'],'Nombre' => $key['Nombre']));
+
+			echo json_encode($newdata);
 			
 		}
 		// Inject data into the template which will show 'm all
