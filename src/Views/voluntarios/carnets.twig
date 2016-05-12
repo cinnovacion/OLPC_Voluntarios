@@ -8,16 +8,20 @@
 			display: none;
 		}
 	}
+
+	.newPage{
+		page-break-after:always;
+	}
 </style>
 <div id="toRemove" class="col-md-12" >
-	<a class="btn btn-info buttonright" role="button" onclick="printPage()"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</a>
+	<a class="btn btn-info buttonright" id="printButton" role="button"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</a>
 	<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}" class="btn btn-info buttonleft " role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
 
 	<div class="col-md-12">
 		<div class="form-inline">
-			<input type="text" class="form-control" id="busqueda" style="margin-right: 7px; margin-left:0;" onkeypress="keyPressListener(event)">
+			<input type="text" class="form-control" id="busqueda" style="margin-right: 7px; margin-left:0;">
 
-			<button type="submit" class="btn btn-info" id="searchButton" onclick="searchPeople();">Búsqueda</button>
+			<button type="submit" class="btn btn-info" id="searchButton" >Búsqueda</button>
 		</div>
 	</div>
 	<div class="col-md-6" id="personasAdd" style="height: 300px; overflow: auto; margin-bottom: 25px;">
@@ -34,135 +38,5 @@
 </div>
 <script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/jquery.js"></script>
 <script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/JsBarcode.js"></script>
-<script type="text/javascript">
-	var counter = 1;
-	var persons = [];
-	
-
-	function keyPressListener(e) {
-		if (e.keyCode == 13) {
-			searchPeople(); 
-		}
-
-	}
-
-
-
-	function searchPeople() {
-		document.getElementById('personasAdd').innerHTML = "";
-		var postData = 
-		{
-			"searchstring" : document.getElementById('busqueda').value
-		}
-		var dataString = JSON.stringify(postData);
-		$.ajax({
-			method: "POST",
-			data: {action:dataString},
-			url: '../ajax/getVoluntarios',
-			success: function(data){
-				var json = JSON.parse(data);
-				persons = [];
-				var newDiv = $(document.createElement('div'))
-				.attr("id", 'TextBoxDiv');
-
-				newDiv.after().html(
-					'<i>clic en un nombre para agregar</i><br><a onclick="addAll()">anadir todo</a>');
-
-				newDiv.appendTo("#personasAdd");
-
-
-				for (var key in json) {
-
-					var newDiv = $(document.createElement('div'))
-					.attr("id", 'TextBoxDiv');
-					newDiv.after().html(
-						'<input type="checkbox" hidden value="' + json[key]["idPersona"] + '" style="width: 15px;" id="choosePerson' + 
-						json[key]["idPersona"] + '" onclick="addName(' + json[key]["idPersona"] + ')"/><label for="choosePerson' + 
-						json[key]["idPersona"] + '">' + 
-						json[key]["Nombre"] +  '</label>');
-
-					newDiv.appendTo("#personasAdd");
-
-					persons.push(json[key]["idPersona"]);
-				}
-			},
-			error: function(e){
-				console.log('error: ' + e);
-			}
-		});
-	}
-
-	function addName(id){
-		var postData = 
-		{
-			"id" : id
-		}
-		var dataString = JSON.stringify(postData);
-		$.ajax({
-			method: "POST",
-			data: {action:dataString},
-			url: '../ajax/getVolunteerById',
-			success: function(data){
-				var json = JSON.parse(data);
-
-				var newDiv = $(document.createElement('div'))
-				.attr("id", 'Nombre' +  json['idPersona']);
-
-				newDiv.after().html(
-					'<p style="height: 25px;"> ' +  json['Nombre'] +' <a href="javascript:void(0)" onclick="deleteDiv(' + json['idPersona'] + ')" class="btn btn-danger pull-right"  role="button" > <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></p>' );
-				newDiv.appendTo("#personasAdded");
-
-				if(counter % 3 == 0){
-					var newDiv = $(document.createElement('div'))
-					.attr("id", 'Carnet' +  json['idPersona']).attr("class",'col-md-4 carnets').attr("style",'page-break-after:always; padding: 0; width:335px;');
-				}else{
-					var newDiv = $(document.createElement('div'))
-					.attr("id", 'Carnet' +  json['idPersona']).attr("class",'col-md-4 carnets').attr("style",'padding: 0; width:335px;');
-				}
-
-
-				newDiv.after().html(
-					'<div style="border: 1px solid black; width: 330px; height: 275px;    margin: 5px 5px 20px 0px; padding: 0;"><img src="{{ app.request.baseUrl }}/assets/img/carnetlogo.jpg" style="width:40px; margin-top: 40px; margin-left: 20px; position: absolute"><p style="margin-top: 20px; margin-left: 65px; max-width: 200px; text-align: center; height: 40px;">' + json['Nombre']  + '</p><p style="margin-left: 65px;  max-width: 200px; text-align: center;">Voluntario</p><p style="margin-left: 65px;  max-width: 200px; text-align: center;">Fundación Zamora Terán</p><div class="col-md-12" style="padding:0;"><p ><img id="barcode' + json['idPersona'] + '" style="display: block;margin-left: auto;margin-right: auto;"></p></div></div>');
-				newDiv.appendTo("#carnets");
-
-
-				JsBarcode("#barcode" + json['idPersona'] , " " + json['NoDeCedula'] +"" , {
-					format:"CODE39",
-					displayValue:true,
-					width:1
-				});
-
-				counter++;
-			},
-			error: function(e){
-				console.log('error: ' + e);
-			}
-		});
-	}
-
-	function deleteDiv(id){
-		document.getElementById('Nombre' +  id).remove();
-		document.getElementById('Carnet' +  id).remove();
-		counter--;
-	}
-
-	function printPage() {
-		/**var printContents = document.getElementById('printPage').innerHTML;
-		var originalContents = document.body.innerHTML;
-
-		document.body.innerHTML = printContents;
-
-		window.print();
-
-		document.body.innerHTML = originalContents;**/
-		window.print();
-	}
-
-
-	function addAll(){
-		for (var key in persons) {
-			addName(persons[key]);
-		}
-	}
-</script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/carnets.js"></script>
 {% endblock %}
