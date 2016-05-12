@@ -7,18 +7,19 @@
 	<a class="btn btn-info buttonright" role="button" onclick="printPage()"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</a>
 	<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}" class="btn btn-info buttonleft " role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
 </div>
-<div class="container">
-	
-	<img src="{{ app.request.baseUrl }}/assets/img/carnetlogo.jpg" style="width:40px; margin-top: 20px; margin-left: 20px; position: absolute">
-	<p style="margin-left: 65px; max-width: 200px; text-align: center;">{{voluntario.Nombre}}</p>	
-	<p style="margin-left: 65px;  max-width: 200px; text-align: center;">Voluntario</p>	
-	<p style="margin-left: 65px;  max-width: 200px; text-align: center;">Fundación Zamora Terán</p>	
-	<div class="col-md-12" >
-		<p ><img id="barcode"></p>
-		
-	</div>
 
+<div style="border: 1px solid black; width: 330px; height: 275px; margin: 5px 5px 20px 0px; padding: 0;">
+	<img src="{{ app.request.baseUrl }}/assets/img/carnetlogo.jpg" style="width:40px; margin-top: 40px; margin-left: 20px; position: absolute">
+	<p style="margin-top: 20px; margin-left: 65px; max-width: 200px; text-align: center; height: 40px;">{{voluntario.Nombre}}</p>
+	<p style="margin-left: 65px;  max-width: 200px; text-align: center;">Voluntario</p>
+	<p style="margin-left: 65px;  max-width: 200px; text-align: center;">Fundación Zamora Terán</p>
+	<div class="col-md-12" style="padding:0;">
+		<p>
+			<img id="barcode" style="display: block;margin-left: auto;margin-right: auto;">
+		</p>
+	</div>
 </div>
+
 
 <script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/JsBarcode.js"></script>
 <script type="text/javascript">
