@@ -30,8 +30,6 @@ class ajaxController implements ControllerProviderInterface {
 		->method('GET|POST')
 		->bind('ajax.getVolunteerById');
 
-		
-
 		$controllers
 		->get('/logVolunteer',array($this,'logVolunteer'))
 		->method('GET|POST')
@@ -68,6 +66,14 @@ class ajaxController implements ControllerProviderInterface {
 
 	//controller for the volunteers who worked in a certain week
 	public function listaSemana(Application $app) {
+		if($app['session']->get('user') == null ){
+			echo json_encode();
+			die();
+		}elseif ($app['session']->get('user') == 0) {
+			echo json_encode();
+			die();
+		}
+
 		if(isset($_POST['action'])){
 			//get first day of the week from data
 			$firstDay = json_decode($_POST['action'], true)['firstday'];
@@ -103,6 +109,14 @@ class ajaxController implements ControllerProviderInterface {
 	}
 
 	public function getListaTrabaja(Application $app) {
+		if($app['session']->get('user') == null ){
+			echo json_encode();
+			die();
+		}elseif ($app['session']->get('user') == 0) {
+			echo json_encode();
+			die();
+		}
+
 		if(isset($_POST['action'])){
 			$search = json_decode($_POST['action'], true);
 			if($search['filter'] == 'year'){
@@ -129,6 +143,14 @@ class ajaxController implements ControllerProviderInterface {
 	}
 
 	public function getVoluntarios(Application $app) {
+		if($app['session']->get('user') == null ){
+			echo json_encode();
+			die();
+		}elseif ($app['session']->get('user') == 0) {
+			echo json_encode();
+			die();
+		}
+
 		if(isset($_POST['action'])){
 			$search = json_decode($_POST['action'], true);
 			
@@ -142,6 +164,14 @@ class ajaxController implements ControllerProviderInterface {
 	}
 
 	public function insertHours(Application $app) {
+		if($app['session']->get('user') == null ){
+			echo json_encode();
+			die();
+		}elseif ($app['session']->get('user') == 0) {
+			echo json_encode();
+			die();
+		}
+
 		if(isset($_POST['action'])){
 			$search = json_decode($_POST['action'], true);
 			
@@ -173,6 +203,14 @@ class ajaxController implements ControllerProviderInterface {
 
 
 	public function getVolunteer(Application $app) {
+		if($app['session']->get('user') == null ){
+			echo json_encode();
+			die();
+		}elseif ($app['session']->get('user') == 0) {
+			echo json_encode();
+			die();
+		}
+
 		if(isset($_POST['action'])){
 			echo json_encode($app['db.persona']->getPersonByCedula(json_decode($_POST['action'], true)['cedula']));
 		}
@@ -181,6 +219,14 @@ class ajaxController implements ControllerProviderInterface {
 	}
 
 	public function getVolunteerById(Application $app) {
+		if($app['session']->get('user') == null ){
+			echo json_encode();
+			die();
+		}elseif ($app['session']->get('user') == 0) {
+			echo json_encode();
+			die();
+		}
+
 		if(isset($_POST['action'])){
 			echo json_encode($app['db.persona']->getPersonById(json_decode($_POST['action'], true)['id']));
 		}
@@ -189,6 +235,14 @@ class ajaxController implements ControllerProviderInterface {
 	}
 
 	public function fillWeeks(Application $app) {
+		if($app['session']->get('user') == null ){
+			echo json_encode();
+			die();
+		}elseif ($app['session']->get('user') == 0) {
+			echo json_encode();
+			die();
+		}
+
 		if(isset($_POST['action'])){
 			$weeks = array();
 			foreach (json_decode($_POST['action'], true)['mondays'] as $key => $value) {
@@ -201,6 +255,14 @@ class ajaxController implements ControllerProviderInterface {
 	}	
 
 	public function logVolunteer(Application $app) {
+		if($app['session']->get('user') == null ){
+			echo json_encode();
+			die();
+		}elseif ($app['session']->get('user') == 0) {
+			echo json_encode();
+			die();
+		}
+		
 		if(isset($_POST['action'])){
 			$idPersona = json_decode($_POST['action'], true)['idPersona'];
 			$lastInput = $app['db.trabajar']->getLastInput($idPersona);
