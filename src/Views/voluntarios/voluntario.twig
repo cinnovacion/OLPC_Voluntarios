@@ -5,16 +5,16 @@
 
 <div class="col-md-12" style="height: 40px;">
 	<a href="{{path('voluntarios.overview')}}" class="btn btn-info" role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
-	<a href="{{ path('print.card', {'id': voluntario.idPersona}) }}" class="btn btn-info print" role="button"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir carnet</a>
+	<a href="{{ path('print.card', {'id': voluntario.idPersona}) }}" class="btn btn-info print" role="button"> <span class="glyphicon glyphicon-print" aria-hidden="true" style="top: 3px;margin-right: 5px;"></span> Imprimir carnet</a>
 
 </div>
 <div class="col-md-12">
-	<a href="{{ path('print.pagina', {'id': voluntario.idPersona}) }}" class="btn btn-info print" role="button"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir constancia</a>
+	<a href="{{ path('print.pagina', {'id': voluntario.idPersona}) }}" class="btn btn-info print" role="button"> <span class="glyphicon glyphicon-print" aria-hidden="true" style="top: 3px;margin-right: 5px;"></span> Imprimir constancia</a>
 </div>
 <div class="col-md-12">
 	<a href="{{ path('print.horas', {'id': voluntario.idPersona}) }}" class="btn btn-info print" role="button" style="
 	margin-top: 8px;
-	"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir horas</a>
+	"> <span class="glyphicon glyphicon-print" aria-hidden="true" style="top: 3px;margin-right: 5px;"></span> Imprimir horas</a>
 </div>
 
 <div class="col-md-12">
@@ -121,19 +121,19 @@
 	<div class="col-md-12">
 		<a href="{{ path('voluntarios.addHours', {'id': voluntario.idPersona}) }}" class="btn btn-info" role="button" style="margin-left: 16.66666667%;"> 
 
-			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			<span class="glyphicon glyphicon-plus" aria-hidden="true" style="top: 3px;margin-right: 5px;"></span> Anadir horas
 		</a>
 
 
 		<a href="javascript:void(0)" onclick="areYouSure({{voluntario.idPersona}})"class="btn btn-danger edit pull-right"  style="
 		margin-right: 10%;"  role="button"> 
-		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar registro
+		<span class="glyphicon glyphicon-remove" aria-hidden="true" style="top: 3px;margin-right: 5px;"></span> Eliminar registro
 	</a>
 
 
 
 	<a href="{{ path('voluntarios.editVoluntario', {'id': voluntario.idPersona}) }}" class="btn btn-info edit pull-right" role="button" style="margin-right: 15px;"> 
-		<span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Editar Perfil
+		<span class="glyphicon glyphicon-cog" aria-hidden="true" style="top: 3px;margin-right: 5px;"></span> Editar Perfil
 	</a>
 
 </div>

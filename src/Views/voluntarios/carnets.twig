@@ -15,7 +15,7 @@
 
 	<div class="col-md-12">
 		<div class="form-inline">
-			<input type="text" class="form-control" id="busqueda" style="margin-right: 7px; margin-left:0;">
+			<input type="text" class="form-control" id="busqueda" style="margin-right: 7px; margin-left:0;" onkeypress="keyPressListener(event)">
 
 			<button type="submit" class="btn btn-info" id="searchButton" onclick="searchPeople();">Búsqueda</button>
 		</div>
@@ -36,7 +36,17 @@
 <script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/JsBarcode.js"></script>
 <script type="text/javascript">
 	var counter = 1;
+	var persons = [];
 	
+
+	function keyPressListener(e) {
+		if (e.keyCode == 13) {
+			searchPeople(); 
+		}
+
+	}
+
+
 
 	function searchPeople() {
 		document.getElementById('personasAdd').innerHTML = "";
@@ -51,17 +61,18 @@
 			url: '../ajax/getVoluntarios',
 			success: function(data){
 				var json = JSON.parse(data);
+				persons = [];
 				var newDiv = $(document.createElement('div'))
 				.attr("id", 'TextBoxDiv');
 
 				newDiv.after().html(
-					'<i>clic en un nombre para agregar</i>');
+					'<i>clic en un nombre para agregar</i><br><a onclick="addAll()">anadir todo</a>');
 
 				newDiv.appendTo("#personasAdd");
 
 
 				for (var key in json) {
-					
+
 					var newDiv = $(document.createElement('div'))
 					.attr("id", 'TextBoxDiv');
 					newDiv.after().html(
@@ -72,7 +83,7 @@
 
 					newDiv.appendTo("#personasAdd");
 
-
+					persons.push(json[key]["idPersona"]);
 				}
 			},
 			error: function(e){
@@ -108,7 +119,7 @@
 					var newDiv = $(document.createElement('div'))
 					.attr("id", 'Carnet' +  json['idPersona']).attr("class",'col-md-4 carnets').attr("style",'padding: 0; width:335px;');
 				}
-				
+
 
 				newDiv.after().html(
 					'<div style="border: 1px solid black; width: 330px; height: 275px;    margin: 5px 5px 20px 0px; padding: 0;"><img src="{{ app.request.baseUrl }}/assets/img/carnetlogo.jpg" style="width:40px; margin-top: 40px; margin-left: 20px; position: absolute"><p style="margin-top: 20px; margin-left: 65px; max-width: 200px; text-align: center; height: 40px;">' + json['Nombre']  + '</p><p style="margin-left: 65px;  max-width: 200px; text-align: center;">Voluntario</p><p style="margin-left: 65px;  max-width: 200px; text-align: center;">Fundación Zamora Terán</p><div class="col-md-12" style="padding:0;"><p ><img id="barcode' + json['idPersona'] + '" style="display: block;margin-left: auto;margin-right: auto;"></p></div></div>');
@@ -120,7 +131,7 @@
 					displayValue:true,
 					width:1
 				});
-				
+
 				counter++;
 			},
 			error: function(e){
@@ -145,6 +156,13 @@
 
 		document.body.innerHTML = originalContents;**/
 		window.print();
+	}
+
+
+	function addAll(){
+		for (var key in persons) {
+			addName(persons[key]);
+		}
 	}
 </script>
 {% endblock %}

@@ -156,6 +156,7 @@ class ajaxController implements ControllerProviderInterface {
 			
 			echo json_encode($app['db.persona']->findAllByString($search['searchstring'],1,1000000));
 
+		
 			
 			
 		}
@@ -228,7 +229,8 @@ class ajaxController implements ControllerProviderInterface {
 		}
 
 		if(isset($_POST['action'])){
-			echo json_encode($app['db.persona']->getPersonById(json_decode($_POST['action'], true)['id']));
+			$data = $app['db.persona']->getPersonById(json_decode($_POST['action'], true)['id']);
+			echo json_encode(array('idPersona' => $data['idPersona'],'Nombre' => $data['Nombre'], 'NoDeCedula' => $data['NoDeCedula']) );
 		}
 		// Inject data into the template which will show 'm all
 		return $app['twig']->render('Ajax/dump.twig');
@@ -262,7 +264,7 @@ class ajaxController implements ControllerProviderInterface {
 			echo json_encode();
 			die();
 		}
-		
+
 		if(isset($_POST['action'])){
 			$idPersona = json_decode($_POST['action'], true)['idPersona'];
 			$lastInput = $app['db.trabajar']->getLastInput($idPersona);
