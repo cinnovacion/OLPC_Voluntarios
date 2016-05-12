@@ -37,7 +37,7 @@ function searchPeople() {
 			.attr("id", 'TextBoxDiv');
 
 			newDiv.after().html(
-				'<i>clic en un nombre para agregar</i><br><a onclick="addAll()">anadir todo</a>');
+				'<i>Presiona un nombre para agregarlo</i><br><br><a onclick="addAll()">Añadir todo</a>');
 
 			newDiv.appendTo("#personasAdd");
 
