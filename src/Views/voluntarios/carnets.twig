@@ -14,14 +14,14 @@
 	}
 </style>
 <div id="toRemove" class="col-md-12" >
-	<a class="btn btn-info buttonright" id="printButton" role="button"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</a>
-	<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}" class="btn btn-info buttonleft " role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
-
 	<div class="col-md-12">
 		<div class="form-inline">
 			<input type="text" class="form-control" id="busqueda" style="margin-right: 7px; margin-left:0;">
 
 			<button type="submit" class="btn btn-info" id="searchButton" >Búsqueda</button>
+
+			<a class="btn btn-info buttonright" id="printButton" role="button"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</a>
+			<a href="{{ app.request.baseUrl}}/voluntarios/{{voluntario.idPersona}}" class="btn btn-info buttonleft " role="button"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Atras</a>
 		</div>
 	</div>
 	<div class="col-md-6" id="personasAdd" style="height: 300px; overflow: auto; margin-bottom: 25px;">
