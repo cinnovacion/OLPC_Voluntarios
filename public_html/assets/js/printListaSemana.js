@@ -94,7 +94,7 @@ function getMondays(year, month_number) {
 	}
 
 	function printPage() {
-		splitTable($(".splitTable"), 800);
+		splitTable($(".splitTable"), 500);
 		/**var prtContent = document.getElementById("toPrint");
 		// window.open('', '', 'left=0,top=0,'height=' + screen.height + ',width=' + screen.width + ',toolbar=0,scrollbars=0,status=0');
 		var WinPrint =	window.open('', '','height=' + screen.height + ',width=' + screen.width + ',resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes')
