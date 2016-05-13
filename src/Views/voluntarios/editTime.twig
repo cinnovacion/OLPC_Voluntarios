@@ -5,7 +5,7 @@
 <div class="col-md-12">
 <a href="{{ detailpath }}" class="btn btn-info">Cancelar</a>
 
-<a href="javascript:void(0)" class="btn btn-danger" style="margin-right: 32.5%;float: right;" onclick="areYouSure({{trabaja.idTrabajar}});">Borrar horas</a>
+<a href="javascript:void(0)" class="btn btn-danger" style="margin-right: 32.5%;float: right;" onclick="areYouSure({{trabaja.idTrabajar}});"><span class="glyphicon glyphicon-remove" aria-hidden="true" style="top: 3px;margin-right: 5px;"></span>Borrar horas</a>
 <div style="width: 500px;margin: auto; text-align: center;">
 <form action="{{path('voluntarios.editTime', {'id':trabaja.idTrabajar})}}" method="post" {{ form_enctype(timeform)}} novalidate="novalidate">
 {{ form_errors(timeform) }}
@@ -27,7 +27,7 @@
 
 <div class="form-group row">
 	<div class="col-sm-offset-2 col-sm-10">
-		<button type="submit" class="btn btn-info submitButton" style="margin-right: 55px;">Guardar</button>
+		<button type="submit" class="btn btn-info submitButton" style="margin-right: 55px;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true" style="top: 3px;margin-right: 5px;"></span>Guardar</button>
 		
 
 	</div>
