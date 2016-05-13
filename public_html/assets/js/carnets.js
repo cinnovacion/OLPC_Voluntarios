@@ -107,7 +107,6 @@ function addName(id){
 function deleteDiv(id){
 	document.getElementById('Nombre' +  id).remove();
 	document.getElementById('Carnet' +  id).remove();
-	counter--;
 }
 
 function printPage() {
