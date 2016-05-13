@@ -14,7 +14,7 @@ var monthNames = [
 ];
 
 var areas=[
-'CEDESL',
+'CEDSL',
 'Comunicación', 
 'Mercadeo',
 'Área Educativa',
@@ -253,9 +253,9 @@ function getMondays(year, month_number) {
 
 					if(typeof json['volunteers']['1'][0] !== 'undefined'){
 						row.insertCell(0).innerHTML = 
-						"<p style='margin-top: 15px;margin-left: 5px;margin-right: 5px; width: 200px;'><b>Nombre: </b>" + json['volunteers']['1'][0]["Nombre"] + "</p>\n" + 
-						"<p style='margin: 5px;margin-right: 5px; width: 200px;'><b>Organización: </b>" +json['volunteers']['1'][0]["Inst"]+ "</p>\n" + 
-						"<p style='margin-bottom:15px;margin-top:5px;margin-left: 5px;margin-right: 5px; width: 200px;'><b>Area: </b>" +areas[json['volunteers']['1'][0]["Area"]-1]+ "</p>\n";
+						"<p style='margin-top: 15px;margin-left: 5px;margin-right: 5px; width: 150px;'><b>Nombre: </b>" + json['volunteers']['1'][0]["Nombre"] + "</p>\n" + 
+						"<p style='margin: 5px;margin-right: 5px; width: 150px;'><b>Organización: </b>" +json['volunteers']['1'][0]["Inst"]+ "</p>\n" + 
+						"<p style='margin-bottom:15px;margin-top:5px;margin-left: 5px;margin-right: 5px; width: 150px;'><b>Area: </b>" +areas[json['volunteers']['1'][0]["Area"]-1]+ "</p>\n";
 						
 
 						json['volunteers']['1'].splice(0,1);
@@ -265,9 +265,9 @@ function getMondays(year, month_number) {
 
 					if(typeof json['volunteers']['2'][0] !== 'undefined'){
 						row.insertCell(1).innerHTML = 
-						"<p style='margin-top: 15px;margin-left: 5px;margin-right: 5px; width: 200px;'><b>Nombre: </b>" + json['volunteers']['2'][0]["Nombre"] + "</p>\n"+
-						"<p style='margin: 5px;margin-right: 5px; width: 200px;'><b>Organización: </b>" +json['volunteers']['2'][0]["Inst"]+ "</p>\n"+
-						"<p style='margin-bottom:15px;margin-top:5px;margin-left: 5px;margin-right: 5px; width: 200px;'><b>Area: </b>" +areas[json['volunteers']['2'][0]["Area"]-1]+ "</p>\n";
+						"<p style='margin-top: 15px;margin-left: 5px;margin-right: 5px; width: 150px;'><b>Nombre: </b>" + json['volunteers']['2'][0]["Nombre"] + "</p>\n"+
+						"<p style='margin: 5px;margin-right: 5px; width: 150px;'><b>Organización: </b>" +json['volunteers']['2'][0]["Inst"]+ "</p>\n"+
+						"<p style='margin-bottom:15px;margin-top:5px;margin-left: 5px;margin-right: 5px; width: 150px;'><b>Area: </b>" +areas[json['volunteers']['2'][0]["Area"]-1]+ "</p>\n";
 						
 						json['volunteers']['2'].splice(0,1);
 					}else{
@@ -276,9 +276,9 @@ function getMondays(year, month_number) {
 
 					if(typeof json['volunteers']['3'][0] !== 'undefined'){
 						row.insertCell(2).innerHTML = 
-						"<p style='margin-top: 15px;margin-left: 5px;margin-right: 5px; width: 200px;'><b>Nombre: </b>" + json['volunteers']['3'][0]["Nombre"] + "</p>\n"+
-						"<p style='margin: 5px;margin-right: 5px; width: 200px;'><b>Organización: </b>" +json['volunteers']['3'][0]["Inst"]+ "</p>\n"+
-						"<p style='margin-bottom:15px;margin-top:5px;margin-left: 5px;margin-right: 5px; width: 200px;'><b>Area: </b>" +areas[json['volunteers']['3'][0]["Area"]-1]+ "</p>\n";
+						"<p style='margin-top: 15px;margin-left: 5px;margin-right: 5px; width: 150px;'><b>Nombre: </b>" + json['volunteers']['3'][0]["Nombre"] + "</p>\n"+
+						"<p style='margin: 5px;margin-right: 5px; width: 150px;'><b>Organización: </b>" +json['volunteers']['3'][0]["Inst"]+ "</p>\n"+
+						"<p style='margin-bottom:15px;margin-top:5px;margin-left: 5px;margin-right: 5px; width: 150px;'><b>Area: </b>" +areas[json['volunteers']['3'][0]["Area"]-1]+ "</p>\n";
 
 						json['volunteers']['3'].splice(0,1);
 					}else{
@@ -287,9 +287,9 @@ function getMondays(year, month_number) {
 
 					if(typeof json['volunteers']['4'][0] !== 'undefined'){
 						row.insertCell(3).innerHTML = 
-						"<p style='margin-top: 15px;margin-left: 5px;margin-right: 5px; width: 200px;'><b>Nombre: </b>" + json['volunteers']['4'][0]["Nombre"] + "</p>\n"+
-						"<p style='margin: 5px;margin-right: 5px; width: 200px;'><b>Organización: </b>" +json['volunteers']['4'][0]["Inst"]+ "</p>\n"+
-						"<p style='margin-bottom:15px;margin-top:5px;margin-left: 5px;margin-right: 5px; width: 200px;'><b>Area: </b>" +areas[json['volunteers']['4'][0]["Area"]-1]+ "</p>\n";
+						"<p style='margin-top: 15px;margin-left: 5px;margin-right: 5px; width: 150px;'><b>Nombre: </b>" + json['volunteers']['4'][0]["Nombre"] + "</p>\n"+
+						"<p style='margin: 5px;margin-right: 5px; width: 150px;'><b>Organización: </b>" +json['volunteers']['4'][0]["Inst"]+ "</p>\n"+
+						"<p style='margin-bottom:15px;margin-top:5px;margin-left: 5px;margin-right: 5px; width: 150px;'><b>Area: </b>" +areas[json['volunteers']['4'][0]["Area"]-1]+ "</p>\n";
 
 						json['volunteers']['4'].splice(0,1);
 					}else{
@@ -299,9 +299,9 @@ function getMondays(year, month_number) {
 					if(typeof json['volunteers']['5'][0] !== 'undefined'){
 						row.insertCell(4).innerHTML = 
 
-						"<p style='margin-top: 15px;margin-left: 5px;margin-right: 5px; width: 200px;'><b>Nombre: </b>" + json['volunteers']['5'][0]["Nombre"] + "</p>\n" + 
-						"<p style='margin: 5px;margin-right: 5px; width: 200px;'><b>Organización: </b>" +json['volunteers']['5'][0]["Inst"]+ "</p>\n" + 
-						"<p style='margin-bottom:15px;margin-top:5px;margin-left: 5px;margin-right: 5px; width: 200px;'><b>Area: </b>" +areas[json['volunteers']['5'][0]["Area"]-1]+ "</p>\n";
+						"<p style='margin-top: 15px;margin-left: 5px;margin-right: 5px; width: 150px;'><b>Nombre: </b>" + json['volunteers']['5'][0]["Nombre"] + "</p>\n" + 
+						"<p style='margin: 5px;margin-right: 5px; width: 150px;'><b>Organización: </b>" +json['volunteers']['5'][0]["Inst"]+ "</p>\n" + 
+						"<p style='margin-bottom:15px;margin-top:5px;margin-left: 5px;margin-right: 5px; width: 150px;'><b>Area: </b>" +areas[json['volunteers']['5'][0]["Area"]-1]+ "</p>\n";
 
 						json['volunteers']['5'].splice(0,1);
 					}else{
