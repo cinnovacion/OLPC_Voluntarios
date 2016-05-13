@@ -90,7 +90,7 @@ function addName(id){
 			newDiv.appendTo("#carnets");
 
 
-			JsBarcode("#barcode" + counter , " " + json['NoDeCedula'] +"" , {
+			JsBarcode("#barcode" + counter , "" + json['NoDeCedula'] +"" , {
 				format:"CODE39",
 				displayValue:true,
 				width:1
