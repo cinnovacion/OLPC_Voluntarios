@@ -3,7 +3,6 @@
 {% set pageTitle = 'Lista de la semana' %}
 {% block pageContent %}
 <style type="text/css" media="print">
-	@page { size: landscape; }
 	@media print {
 		header, footer,#toRemove {
 			display: none;
@@ -20,7 +19,7 @@
 			<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 
 			Descargar
 		</a>
-		
+
 		<a href="{{path('voluntarios.overview')}}" class="btn btn-info buttonleft  pull-left"  id="toRemove3" role="button"> 
 			<span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> 
 			Atras
