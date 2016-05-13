@@ -3,37 +3,34 @@
 {% set pageTitle = 'edit time' %}
 {% block pageContent %}
 <div class="col-md-12">
-<a href="{{ detailpath }}" class="btn btn-info">Cancelar</a>
+	<a href="{{ detailpath }}" class="btn btn-info">Cancelar</a>
 
-<a href="javascript:void(0)" class="btn btn-danger" style="margin-right: 32.5%;float: right;" onclick="areYouSure({{trabaja.idTrabajar}});"><span class="glyphicon glyphicon-remove" aria-hidden="true" style="top: 3px;margin-right: 5px;"></span>Borrar horas</a>
-<div style="width: 500px;margin: auto; text-align: center;">
-<form action="{{path('voluntarios.editTime', {'id':trabaja.idTrabajar})}}" method="post" {{ form_enctype(timeform)}} novalidate="novalidate">
-{{ form_errors(timeform) }}
+	<a href="javascript:void(0)" class="btn btn-danger" style="margin-right: 32.5%;float: right;" onclick="areYouSure({{trabaja.idTrabajar}});"><span class="glyphicon glyphicon-remove" aria-hidden="true" style="top: 3px;margin-right: 5px;"></span>Borrar horas</a>
+	<div style="width: 500px;margin: auto; text-align: center;">
+		<form action="{{path('voluntarios.editTime', {'id':trabaja.idTrabajar})}}" method="post" {{ form_enctype(timeform)}} novalidate="novalidate">
+			{{ form_errors(timeform) }}
 
-<div class="form-group row">
-	{{ form_label(timeform.HoraInicio, 'Hora inicio', { 'label_attr': {'class': 'col-sm-4 form-control-label'} }) }}
-	<div class="input-group bootstrap-timepicker">
-		{{ form_widget(timeform.HoraInicio,{'attr':{'class': 'form-control','id':'horaInicio','placeholder':'8:00','style':'z-index: -1;'}}) }}
+			<div class="form-group row">
+				{{ form_label(timeform.HoraInicio, 'Hora inicio', { 'label_attr': {'class': 'col-sm-4 form-control-label'} }) }}
+				{{ form_widget(timeform.HoraInicio,{'attr':{'class': 'form-control','id':'horaInicio','placeholder':'8:00','style':'z-index: -1; width: 50%'}}) }}
+			</div>
+			<div class="form-group row">
+				{{ form_label(timeform.HoraFinal, 'Hora final', { 'label_attr': {'class': 'col-sm-4 form-control-label'} }) }}
+				{{ form_widget(timeform.HoraFinal,{'attr':{'class': 'form-control','id':'horaFinal','placeholder':'17:00','style':'z-index: -1; width: 50%'}}) }}
+
+			</div>
+
+			{{ form_widget(timeform._token)}}
+
+			<div class="form-group row">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-info submitButton" style="margin-right: 55px;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true" style="top: 3px;margin-right: 5px;"></span>Guardar</button>
+					
+
+				</div>
+			</div>
+		</form>
 	</div>
-</div>
-<div class="form-group row">
-	{{ form_label(timeform.HoraFinal, 'Hora final', { 'label_attr': {'class': 'col-sm-4 form-control-label'} }) }}
-	<div class="input-group bootstrap-timepicker">
-		{{ form_widget(timeform.HoraFinal,{'attr':{'class': 'form-control','id':'horaFinal','placeholder':'17:00','style':'z-index: -1;'}}) }}
-	</div>
-</div>
-
-{{ form_widget(timeform._token)}}
-
-<div class="form-group row">
-	<div class="col-sm-offset-2 col-sm-10">
-		<button type="submit" class="btn btn-info submitButton" style="margin-right: 55px;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true" style="top: 3px;margin-right: 5px;"></span>Guardar</button>
-		
-
-	</div>
-</div>
-</form>
-</div>
 </div>
 <div id="myNav" class="overlay">
 	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
@@ -45,11 +42,6 @@
 
 	</div>
 </div>
-
-
-
-
-
 
 <script type="text/javascript">
 	var idAdmins;

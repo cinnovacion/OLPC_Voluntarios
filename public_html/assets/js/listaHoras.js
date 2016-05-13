@@ -48,9 +48,12 @@ $(".filter").change(function(){
 	}else if($(this).val() == "month"){
 		$(".weeks").attr('disabled', 'disabled');
 		$(".months").removeAttr('disabled');
+		document.getElementById("week").innerHTML = "";
 	}else if($(this).val() == "year"){
 		$(".weeks").attr('disabled', 'disabled');
 		$(".months").attr('disabled', 'disabled');
+		document.getElementById("month").innerHTML ="" ;
+		document.getElementById("week").innerHTML = "";
 	}
 
 });
