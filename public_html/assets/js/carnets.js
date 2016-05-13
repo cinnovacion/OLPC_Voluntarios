@@ -112,7 +112,6 @@ function deleteDiv(id){
 function printPage() {
 	for (var i = 1; i <= counter; i++) {
 		if(i%3==0) $( "#carnets div:nth-child(" + i + ")").addClass("newPage");
-
 	}
 	window.print();
 

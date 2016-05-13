@@ -206,13 +206,7 @@ class ajaxController implements ControllerProviderInterface {
 
 
 	public function getVolunteer(Application $app) {
-		if($app['session']->get('user') == null ){
-			echo json_encode("nope, not happening");
-			die();
-		}elseif ($app['session']->get('user') == 0) {
-			echo json_encode("nope, not happening");
-			die();
-		}
+		
 
 		if(isset($_POST['action'])){
 			echo json_encode($app['db.persona']->getPersonByCedula(json_decode($_POST['action'], true)['cedula']));
@@ -259,13 +253,7 @@ class ajaxController implements ControllerProviderInterface {
 	}	
 
 	public function logVolunteer(Application $app) {
-		if($app['session']->get('user') == null ){
-			echo json_encode("nope, not happening");
-			die();
-		}elseif ($app['session']->get('user') == 0) {
-			echo json_encode("nope, not happening");
-			die();
-		}
+		
 
 		if(isset($_POST['action'])){
 			$idPersona = json_decode($_POST['action'], true)['idPersona'];
