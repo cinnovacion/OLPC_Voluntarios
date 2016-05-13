@@ -4,29 +4,34 @@
 {% block pageContent %}
 <style type="text/css" media="print">
 	@page { size: landscape; }
+	@media print {
+		header, footer,#toRemove {
+			display: none;
+		}
+	}
 </style>
 
 
 
 
-
-<div id="toRemove" class="col-md-12" style="height: 40px;">
-	<a class="btn btn-info pull-right"  id="toRemove1 savePage" role="button" onclick="savePage()"> 
-		<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 
-		Descargar
-	</a>
-	
-	<a href="{{path('voluntarios.overview')}}" class="btn btn-info buttonleft  pull-left"  id="toRemove3" role="button"> 
-		<span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> 
-		Atras
-	</a>
-</div>
-<div class="col-md-12">
-	<a class="btn btn-info buttonleft"  id="toRemove2 printPage" role="button" onclick="printPage()"> 
-		<span class="glyphicon glyphicon-print" aria-hidden="true"></span> 
-		Imprimir
-	</a>
-</div>
+<div id="toRemove" >
+	<div class="col-md-12" style="height: 40px;">
+		<a class="btn btn-info pull-right"  id="toRemove1 savePage" role="button" onclick="savePage()"> 
+			<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 
+			Descargar
+		</a>
+		
+		<a href="{{path('voluntarios.overview')}}" class="btn btn-info buttonleft  pull-left"  id="toRemove3" role="button"> 
+			<span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> 
+			Atras
+		</a>
+	</div>
+	<div class="col-md-12">
+		<a class="btn btn-info buttonleft"  id="toRemove2 printPage" role="button" onclick="printPage()"> 
+			<span class="glyphicon glyphicon-print" aria-hidden="true"></span> 
+			Imprimir
+		</a>
+	</div>
 	<div class="col-md-12">
 		<div class="form-group">
 			<label for="years" class="listLabels">Años:</label>
@@ -55,9 +60,10 @@
 		<button class="btn btn-info" onclick="fillErUp()" style="margin-left: 285px;">Búsqueda</button>
 	</div>
 	
-<div class="col-md-12">
+	<div class="col-md-12">
 		<img src="{{ app.request.baseUrl }}/assets/img/ajax-loader.gif" id="ajaxLoader" style="margin-left: 50%;">
 	</div>
+</div>
 <div id="toPrint">
 
 	<div class="col-md-12">	
