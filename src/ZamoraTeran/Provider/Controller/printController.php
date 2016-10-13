@@ -129,7 +129,7 @@ class printController implements ControllerProviderInterface {
 			'months' 		=> array(
 				'01' => 'enero', 
 				'02' => 'febrero', 
-				'03'=>'marzo', 
+				'03' => 'marzo', 
 				'04' => 'abril', 
 				'05' => 'mayo', 
 				'06' => 'junio', 
@@ -161,7 +161,6 @@ class printController implements ControllerProviderInterface {
 			die();
 		}
 
-		
 		$data = array(
 			'page' 	 => 'voluntarios',
 			'months' => array(
@@ -179,11 +178,11 @@ class printController implements ControllerProviderInterface {
 				'12' => 'diciembre'
 			),
 			'days' => array(
-				'1' => 'Lunes ( ' . date('d/m/Y', strtotime('-'.(date('w')-1).' days')) . ' )',
-				'2' => 'Martes ( ' . date('d/m/Y', strtotime('+'.(2-date('w')).' days')) . ' )',
-				'3' => 'Miercoles ( ' . date('d/m/Y', strtotime('+'.(3-date('w')).' days')) . ' )',
-				'4' => 'Jueves ( ' . date('d/m/Y', strtotime('+'.(4-date('w')).' days')) . ' )',
-				'5' => 'Viernes ( ' . date('d/m/Y', strtotime('+'.(5-date('w')).' days')) . ' )'),
+				'1' => 'Lunes ( ' . date('d/m/Y', strtotime('-' . (date('w')-1) . ' days')) . ' )',
+				'2' => 'Martes ( ' . date('d/m/Y', strtotime('+' . (2-date('w')) . ' days')) . ' )',
+				'3' => 'Miercoles ( ' . date('d/m/Y', strtotime('+' . (3-date('w')) . ' days')) . ' )',
+				'4' => 'Jueves ( ' . date('d/m/Y', strtotime('+' . (4-date('w')) . ' days')) . ' )',
+				'5' => 'Viernes ( ' . date('d/m/Y', strtotime('+' . (5-date('w')) . ' days')) . ' )'),
 			'currentWeek'  => ceil((date("d") - date("w") - 1) / 7) + 1,
 			'currentMonth' => date('m'),
 			'weekStart'    => date('d/m/Y', strtotime('-'.(date('w')-1).' days')),
