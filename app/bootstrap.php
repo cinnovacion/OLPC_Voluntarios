@@ -20,23 +20,23 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 // Use Doctrine — @note: Be sure to install Doctrine via Composer first!
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
-	'db.options' => array(
-        'driver' => 'pdo_mysql',
-        'host' => '127.0.0.1',
-        'dbname' => 'voluntarios',
-        'user' => 'root',
-        'password' => '',
-        'charset' => 'utf8'
+	'db.options'    => array(
+        'driver'    => 'pdo_mysql',
+        'host'      => '127.0.0.1',
+        'dbname'    => 'voluntarios',
+        'user'      => 'root',
+        'password'  => 'root',
+        'charset'   => 'utf8'
     )
 ));
 
 // Use Repository Service Provider — @note: Be sure to install RSP via Composer first!
 $app->register(new Knp\Provider\RepositoryServiceProvider(), array(
-    'repository.repositories' => array(
-        'db.disponibilidad' => 'ZamoraTeran\\Repository\\disponibilidadRepository',
-        'db.admins' => 'ZamoraTeran\\Repository\\adminsRepository',
-        'db.persona' => 'ZamoraTeran\\Repository\\personaRepository',
-        'db.trabajar' => 'ZamoraTeran\\Repository\\trabajarRepository',
+    'repository.repositories'   => array(
+        'db.disponibilidad'     => 'ZamoraTeran\\Repository\\disponibilidadRepository',
+        'db.admins'             => 'ZamoraTeran\\Repository\\adminsRepository',
+        'db.persona'            => 'ZamoraTeran\\Repository\\personaRepository',
+        'db.trabajar'           => 'ZamoraTeran\\Repository\\trabajarRepository',
     )
 ));
 

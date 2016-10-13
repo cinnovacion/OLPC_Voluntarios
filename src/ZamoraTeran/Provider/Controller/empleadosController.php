@@ -24,25 +24,26 @@ class empleadosController implements ControllerProviderInterface {
 
 		// Bind sub-routes
 		$controllers
-		->get('/', array($this, 'overview'))
-		->method('GET|POST')
-		->bind('empleados.overview');
+			->get('/', array($this, 'overview'))
+			->method('GET|POST')
+			->bind('empleados.overview');
 
 		$controllers
-		->get('/{id}/borrar', array($this, 'delete'))
-		->assert('id', '\d+')
-		->bind('empleados.delete');
+			->get('/{id}/borrar', array($this, 'delete'))
+			->assert('id', '\d+')
+			->bind('empleados.delete');
 
 		$controllers
-		->get('/{id}/', array($this, 'details'))
-		->assert('id', '\d+')
-		->method('GET|POST')
-		->bind('empleados.details');
+			->get('/{id}/', array($this, 'details'))
+			->assert('id', '\d+')
+			->method('GET|POST')
+			->bind('empleados.details');
 
 		$controllers
-		->get('/nuevo',array($this, 'newEmpleado'))
-		->method('GET|POST')
-		->bind('empleados.nuevo');
+			->get('/nuevo',array($this, 'newEmpleado'))
+			->method('GET|POST')
+			->bind('empleados.nuevo');
+
 		return $controllers;
 	}
 
@@ -54,51 +55,50 @@ class empleadosController implements ControllerProviderInterface {
 	 */
 	public function overview(Application $app) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null){
+		if ($app['session']->get('user') == null) {
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user') == 0) {
+		} elseif ($app['session']->get('user') == 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 		}
 
 		//pagination
 		$numItemsPerPage = 15;
-		$curpage = isset($_GET['p']) ? $_GET['p'] : 1;
+		$curpage 		 = isset($_GET['p']) ? $_GET['p'] : 1;
 		
 		//Make the searchform
 		$busquedaform = $app['form.factory']->createNamed('busquedaform', 'form')
-		->add('Busqueda', 'text', array('required' => false));
+			->add('Busqueda', 'text', array('required' => false));
 
 		$busquedaform->handleRequest($app['request']);
 
-		if($busquedaform->isValid()){
-			$data = $busquedaform->getData();
-			$numItems = $app['db.admins']->countByString($data['Busqueda'])['count'];
-			$empleados = $app['db.admins']->findAllByString($data['Busqueda'],$curpage,$numItemsPerPage);
-		}else{
-			$numItems = $app['db.admins']->count()['count'];
-			$empleados = $app['db.admins']->findAll($curpage,$numItemsPerPage);
+		if ($busquedaform->isValid()) {
+			$data 		= $busquedaform->getData();
+			$numItems 	= $app['db.admins']->countByString($data['Busqueda'])['count'];
+			$empleados 	= $app['db.admins']->findAllByString($data['Busqueda'],$curpage,$numItemsPerPage);
+		} else {
+			$numItems 	= $app['db.admins']->count()['count'];
+			$empleados 	= $app['db.admins']->findAll($curpage,$numItemsPerPage);
 		}
 
 		//rest of pagiantion
-		$numPages = ceil($numItems / $numItemsPerPage);
+		$numPages 	= ceil($numItems / $numItemsPerPage);
 		$pagination =  generatePaginationSequence($curpage,$numPages);
 	
 
 		$data = array(
-			'empleados' => $empleados,
-			'page' => 'empleados',
-			'busquedaform' => $busquedaform->createView(),
-			'pagination' => $pagination,
-			'curPage' => $curpage,
-			'numPages' => $numPages,
-			'baseUrl' => $app['url_generator']->generate('empleados.overview'),
-			'numItems' => $numItems,
-			);
+			'empleados'		=> $empleados,
+			'page' 			=> 'empleados',
+			'busquedaform' 	=> $busquedaform->createView(),
+			'pagination' 	=> $pagination,
+			'curPage' 		=> $curpage,
+			'numPages' 		=> $numPages,
+			'baseUrl' 		=> $app['url_generator']->generate('empleados.overview'),
+			'numItems' 		=> $numItems,
+		);
 		// Inject data into the template which will show 'm all
 		return $app['twig']->render('empleados/overview.twig',$data);
-
 	}
 
 	/**
@@ -108,10 +108,10 @@ class empleadosController implements ControllerProviderInterface {
 	 */
 	public function details(Application $app,$id) {
 		//checking if the user is loged in
-		if($app['session']->get('user') == null ){
+		if ($app['session']->get('user') == null ) {
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user')== 0) {
+		} elseif ($app['session']->get('user')== 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 		}
@@ -122,7 +122,7 @@ class empleadosController implements ControllerProviderInterface {
 		->add('Nombre', 'text', array(
 			'constraints' => array(new Assert\NotBlank()),
 			'data' => $empleado['Nombre']
-			))
+		))
 		->add('repeatpassword', 'password')
 		->add('newpassword', 'password');
 
@@ -146,10 +146,10 @@ class empleadosController implements ControllerProviderInterface {
 		}
 		$data = array(
 			'contrasenaform' => $contrasenaform->createView(),
-			'empleado' => $empleado,
-			'page' => 'empleados',
-			'todo' => 'edit'
-			);
+			'empleado' 		 => $empleado,
+			'page' 			 => 'empleados',
+			'todo' 			 => 'edit'
+		);
 		// Inject data into the template which will show 'm all
 		return $app['twig']->render('empleados/formulario.twig',$data);
 
@@ -162,10 +162,10 @@ class empleadosController implements ControllerProviderInterface {
 	 * @return string A blob of HTML
 	 */
 	public function delete(Application $app,$id) {
-		if($app['session']->get('user') == null ){
+		if ($app['session']->get('user') == null) {
 			return $app->redirect($app['url_generator']->generate('login'));
 			die();
-		}elseif ($app['session']->get('user') == 0) {
+		} elseif ($app['session']->get('user') == 0) {
 			return $app->redirect($app['url_generator']->generate('logout'));
 			die();
 		}
@@ -180,35 +180,30 @@ class empleadosController implements ControllerProviderInterface {
 	 */
 	public function newEmpleado(Application $app) {
 		$contrasenaform = $app['form.factory']->createNamed('contrasenaform', 'form')
-		->add('Nombre', 'text', array(
-			'constraints' => array(new Assert\NotBlank())
-			))
-		->add('repeatpassword', 'password', array(
-			'constraints' => array(new Assert\NotBlank())
-			))
-		->add('newpassword', 'password', array(
-			'constraints' => array(new Assert\NotBlank())
-			));
+		->add('Nombre', 'text', array('constraints' => array(new Assert\NotBlank())))
+		->add('repeatpassword', 'password', array('constraints' => array(new Assert\NotBlank())))
+		->add('newpassword', 'password', array('constraints' => array(new Assert\NotBlank())));
 
 		$contrasenaform->handleRequest($app['request']);
 
-		if($contrasenaform->isValid()){
+		if ($contrasenaform->isValid()) {
 			$data = $contrasenaform->getData();
-			if($data['newpassword'] == $data['repeatpassword']){
-				$encrypt = new \Encrypt();
-				$encrypted = $encrypt->encryptPassword($data['newpassword']);
+			if ($data['newpassword'] == $data['repeatpassword']) {
+				$encrypt 	= new \Encrypt();
+				$encrypted  = $encrypt->encryptPassword($data['newpassword']);
 
 				$app['db.admins']->insert(array(
-					'Nombre'       => $data['Nombre'],
-					'contrasena' => $encrypted['salt'].$encrypted['password']));
+					'Nombre'     => $data['Nombre'],
+					'contrasena' => $encrypted['salt'].$encrypted['password'])
+				);
 				return $app->redirect($app['url_generator']->generate('empleados.overview'));
 			}
 		}
 		$data = array(
 			'contrasenaform' => $contrasenaform->createView(),
-			'page' => 'empleados',
-			'todo' => 'nuevo'
-			);
+			'page' 			 => 'empleados',
+			'todo' 			 => 'nuevo'
+		);
 		// Inject data into the template which will show 'm all
 		return $app['twig']->render('empleados/formulario.twig',$data);
 
